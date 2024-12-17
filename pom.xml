@@ -55,7 +55,7 @@
 	<modules>
 		<module>spring-ai-alibaba-audio-example</module>
 		<module>spring-ai-alibaba-chat-example</module>
-		<module>spring-ai-alibaba-Integration-example</module>
+		<module>spring-ai-alibaba-agent-example</module>
 		<module>spring-ai-alibaba-image-example</module>
 		<module>spring-ai-alibaba-function-example</module>
 		<module>spring-ai-alibaba-multi-model-example</module>

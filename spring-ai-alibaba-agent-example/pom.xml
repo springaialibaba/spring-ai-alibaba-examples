@@ -29,13 +29,14 @@
 	</parent>
 
 	<version>${revision}</version>
-	<artifactId>spring-ai-alibaba-integration-example</artifactId>
+	<artifactId>spring-ai-alibaba-agent-example</artifactId>
 	<packaging>pom</packaging>
 
-	<description>Spring AI Alibaba Integration Example</description>
-	<name>Spring AI Alibaba Integration Examples</name>
+	<description>Spring AI Alibaba agent Example</description>
+	<name>Spring AI Alibaba agent Examples</name>
 
 	<modules>
+		<module>playground-flight-booking</module>
 		<!--<module>dashscope</module>-->
 	</modules>
 
