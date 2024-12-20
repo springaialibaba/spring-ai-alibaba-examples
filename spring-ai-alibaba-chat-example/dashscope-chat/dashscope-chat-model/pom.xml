@@ -23,12 +23,12 @@
 
 	<parent>
 		<groupId>com.alibaba.cloud.ai</groupId>
-		<artifactId>dashscope</artifactId>
+		<artifactId>dashscope-chat</artifactId>
 		<version>${revision}</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>chat-model</artifactId>
+	<artifactId>dashscope-chat-model</artifactId>
 	<version>${revision}</version>
 	<packaging>jar</packaging>
 

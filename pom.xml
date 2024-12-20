@@ -40,6 +40,9 @@
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 
+		<!-- Spring AI -->
+		<spring-ai.version>1.0.0-M3</spring-ai.version>
+
 		<!-- Spring AI Alibaba -->
 		<spring-ai-alibaba.version>1.0.0-M3.2</spring-ai-alibaba.version>
 
@@ -72,6 +75,13 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-dependencies</artifactId>
 				<version>${spring-boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.ai</groupId>
+				<artifactId>spring-ai-bom</artifactId>
+				<version>${spring-ai.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>

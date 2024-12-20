@@ -23,17 +23,17 @@
 
 	<parent>
 		<groupId>com.alibaba.cloud.ai</groupId>
-		<artifactId>dashscope</artifactId>
+		<artifactId>openai-chat</artifactId>
 		<version>${revision}</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>chat-client</artifactId>
+	<artifactId>openai-chat-model</artifactId>
 	<version>${revision}</version>
 	<packaging>jar</packaging>
 
-	<description>Spring AI Alibaba Dashscope Chat Client Example</description>
-	<name>Spring AI Alibaba Dashscope Chat Client Examples</name>
+	<description>Spring AI Alibaba OpenAI Chat Model Example</description>
+	<name>Spring AI Alibaba OpenAI Chat Model Examples</name>
 
 	<build>
 		<plugins>
