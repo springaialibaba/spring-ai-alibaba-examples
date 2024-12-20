@@ -30,7 +30,6 @@
 
 	<artifactId>dashscope-chat-client</artifactId>
 	<version>${revision}</version>
-	<packaging>jar</packaging>
 
 	<description>Spring AI Alibaba Dashscope Chat Client Example</description>
 	<name>Spring AI Alibaba Dashscope Chat Client Examples</name>
