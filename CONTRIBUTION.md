@@ -17,21 +17,21 @@
 
 ```text
 |-spring-ai-alibaba-chat-example
-|-- dashscope
-|----chat-model
+|-- dashscope-chat
+|----dashscope-chat-model
 |------ src
 |------ README.md
 |------ pom.xml
-|----chat-client
+|----dashscope-chat-client
 |------ src
 |------ README.md
 |------ pom.xml
-|-- ollama
-|----chat-model
+|-- ollama-chat
+|----ollama-chat-model
 |------ src
 |------ README.md
 |------ pom.xml
-|----chat-client
+|----ollama-chat-client
 |------ src
 |------ README.md
 |------ pom.xml
