@@ -23,7 +23,7 @@
 
 	<parent>
 		<groupId>com.alibaba.cloud.ai</groupId>
-		<artifactId>openai</artifactId>
+		<artifactId>openai-chat</artifactId>
 		<version>${revision}</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
