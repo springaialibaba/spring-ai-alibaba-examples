@@ -30,7 +30,6 @@
 
 	<artifactId>openai-chat-client</artifactId>
 	<version>${revision}</version>
-	<packaging>jar</packaging>
 
 	<description>Spring AI Alibaba OpenAI Chat Client Example</description>
 	<name>Spring AI Alibaba OpenAI Chat Client Examples</name>
