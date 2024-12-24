@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  ollama:
+    volumes:
+      - ./models:/root/.ollama  # 将本地文件夹挂载到容器中的 /root/.ollama 目录 （模型下载位置）
+    container_name: spring-ai-alibaba-ollama
+    pull_policy: always
+    tty: true
+    restart: unless-stopped
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"  # Ollama API 端口
