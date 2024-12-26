@@ -40,7 +40,7 @@
         <junit-jupiter.version>5.10.0</junit-jupiter.version>
 
         <!-- Spring AI Alibaba -->
-        <spring-ai-alibaba.version>1.0.0-M3.2</spring-ai-alibaba.version>
+        <spring-ai-alibaba.version>1.0.0-M3.3</spring-ai-alibaba.version>
     </properties>
 
     <dependencies>
@@ -53,13 +53,13 @@
 
         <dependency>
             <groupId>com.alibaba.cloud.ai</groupId>
-            <artifactId>spring-ai-alibaba-starter-functioncalling-microsofttranslate</artifactId>
+            <artifactId>spring-ai-alibaba-starter-function-calling-microsofttranslate</artifactId>
             <version>${spring-ai-alibaba.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.alibaba.cloud.ai</groupId>
-            <artifactId>spring-ai-alibaba-starter-functioncalling-weather-</artifactId>
+            <artifactId>spring-ai-alibaba-starter-function-calling-weather</artifactId>
             <version>${spring-ai-alibaba.version}</version>
         </dependency>
 

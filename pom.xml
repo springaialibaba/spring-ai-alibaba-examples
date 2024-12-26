@@ -44,7 +44,7 @@
 		<spring-ai.version>1.0.0-M3</spring-ai.version>
 
 		<!-- Spring AI Alibaba -->
-		<spring-ai-alibaba.version>1.0.0-M3.2</spring-ai-alibaba.version>
+		<spring-ai-alibaba.version>1.0.0-M3.3</spring-ai-alibaba.version>
 
 		<!-- Spring Boot -->
 		<spring-boot.version>3.4.0</spring-boot.version>
