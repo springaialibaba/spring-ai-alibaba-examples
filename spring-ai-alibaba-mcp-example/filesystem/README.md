@@ -23,8 +23,6 @@ cd spring-ai-alibaba-examples/spring-ai-alibaba-mcp-example/filesystem
 ```bash
 # 通义大模型 Dashscope API-KEY
 export AI_DASHSCOPE_API_KEY=${your-api-key-here}
-# 要集成的本地数据所在文件目录
-export MCP_FILE_DIRECTORY_PATH=${path-to-example}/spring-ai-alibaba-examples/spring-ai-alibaba-mcp-example/filesystem/data
 ```
 
 4. 构建示例
@@ -34,13 +32,14 @@ export MCP_FILE_DIRECTORY_PATH=${path-to-example}/spring-ai-alibaba-examples/spr
 ```
 
 
-
 ### 运行示例应用
 运行示例，智能体将向模型发起提问（源码中包含预置问题，可通过源码查看），可通过控制台查看输出结果。
 
 ```bash
 ./mvnw spring-boot:run
 ```
+
+> 如果您是在 IDE 中运行示例，并且遇到 filesystem mcp server 返回的文件访问权限问题，请确保指定当前进程工作目录为 spring-ai-alibaba-mcp-example/filesystem 目录。
 
 ## 示例架构（源码说明）
 前文中我们讲解了 Spring AI 与 MCP 集成的基础架构，在接下来的示例中，我们将用到以下关键组件：
