@@ -67,6 +67,7 @@
 		<module>spring-ai-alibaba-prompt-example</module>
 		<module>spring-ai-alibaba-rag-example</module>
 		<module>spring-ai-alibaba-structured-example</module>
+		<module>spring-ai-alibaba-mcp-example</module>
 	</modules>
 
 	<dependencyManagement>
