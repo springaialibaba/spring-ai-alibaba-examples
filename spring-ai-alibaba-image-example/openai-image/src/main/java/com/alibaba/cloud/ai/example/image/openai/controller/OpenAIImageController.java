@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-package com.alibaba.cloud.ai.observationhandlerexample;
+package com.alibaba.cloud.ai.example.image.openai.controller;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+/**
+ * @author yuluo
+ * @author <a href="mailto:yuluo08290126@gmail.com">yuluo</a>
+ */
 
-@SpringBootApplication
-public class ObservationHandlerExampleApplication {
+public class OpenAIImageController {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ObservationHandlerExampleApplication.class, args);
-	}
+	// todo: not impl yet.
 
 }
