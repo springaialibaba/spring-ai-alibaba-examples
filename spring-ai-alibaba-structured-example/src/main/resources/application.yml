@@ -17,11 +17,10 @@ server:
 
 spring:
   application:
-    name: output-parser-example
+    name: spring-ai-alibaba-structured-example
 
   ai:
     dashscope:
       api-key: ${AI_DASHSCOPE_API_KEY}
       chat:
         response-format: json
-
