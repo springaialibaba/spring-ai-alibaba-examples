@@ -63,10 +63,10 @@
 		<module>spring-ai-alibaba-function-calling-example</module>
 		<module>spring-ai-alibaba-multi-model-example</module>
 		<module>spring-ai-alibaba-observability-example</module>
-		<module>spring-ai-alibaba-plugin-example</module>
 		<module>spring-ai-alibaba-prompt-example</module>
 		<module>spring-ai-alibaba-rag-example</module>
 		<module>spring-ai-alibaba-structured-example</module>
+		<module>spring-ai-alibaba-mcp-example</module>
 	</modules>
 
 	<dependencyManagement>

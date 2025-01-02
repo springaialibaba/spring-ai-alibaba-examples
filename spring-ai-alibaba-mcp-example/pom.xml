@@ -29,15 +29,16 @@
 	</parent>
 
 	<version>${revision}</version>
-	<artifactId>spring-ai-alibaba-observability-example</artifactId>
+	<artifactId>spring-ai-alibaba-mcp-example</artifactId>
 	<packaging>pom</packaging>
 
-	<description>Spring AI Alibaba Observability Example</description>
-	<name>Spring AI Alibaba Observability Examples</name>
+	<description>Spring AI Alibaba MCP Example</description>
+	<name>Spring AI Alibaba MCP Examples</name>
 
 	<modules>
-		<module>observability-example</module>
-		<module>observationhandler-example</module>
+		<module>filesystem</module>
+		<module>sqlite/chatbot</module>
+		<module>sqlite/simple</module>
 	</modules>
 
 	<build>
@@ -52,14 +53,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<dependencies>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
-	</dependencies>
 
 </project>

@@ -29,15 +29,14 @@
 	</parent>
 
 	<version>${revision}</version>
-	<artifactId>spring-ai-alibaba-observability-example</artifactId>
+	<artifactId>spring-ai-alibaba-stream-to-bean-example</artifactId>
 	<packaging>pom</packaging>
 
-	<description>Spring AI Alibaba Observability Example</description>
-	<name>Spring AI Alibaba Observability Examples</name>
+	<description>Spring AI Alibaba Stream to Bean Example</description>
+	<name>Spring AI Alibaba Stream to Bean Examples</name>
 
 	<modules>
-		<module>observability-example</module>
-		<module>observationhandler-example</module>
+		<!--<module>dashscope</module>-->
 	</modules>
 
 	<build>
@@ -52,14 +51,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<dependencies>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
-	</dependencies>
 
 </project>
