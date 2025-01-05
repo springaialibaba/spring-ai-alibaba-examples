@@ -1,12 +1,8 @@
 package org.springframework.ai.mcp.samples.filesystem;
 
-import java.io.File;
-import java.io.IOException;
 import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.List;
-
-import com.aliyuncs.utils.StringUtils;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.mcp.client.McpClient;
@@ -19,8 +15,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
+import org.springframework.util.StringUtils;
 
 @SpringBootApplication
 public class Application {

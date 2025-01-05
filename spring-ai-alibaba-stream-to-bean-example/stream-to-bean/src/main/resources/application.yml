@@ -1,8 +1,0 @@
-spring:
-  ai:
-    alibaba:
-      functioncalling:
-        streamtobean:
-          enabled: true
-    dashscope:
-      api-key: ${AI_DASHSCOPE_API_KEY}

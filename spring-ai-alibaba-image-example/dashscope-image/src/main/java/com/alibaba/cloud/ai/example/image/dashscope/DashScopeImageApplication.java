@@ -14,16 +14,22 @@
  * limitations under the License.
  */
 
-package com.alibaba.cloud.ai.observationhandlerexample;
+package com.alibaba.cloud.ai.example.image.dashscope;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * @author yuluo
+ * @author <a href="mailto:yuluo08290126@gmail.com">yuluo</a>
+ */
+
 @SpringBootApplication
-public class ObservationHandlerExampleApplication {
+public class DashScopeImageApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ObservationHandlerExampleApplication.class, args);
+
+		SpringApplication.run(DashScopeImageApplication.class, args);
 	}
 
 }

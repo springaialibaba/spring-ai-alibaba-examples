@@ -1,0 +1,6 @@
+server:
+  port: 10009
+
+spring:
+  application:
+    name: spring-ai-alibaba-openai-image-example
