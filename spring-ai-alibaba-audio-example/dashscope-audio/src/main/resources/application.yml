@@ -1,9 +1,9 @@
 server:
-  port: 8080
+  port: 10009
 
 spring:
   application:
-    name: audio-example-application
+    name: spring-ai-alibaba-audio-example-application
 
   ai:
     dashscope:

@@ -25,11 +25,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 
 @SpringBootApplication
-public class AudioExampleApplication {
+public class DashScopeAudioApplication {
 
 	public static void main(String[] args) {
 
-		SpringApplication.run(AudioExampleApplication.class, args);
+		SpringApplication.run(DashScopeAudioApplication.class, args);
 	}
 
 }
