@@ -27,7 +27,8 @@ import com.alibaba.cloud.ai.dashscope.api.DashScopeAudioTranscriptionApi;
 import com.alibaba.cloud.ai.dashscope.audio.DashScopeAudioTranscriptionOptions;
 import com.alibaba.cloud.ai.dashscope.audio.transcription.AudioTranscriptionModel;
 import com.alibaba.cloud.ai.dashscope.common.DashScopeException;
-import jakarta.annotation.Resource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Flux;
 
 import org.springframework.ai.audio.transcription.AudioTranscriptionPrompt;
@@ -47,22 +48,27 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/ai/stt")
 public class STTController {
 
-	@Resource
-	private AudioTranscriptionModel transcriptionModel;
+	private final AudioTranscriptionModel transcriptionModel;
+
+	private static final Logger log = LoggerFactory.getLogger(STTController.class);
 
 	private static final String DEFAULT_MODEL_1 = "sensevoice-v1";
 
 	private static final String DEFAULT_MODEL_2 = "paraformer-realtime-v2";
-	private static final String DEFAULT_MODEL_3 = "paraformer-v2";
 
-	private static final String FILE_PATH = "spring-ai-alibaba-examples/audio-example/src/main/resources/stt/count.pcm";
+	private static final String DEFAULT_MODEL_3 = "paraformer-v2";
 
 	private static final String AUDIO_RESOURCES_URL = "https://dashscope.oss-cn-beijing.aliyuncs.com/samples/audio/paraformer/hello_world_female2.wav";
 
 	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
+	public STTController(AudioTranscriptionModel transcriptionModel) {
+
+		this.transcriptionModel = transcriptionModel;
+	}
+
 	@GetMapping
-	public DashScopeAudioTranscriptionApi.Response.Output stt() throws MalformedURLException {
+	public String stt() throws MalformedURLException {
 
 		AudioTranscriptionResponse response = transcriptionModel.call(
 				new AudioTranscriptionPrompt(
@@ -73,7 +79,7 @@ public class STTController {
 				)
 		);
 
-		return response.getMetadata().get("output");
+		return response.getResult().getOutput();
 	}
 
 	@GetMapping("/stream")
@@ -85,7 +91,7 @@ public class STTController {
 		Flux<AudioTranscriptionResponse> response = transcriptionModel
 				.stream(
 						new AudioTranscriptionPrompt(
-								new FileSystemResource(FILE_PATH),
+								new FileSystemResource("spring-ai-alibaba-audio-example/dashscope-audio/src/main/resources/stt/count.pcm"),
 								DashScopeAudioTranscriptionOptions.builder()
 										.withModel(DEFAULT_MODEL_2)
 										.withSampleRate(16000)
@@ -162,7 +168,7 @@ public class STTController {
 				latch.countDown();
 			}
 			else if (taskStatus.equals(DashScopeAudioTranscriptionApi.TaskStatus.FAILED)) {
-				System.err.println("Transcription failed.");
+				log.warn("Transcription failed.");
 				latch.countDown();
 			}
 		}

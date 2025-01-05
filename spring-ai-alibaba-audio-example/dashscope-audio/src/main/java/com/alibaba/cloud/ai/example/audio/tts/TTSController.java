@@ -26,7 +26,6 @@ import com.alibaba.cloud.ai.dashscope.audio.synthesis.SpeechSynthesisModel;
 import com.alibaba.cloud.ai.dashscope.audio.synthesis.SpeechSynthesisPrompt;
 import com.alibaba.cloud.ai.dashscope.audio.synthesis.SpeechSynthesisResponse;
 import jakarta.annotation.PreDestroy;
-import jakarta.annotation.Resource;
 import org.apache.commons.io.FileUtils;
 import reactor.core.publisher.Flux;
 
@@ -45,12 +44,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/ai/tts")
 public class TTSController implements ApplicationRunner {
 
-	@Resource
-	private SpeechSynthesisModel speechSynthesisModel;
+	private final SpeechSynthesisModel speechSynthesisModel;
 
 	private static final String TEXT = "白日依山尽，黄河入海流。";
 
-	private static final String FILE_PATH = "spring-ai-alibaba-examples/audio-example/src/main/resources/gen/tts/";
+	private static final String FILE_PATH = "spring-ai-alibaba-audio-example/dashscope-audio/src/main/resources/gen/tts";
+
+	public TTSController(SpeechSynthesisModel speechSynthesisModel) {
+
+		this.speechSynthesisModel = speechSynthesisModel;
+	}
 
 	@GetMapping
 	public void tts() throws IOException {
@@ -59,7 +62,7 @@ public class TTSController implements ApplicationRunner {
 				new SpeechSynthesisPrompt(TEXT)
 		);
 
-		File file = new File(FILE_PATH + "output.mp3");
+		File file = new File(FILE_PATH + "/output.mp3");
 		try (FileOutputStream fos = new FileOutputStream(file)) {
 			ByteBuffer byteBuffer = response.getResult().getOutput().getAudio();
 			fos.write(byteBuffer.array());
@@ -77,7 +80,7 @@ public class TTSController implements ApplicationRunner {
 		);
 
 		CountDownLatch latch = new CountDownLatch(1);
-		File file = new File(FILE_PATH + "output-stream.mp3");
+		File file = new File(FILE_PATH + "/output-stream.mp3");
 		try (FileOutputStream fos = new FileOutputStream(file)) {
 
 			response.doFinally(
@@ -102,7 +105,7 @@ public class TTSController implements ApplicationRunner {
 	}
 
 	@Override
-	public void run(ApplicationArguments args) throws Exception {
+	public void run(ApplicationArguments args) {
 
 		File file = new File(FILE_PATH);
 		if (!file.exists()) {
