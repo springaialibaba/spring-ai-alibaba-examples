@@ -25,6 +25,7 @@ import com.alibaba.cloud.ai.dashscope.chat.MessageFormat;
 import com.alibaba.cloud.ai.example.multi.helper.FrameExtraHelper;
 import jakarta.annotation.Resource;
 
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
@@ -43,18 +44,24 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@RequestMapping("/ai/multi")
+@RequestMapping("/dashscope/multi")
 public class MultiModelController {
 
-	@Resource
-	private ChatModel chatModel;
+	private final ChatClient dashScopeChatClient;
 
 	@Resource
 	private ResourceLoader resourceLoader;
 
 	private static final String DEFAULT_PROMPT = "这些是什么？";
 
+	private static final String DEFAULT_VIDEO_PROMPT = "这是一组从视频中提取的图片帧，请描述此视频中的内容。";
+
 	private static final String DEFAULT_MODEL = "qwen-vl-max-latest";
+
+	public MultiModelController(ChatModel chatModel) {
+
+		this.dashScopeChatClient = ChatClient.builder(chatModel).build();
+	}
 
 	@GetMapping("/image")
 	public String image(
@@ -72,7 +79,7 @@ public class MultiModelController {
 		UserMessage message = new UserMessage(prompt, mediaList);
 		message.getMetadata().put(DashScopeChatModel.MESSAGE_FORMAT, MessageFormat.IMAGE);
 
-		ChatResponse response = chatModel.call(
+		ChatResponse response = dashScopeChatClient.prompt(
 				new Prompt(
 						message,
 						DashScopeChatOptions.builder()
@@ -80,14 +87,14 @@ public class MultiModelController {
 								.withMultiModel(true)
 								.build()
 				)
-		);
+		).call().chatResponse();
 
 		return response.getResult().getOutput().getContent();
 	}
 
 	@GetMapping("/video")
 	public String video(
-			@RequestParam(value = "prompt", required = false, defaultValue = DEFAULT_PROMPT)
+			@RequestParam(value = "prompt", required = false, defaultValue = DEFAULT_VIDEO_PROMPT)
 			String prompt
 	) {
 
@@ -96,7 +103,7 @@ public class MultiModelController {
 		UserMessage message = new UserMessage(prompt, mediaList);
 		message.getMetadata().put(DashScopeChatModel.MESSAGE_FORMAT, MessageFormat.VIDEO);
 
-		ChatResponse response = chatModel.call(
+		ChatResponse response = dashScopeChatClient.prompt(
 				new Prompt(
 						message,
 						DashScopeChatOptions.builder()
@@ -104,7 +111,7 @@ public class MultiModelController {
 								.withMultiModel(true)
 								.build()
 				)
-		);
+		).call().chatResponse();
 
 		return response.getResult().getOutput().getContent();
 	}
@@ -123,7 +130,7 @@ public class MultiModelController {
 				));
 		message.getMetadata().put(DashScopeChatModel.MESSAGE_FORMAT, MessageFormat.IMAGE);
 
-		ChatResponse response = chatModel.call(
+		ChatResponse response = dashScopeChatClient.prompt(
 				new Prompt(
 						message,
 						DashScopeChatOptions.builder()
@@ -131,7 +138,7 @@ public class MultiModelController {
 								.withMultiModel(true)
 								.build()
 				)
-		);
+		).call().chatResponse();
 
 		return response.getResult().getOutput().getContent();
 	}
@@ -150,7 +157,7 @@ public class MultiModelController {
 				));
 		message.getMetadata().put(DashScopeChatModel.MESSAGE_FORMAT, MessageFormat.IMAGE);
 
-		List<ChatResponse> response = chatModel.stream(
+		List<ChatResponse> response = dashScopeChatClient.prompt(
 				new Prompt(
 						message,
 						DashScopeChatOptions.builder()
@@ -158,7 +165,7 @@ public class MultiModelController {
 								.withMultiModel(true)
 								.build()
 				)
-		).collectList().block();
+		).stream().chatResponse().collectList().block();
 
 		StringBuilder result = new StringBuilder();
 		if (response != null) {

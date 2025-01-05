@@ -25,11 +25,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 
 @SpringBootApplication
-public class MultiModelApplication {
+public class DashScopeMultiModelApplication {
 
 	public static void main(String[] args) {
 
-		SpringApplication.run(MultiModelApplication.class, args);
+		SpringApplication.run(DashScopeMultiModelApplication.class, args);
 	}
 
 }

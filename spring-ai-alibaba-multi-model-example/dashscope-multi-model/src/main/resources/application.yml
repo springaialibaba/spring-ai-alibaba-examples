@@ -1,9 +1,9 @@
 server:
-  port: 8080
+  port: 10010
 
 spring:
   application:
-    name: multi-model-example-application
+    name: spring-ai-alibaba-dashscope-multi-model-example-application
 
   ai:
     dashscope:

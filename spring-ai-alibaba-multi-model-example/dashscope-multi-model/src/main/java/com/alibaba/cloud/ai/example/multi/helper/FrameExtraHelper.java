@@ -57,9 +57,9 @@ public final class FrameExtraHelper implements ApplicationRunner {
 
 	private static final Map<String, List<String>> IMAGE_CACHE = new ConcurrentHashMap<>();
 
-	private static final File videoUrl = new File("spring-ai-alibaba-examples/multi-model-example/src/main/resources/multimodel/video.mp4");
+	private static final File videoUrl = new File("spring-ai-alibaba-multi-model-example/dashscope-multi-model/src/main/resources/multimodel/video.mp4");
 
-	private static final String framePath = "spring-ai-alibaba-examples/multi-model-example/src/main/resources/multimodel/frame/";
+	private static final String framePath = "spring-ai-alibaba-multi-model-example/dashscope-multi-model/src/main/resources/multimodel/frame/";
 
 	private static final Logger log = LoggerFactory.getLogger(FrameExtraHelper.class);
 
