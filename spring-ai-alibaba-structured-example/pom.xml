@@ -36,9 +36,6 @@
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 		<maven-deploy-plugin.version>3.1.1</maven-deploy-plugin.version>
-
-		<!-- Spring AI -->
-		<spring-ai-alibaba.version>1.0.0-M3.3</spring-ai-alibaba.version>
 	</properties>
 
 	<dependencies>
