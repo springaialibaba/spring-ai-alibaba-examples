@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: spring-ai-alibaba-rag-milvus-example
+
+  ai:
+    dashscope:
+      api-key: ${AI_DASHSCOPE_API_KEY}
+
+    vectorstore:
+      milvus:
+        client:
+          host: ${MILVUS_HOST} # default: localhost
+          port: ${MILVUS_PORT} # default: 19530
+          username: ${MILVUS_USERNAME} # default: root
+          password: ${MILVUS_PASSWORD} # default: milvus
+        databaseName: ${MILVUS_DATABASE_NAME} # default
+        collectionName: ${MILVUS_COLLECTION_NAME} # default: vector_store
+        embeddingDimension: 1536
+        indexType: IVF_FLAT
+        metricType: COSINE
