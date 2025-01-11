@@ -170,55 +170,6 @@ const useStyle = createStyles(({ token, css }) => {
   };
 });
 
-//   {
-//     key: "1",
-//     label: renderTitle(
-//       <FireOutlined style={{ color: "#FF4D4F" }} />,
-//       "Hot Topics"
-//     ),
-//     description: "What are you interested in?",
-//     children: [
-//       {
-//         key: "1-1",
-//         description: `What's new in 123?`,
-//       },
-//       {
-//         key: "1-2",
-//         description: `What's AGI?`,
-//       },
-//       {
-//         key: "1-3",
-//         description: `Where is the doc?`,
-//       },
-//     ],
-//   },
-//   {
-//     key: "2",
-//     label: renderTitle(
-//       <ReadOutlined style={{ color: "#1890FF" }} />,
-//       "Design Guide"
-//     ),
-//     description: "How to design a good product?",
-//     children: [
-//       {
-//         key: "2-1",
-//         icon: <HeartOutlined />,
-//         description: `Know the well`,
-//       },
-//       {
-//         key: "2-2",
-//         icon: <SmileOutlined />,
-//         description: `Set the AI role`,
-//       },
-//       {
-//         key: "2-3",
-//         icon: <CommentOutlined />,
-//         description: `Express the feeling`,
-//       },
-//     ],
-//   },
-// ];
-
 const senderPromptsItems: GetProp<typeof Prompts, "items"> = [
   {
     key: "1",
@@ -273,27 +224,6 @@ const Independent: React.FC = () => {
   const [recording, setRecording] = React.useState(false);
   const { token } = theme.useToken();
 
-
-
-  const menuConfig: ConversationsProps["menu"] = (conversation) => ({
-    items: [
-      {
-        label: "Edit",
-        key: "edit",
-        icon: <EditOutlined />,
-      },
-      {
-        label: "Delete",
-        key: "delete",
-        icon: <DeleteOutlined />,
-        danger: true,
-      },
-    ],
-    onClick: (menuInfo) => {
-      message.info(`Click ${conversation.key} - ${menuInfo.key}`);
-    },
-  });
-
   // ==================== Runtime ====================
   const [agent] = useXAgent({
     request: async ({ message }, { onSuccess }) => {
@@ -341,6 +271,25 @@ const Independent: React.FC = () => {
 
   const handleFileChange: GetProp<typeof Attachments, "onChange"> = (info) =>
     setAttachedFiles(info.fileList);
+
+   const menuConfig: ConversationsProps["menu"] = (conversation) => ({
+    items: [
+      {
+        label: "Edit",
+        key: "edit",
+        icon: <EditOutlined />,
+      },
+      {
+        label: "Delete",
+        key: "delete",
+        icon: <DeleteOutlined />,
+        danger: true,
+      },
+    ],
+    onClick: (menuInfo) => {
+      message.info(`Click ${conversation.key} - ${menuInfo.key}`);
+    },
+  });
 
   // ==================== Nodes ====================
   const placeholderNode = (
