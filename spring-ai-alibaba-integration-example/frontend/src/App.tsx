@@ -2,28 +2,32 @@ import {
   Attachments,
   Bubble,
   Conversations,
+  ConversationsProps,
   Prompts,
   Sender,
   Welcome,
   useXAgent,
   useXChat,
-} from '@ant-design/x';
-import { createStyles } from 'antd-style';
-import React, { useEffect } from 'react';
+} from "@ant-design/x";
+import { createStyles } from "antd-style";
+import React, { useEffect } from "react";
 
 import {
   CloudUploadOutlined,
   CommentOutlined,
+  DeleteOutlined,
   EllipsisOutlined,
   FireOutlined,
   HeartOutlined,
   PaperClipOutlined,
   PlusOutlined,
   ReadOutlined,
-  ShareAltOutlined,
   SmileOutlined,
-} from '@ant-design/icons';
-import { Badge, Button, type GetProp, Space } from 'antd';
+  EditOutlined,
+  StopOutlined,
+  ShareAltOutlined,
+} from "@ant-design/icons";
+import { App, Badge, Button, type GetProp, message, Space, theme } from "antd";
 
 const renderTitle = (icon: React.ReactElement, title: string) => (
   <Space align="start">
@@ -32,10 +36,59 @@ const renderTitle = (icon: React.ReactElement, title: string) => (
   </Space>
 );
 
+const placeholderPromptsItems: GetProp<typeof Prompts, "items"> = [
+  {
+    key: "1",
+    label: renderTitle(
+      <FireOutlined style={{ color: "#FF4D4F" }} />,
+      "Hot Topics"
+    ),
+    description: "What are you interested in?",
+    children: [
+      {
+        key: "1-1",
+        description: `What are the latest features of Spring Ai Alibaba?`,
+      },
+      {
+        key: "1-2",
+        description: `How does Spring Ai Alibaba handle data privacy?`,
+      },
+      {
+        key: "1-3",
+        description: `Where can I find the documentation for Spring Ai Alibaba?`,
+      },
+    ],
+  },
+  {
+    key: "2",
+    label: renderTitle(
+      <ReadOutlined style={{ color: "#1890FF" }} />,
+      "Design Guide"
+    ),
+    description: "How to design a good product?",
+    children: [
+      {
+        key: "2-1",
+        icon: <HeartOutlined />,
+        description: `What are best practices for using Spring Ai Alibaba?`,
+      },
+      {
+        key: "2-2",
+        icon: <SmileOutlined />,
+        description: `How to set up AI roles in Spring Ai Alibaba?`,
+      },
+      {
+        key: "2-3",
+        icon: <CommentOutlined />,
+        description: `How to express user feedback effectively?`,
+      },
+    ],
+  },
+];
 const defaultConversationsItems = [
   {
-    key: '0',
-    label: 'What is Ant Design X?',
+    key: "0",
+    label: "What is Spring Ai Alibaba?",
   },
 ];
 
@@ -117,66 +170,71 @@ const useStyle = createStyles(({ token, css }) => {
   };
 });
 
-const placeholderPromptsItems: GetProp<typeof Prompts, 'items'> = [
+//   {
+//     key: "1",
+//     label: renderTitle(
+//       <FireOutlined style={{ color: "#FF4D4F" }} />,
+//       "Hot Topics"
+//     ),
+//     description: "What are you interested in?",
+//     children: [
+//       {
+//         key: "1-1",
+//         description: `What's new in 123?`,
+//       },
+//       {
+//         key: "1-2",
+//         description: `What's AGI?`,
+//       },
+//       {
+//         key: "1-3",
+//         description: `Where is the doc?`,
+//       },
+//     ],
+//   },
+//   {
+//     key: "2",
+//     label: renderTitle(
+//       <ReadOutlined style={{ color: "#1890FF" }} />,
+//       "Design Guide"
+//     ),
+//     description: "How to design a good product?",
+//     children: [
+//       {
+//         key: "2-1",
+//         icon: <HeartOutlined />,
+//         description: `Know the well`,
+//       },
+//       {
+//         key: "2-2",
+//         icon: <SmileOutlined />,
+//         description: `Set the AI role`,
+//       },
+//       {
+//         key: "2-3",
+//         icon: <CommentOutlined />,
+//         description: `Express the feeling`,
+//       },
+//     ],
+//   },
+// ];
+
+const senderPromptsItems: GetProp<typeof Prompts, "items"> = [
   {
-    key: '1',
-    label: renderTitle(<FireOutlined style={{ color: '#FF4D4F' }} />, 'Hot Topics'),
-    description: 'What are you interested in?',
-    children: [
-      {
-        key: '1-1',
-        description: `What's new in X?`,
-      },
-      {
-        key: '1-2',
-        description: `What's AGI?`,
-      },
-      {
-        key: '1-3',
-        description: `Where is the doc?`,
-      },
-    ],
+    key: "1",
+    description: "Hot Topics",
+    icon: <FireOutlined style={{ color: "#FF4D4F" }} />,
   },
   {
-    key: '2',
-    label: renderTitle(<ReadOutlined style={{ color: '#1890FF' }} />, 'Design Guide'),
-    description: 'How to design a good product?',
-    children: [
-      {
-        key: '2-1',
-        icon: <HeartOutlined />,
-        description: `Know the well`,
-      },
-      {
-        key: '2-2',
-        icon: <SmileOutlined />,
-        description: `Set the AI role`,
-      },
-      {
-        key: '2-3',
-        icon: <CommentOutlined />,
-        description: `Express the feeling`,
-      },
-    ],
+    key: "2",
+    description: "Design Guide",
+    icon: <ReadOutlined style={{ color: "#1890FF" }} />,
   },
 ];
 
-const senderPromptsItems: GetProp<typeof Prompts, 'items'> = [
-  {
-    key: '1',
-    description: 'Hot Topics',
-    icon: <FireOutlined style={{ color: '#FF4D4F' }} />,
-  },
-  {
-    key: '2',
-    description: 'Design Guide',
-    icon: <ReadOutlined style={{ color: '#1890FF' }} />,
-  },
-];
-
-const roles: GetProp<typeof Bubble.List, 'roles'> = {
+const roles: GetProp<typeof Bubble.List, "roles"> = {
   ai: {
-    placement: 'start',
+    placement: "start",
     typing: { step: 5, interval: 20 },
     styles: {
       content: {
@@ -185,8 +243,8 @@ const roles: GetProp<typeof Bubble.List, 'roles'> = {
     },
   },
   local: {
-    placement: 'end',
-    variant: 'shadow',
+    placement: "end",
+    variant: "shadow",
   },
 };
 
@@ -197,15 +255,44 @@ const Independent: React.FC = () => {
   // ==================== State ====================
   const [headerOpen, setHeaderOpen] = React.useState(false);
 
-  const [content, setContent] = React.useState('');
+  const [content, setContent] = React.useState("");
 
-  const [conversationsItems, setConversationsItems] = React.useState(defaultConversationsItems);
-
-  const [activeKey, setActiveKey] = React.useState(defaultConversationsItems[0].key);
-
-  const [attachedFiles, setAttachedFiles] = React.useState<GetProp<typeof Attachments, 'items'>>(
-    [],
+  const [conversationsItems, setConversationsItems] = React.useState(
+    defaultConversationsItems
   );
+
+  const [activeKey, setActiveKey] = React.useState(
+    defaultConversationsItems[0].key
+  );
+
+  const [attachedFiles, setAttachedFiles] = React.useState<
+    GetProp<typeof Attachments, "items">
+  >([]);
+
+  const { message } = App.useApp();
+  const [recording, setRecording] = React.useState(false);
+  const { token } = theme.useToken();
+
+
+
+  const menuConfig: ConversationsProps["menu"] = (conversation) => ({
+    items: [
+      {
+        label: "Edit",
+        key: "edit",
+        icon: <EditOutlined />,
+      },
+      {
+        label: "Delete",
+        key: "delete",
+        icon: <DeleteOutlined />,
+        danger: true,
+      },
+    ],
+    onClick: (menuInfo) => {
+      message.info(`Click ${conversation.key} - ${menuInfo.key}`);
+    },
+  });
 
   // ==================== Runtime ====================
   const [agent] = useXAgent({
@@ -228,10 +315,10 @@ const Independent: React.FC = () => {
   const onSubmit = (nextContent: string) => {
     if (!nextContent) return;
     onRequest(nextContent);
-    setContent('');
+    setContent("");
   };
 
-  const onPromptsItemClick: GetProp<typeof Prompts, 'onItemClick'> = (info) => {
+  const onPromptsItemClick: GetProp<typeof Prompts, "onItemClick"> = (info) => {
     onRequest(info.data.description as string);
   };
 
@@ -246,11 +333,13 @@ const Independent: React.FC = () => {
     setActiveKey(`${conversationsItems.length}`);
   };
 
-  const onConversationClick: GetProp<typeof Conversations, 'onActiveChange'> = (key) => {
+  const onConversationClick: GetProp<typeof Conversations, "onActiveChange"> = (
+    key
+  ) => {
     setActiveKey(key);
   };
 
-  const handleFileChange: GetProp<typeof Attachments, 'onChange'> = (info) =>
+  const handleFileChange: GetProp<typeof Attachments, "onChange"> = (info) =>
     setAttachedFiles(info.fileList);
 
   // ==================== Nodes ====================
@@ -260,7 +349,7 @@ const Independent: React.FC = () => {
         variant="borderless"
         icon="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp"
         title="Hello, I'm Spring Ai Alibaba"
-        description="Base on Ant Design, AGI product interface solution, create a better intelligent vision~"
+        description="Based on Ant Design and Spring AI Alibaba, independent example demonstrates how to integrate capabilities such as chat, audio, and image, designed to provide developers with a portable solution."
         extra={
           <Space>
             <Button icon={<ShareAltOutlined />} />
@@ -273,7 +362,7 @@ const Independent: React.FC = () => {
         items={placeholderPromptsItems}
         styles={{
           list: {
-            width: '100%',
+            width: "100%",
           },
           item: {
             flex: 1,
@@ -284,16 +373,22 @@ const Independent: React.FC = () => {
     </Space>
   );
 
-  const items: GetProp<typeof Bubble.List, 'items'> = messages.map(({ id, message, status }) => ({
-    key: id,
-    loading: status === 'loading',
-    role: status === 'local' ? 'local' : 'ai',
-    content: message,
-  }));
+  const items: GetProp<typeof Bubble.List, "items"> = messages.map(
+    ({ id, message, status }) => ({
+      key: id,
+      loading: status === "loading",
+      role: status === "local" ? "local" : "ai",
+      content: message,
+    })
+  );
 
   const attachmentsNode = (
     <Badge dot={attachedFiles.length > 0 && !headerOpen}>
-      <Button type="text" icon={<PaperClipOutlined />} onClick={() => setHeaderOpen(!headerOpen)} />
+      <Button
+        type="text"
+        icon={<PaperClipOutlined />}
+        onClick={() => setHeaderOpen(!headerOpen)}
+      />
     </Badge>
   );
 
@@ -313,12 +408,12 @@ const Independent: React.FC = () => {
         items={attachedFiles}
         onChange={handleFileChange}
         placeholder={(type) =>
-          type === 'drop'
-            ? { title: 'Drop file here' }
+          type === "drop"
+            ? { title: "Drop file here" }
             : {
                 icon: <CloudUploadOutlined />,
-                title: 'Upload files',
-                description: 'Click or drag files to this area to upload',
+                title: "Upload files",
+                description: "Click or drag files to this area to upload",
               }
         }
       />
@@ -332,7 +427,7 @@ const Independent: React.FC = () => {
         draggable={false}
         alt="logo"
       />
-      <span>Ant Design X</span>
+      <span>Spring Ai Alibaba</span>
     </div>
   );
 
@@ -356,13 +451,18 @@ const Independent: React.FC = () => {
           items={conversationsItems}
           className={styles.conversations}
           activeKey={activeKey}
+          menu={menuConfig}
           onActiveChange={onConversationClick}
         />
       </div>
       <div className={styles.chat}>
         {/* 🌟 消息列表 */}
         <Bubble.List
-          items={items.length > 0 ? items : [{ content: placeholderNode, variant: 'borderless' }]}
+          items={
+            items.length > 0
+              ? items
+              : [{ content: placeholderNode, variant: "borderless" }]
+          }
           roles={roles}
           className={styles.messages}
         />
@@ -373,6 +473,14 @@ const Independent: React.FC = () => {
           value={content}
           header={senderHeader}
           onSubmit={onSubmit}
+          allowSpeech={{
+            // When setting `recording`, the built-in speech recognition feature will be disabled
+            recording,
+            onRecordingChange: (nextRecording) => {
+              message.info(`Mock Customize Recording: ${nextRecording}`);
+              setRecording(nextRecording);
+            },
+          }}
           onChange={setContent}
           prefix={attachmentsNode}
           loading={agent.isRequesting()}
