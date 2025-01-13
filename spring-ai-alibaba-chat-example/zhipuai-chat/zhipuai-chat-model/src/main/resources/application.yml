@@ -8,4 +8,4 @@ spring:
   ai:
     zhipuai:
       base-url: "open.bigmodel.cn/api/paas"
-      api-key: "5489de76839d4c33973125ab4b0cfc17.PGnP7DviLB8xM64x"
+      api-key: ${ZHIPUAI_API_KEY}
