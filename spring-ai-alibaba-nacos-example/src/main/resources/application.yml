@@ -1,0 +1,24 @@
+server:
+  port: 10007
+
+spring:
+  application:
+    name: spring-ai-alibaba-nacos-example
+  cloud:
+    nacos:
+      config:
+        server-addr: ${NACOS_SERVER_ADDR}
+      discovery:
+        server-addr: ${NACOS_SERVER_ADDR}
+  config:
+    import:
+      - "nacos:prompt-config.yaml?refresh=true"
+
+  ai:
+    openai:
+      base-url: https://api.deepseek.com
+      api-key: ${OPENAI_API_KEY}
+      chat:
+        enabled: true
+        options:
+          model: deepseek-chat
