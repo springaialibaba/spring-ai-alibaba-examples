@@ -1,0 +1,11 @@
+server:
+  port: 10004
+
+spring:
+  application:
+    name: spring-ai-alibaba-zhipuai-chat-client-example
+
+  ai:
+    zhipuai:
+      base-url: "open.bigmodel.cn/api/paas"
+      api-key: ${ZHIPUAI_API_KEY}
