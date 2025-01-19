@@ -1,0 +1,11 @@
+server:
+  port: 10009
+
+spring:
+  application:
+    name: spring-ai-alibaba-moonshot-chat-client-example
+
+  ai:
+    moonshot:
+      base-url: "https://api.moonshot.cn"
+      api-key: ${MOONSHOT_API_KEY}
