@@ -225,23 +225,9 @@ const Independent: React.FC = () => {
   const { token } = theme.useToken();
 
   // ==================== Runtime ====================
-  // const [agent] = useXAgent({
-  //   request: async ({ message }, { onSuccess }) => {
-  //     onSuccess('127.0.0.1:8080/api/v1/app/chat/' + `${message}`);
-  //   },
-  // });
-
   const [agent] = useXAgent({
-    request: async ({ message }, { onUpdate, onSuccess, onError }) => {
-      try {
-         
-        const response = await fetch('http://127.0.0.1:8080/api/v1/app/chat/' + message);
-        const data = await response.json();
-        
-        onSuccess(data);
-      } catch (error) {
-        onError(error);
-      }
+    request: async ({ message }, { onSuccess }) => {
+      onSuccess(`Mock success return. You said: ${message}`);
     },
   });
 
