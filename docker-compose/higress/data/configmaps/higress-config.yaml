@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: higress-config
+  namespace: higress-system
+  creationTimestamp: "2000-01-01T00:00:00Z"
+  resourceVersion: "1"
+data:
+  higress: |-
+    downstream:
+      connectionBufferLimits: 32768
+      http2:
+        initialConnectionWindowSize: 1048576
+        initialStreamWindowSize: 65535
+        maxConcurrentStreams: 100
+      idleTimeout: 180
+      maxRequestHeadersKb: 60
+      routeTimeout: 0
+    upstream:
+      connectionBufferLimits: 10485760
+      idleTimeout: 10
