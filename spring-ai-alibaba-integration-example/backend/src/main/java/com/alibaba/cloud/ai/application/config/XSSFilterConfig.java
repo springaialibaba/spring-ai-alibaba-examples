@@ -15,35 +15,31 @@
  * limitations under the License.
  */
 
-package com.alibaba.cloud.ai.application.service;
+package com.alibaba.cloud.ai.application.config;
 
-import reactor.core.publisher.Flux;
+import com.alibaba.cloud.ai.application.filter.XSSFilter;
 
-import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.model.ChatModel;
-import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.stereotype.Service;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @author yuluo
  * @author <a href="mailto:yuluo08290126@gmail.com">yuluo</a>
  */
 
-@Service
-public class SAAChatService {
+@Configuration
+public class XSSFilterConfig {
 
-	private final ChatClient daschScopeChatClient;
+	@Bean
+	public FilterRegistrationBean<XSSFilter> xssFilter() {
 
-	public SAAChatService(ChatModel chatModel) {
+		FilterRegistrationBean<XSSFilter> registrationBean = new FilterRegistrationBean<>();
 
-		this.daschScopeChatClient = ChatClient
-				.builder(chatModel)
-				.build();
-	}
+		registrationBean.setFilter(new XSSFilter());
+		registrationBean.addUrlPatterns("/*");
 
-	public Flux<String> chat(String chatPrompt) {
-
-		return daschScopeChatClient.prompt(new Prompt(chatPrompt)).stream().content();
+		return registrationBean;
 	}
 
 }

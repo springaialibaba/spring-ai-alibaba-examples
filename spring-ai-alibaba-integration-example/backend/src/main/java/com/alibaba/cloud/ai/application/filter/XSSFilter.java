@@ -15,35 +15,31 @@
  * limitations under the License.
  */
 
-package com.alibaba.cloud.ai.application.service;
+package com.alibaba.cloud.ai.application.filter;
 
-import reactor.core.publisher.Flux;
+import java.io.IOException;
 
-import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.model.ChatModel;
-import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.stereotype.Service;
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * @author yuluo
  * @author <a href="mailto:yuluo08290126@gmail.com">yuluo</a>
  */
 
-@Service
-public class SAAChatService {
+public class XSSFilter implements Filter {
 
-	private final ChatClient daschScopeChatClient;
+	@Override
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
 
-	public SAAChatService(ChatModel chatModel) {
-
-		this.daschScopeChatClient = ChatClient
-				.builder(chatModel)
-				.build();
-	}
-
-	public Flux<String> chat(String chatPrompt) {
-
-		return daschScopeChatClient.prompt(new Prompt(chatPrompt)).stream().content();
+		HttpServletResponse httpResponse = (HttpServletResponse) response;
+		httpResponse.setHeader("Content-Security-Policy", "default-src 'self';");
+		chain.doFilter(request, response);
 	}
 
 }

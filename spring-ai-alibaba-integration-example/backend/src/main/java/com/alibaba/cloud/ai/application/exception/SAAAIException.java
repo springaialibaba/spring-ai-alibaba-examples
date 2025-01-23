@@ -15,35 +15,23 @@
  * limitations under the License.
  */
 
-package com.alibaba.cloud.ai.application.service;
+package com.alibaba.cloud.ai.application.exception;
 
-import reactor.core.publisher.Flux;
-
-import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.model.ChatModel;
-import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author yuluo
  * @author <a href="mailto:yuluo08290126@gmail.com">yuluo</a>
  */
 
-@Service
-public class SAAChatService {
+public class SAAAIException extends RuntimeException {
 
-	private final ChatClient daschScopeChatClient;
+	private final static Logger logger = LoggerFactory.getLogger(SAAAIException.class);
 
-	public SAAChatService(ChatModel chatModel) {
-
-		this.daschScopeChatClient = ChatClient
-				.builder(chatModel)
-				.build();
-	}
-
-	public Flux<String> chat(String chatPrompt) {
-
-		return daschScopeChatClient.prompt(new Prompt(chatPrompt)).stream().content();
+	public SAAAIException(String msg) {
+		super(msg);
+		logger.error("Spring AI Alibaba LLMs exception: {}", msg);
 	}
 
 }

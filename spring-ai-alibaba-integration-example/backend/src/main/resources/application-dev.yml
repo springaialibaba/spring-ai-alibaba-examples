@@ -15,12 +15,7 @@
 # limitations under the License.
 #
 
-server:
-  port: 8080
-
 spring:
-  application:
-    name: spring-ai-alibaba-integration-application
-
-  profiles:
-    active: dev
+  ai:
+    dashscope:
+      api-key: ${AI_DASHSCOPE_API_KEY}

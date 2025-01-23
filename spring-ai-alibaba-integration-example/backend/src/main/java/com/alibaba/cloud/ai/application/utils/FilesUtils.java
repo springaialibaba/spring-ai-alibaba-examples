@@ -15,35 +15,36 @@
  * limitations under the License.
  */
 
-package com.alibaba.cloud.ai.application.service;
+package com.alibaba.cloud.ai.application.utils;
 
-import reactor.core.publisher.Flux;
+import java.io.File;
 
-import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.model.ChatModel;
-import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.stereotype.Service;
+import com.alibaba.cloud.ai.application.exception.SAAAppException;
 
 /**
  * @author yuluo
  * @author <a href="mailto:yuluo08290126@gmail.com">yuluo</a>
  */
 
-@Service
-public class SAAChatService {
+public final class FilesUtils {
 
-	private final ChatClient daschScopeChatClient;
-
-	public SAAChatService(ChatModel chatModel) {
-
-		this.daschScopeChatClient = ChatClient
-				.builder(chatModel)
-				.build();
+	private FilesUtils() {
 	}
 
-	public Flux<String> chat(String chatPrompt) {
+	/**
+	 * Init image and audio tmp folder
+	 */
+	public static void initTmpFolder(String path) {
 
-		return daschScopeChatClient.prompt(new Prompt(chatPrompt)).stream().content();
+		if (path == null || path.isEmpty()) {
+
+			throw new SAAAppException("path is null or empty");
+		}
+
+		File imageTmpFolder = new File(path);
+		if (!imageTmpFolder.exists()) {
+			imageTmpFolder.mkdirs();
+		}
 	}
 
 }

@@ -15,35 +15,29 @@
  * limitations under the License.
  */
 
-package com.alibaba.cloud.ai.application.service;
+package com.alibaba.cloud.ai.application.config;
 
-import reactor.core.publisher.Flux;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
 
-import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.model.ChatModel;
-import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.stereotype.Service;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @author yuluo
  * @author <a href="mailto:yuluo08290126@gmail.com">yuluo</a>
  */
 
-@Service
-public class SAAChatService {
-
-	private final ChatClient daschScopeChatClient;
-
-	public SAAChatService(ChatModel chatModel) {
-
-		this.daschScopeChatClient = ChatClient
-				.builder(chatModel)
-				.build();
-	}
-
-	public Flux<String> chat(String chatPrompt) {
-
-		return daschScopeChatClient.prompt(new Prompt(chatPrompt)).stream().content();
+@Configuration
+public class Knife4jConfig {
+	@Bean
+	public OpenAPI customOpenAPI() {
+		return new OpenAPI()
+				.info(new Info()
+						.title("Spring AI Alibaba Playground")
+						.version("1.0.0")
+						.description("Spring AI Alibaba Playground APIs")
+				);
 	}
 
 }

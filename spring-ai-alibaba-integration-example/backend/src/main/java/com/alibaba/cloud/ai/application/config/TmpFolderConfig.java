@@ -15,35 +15,44 @@
  * limitations under the License.
  */
 
-package com.alibaba.cloud.ai.application.service;
+package com.alibaba.cloud.ai.application.config;
 
-import reactor.core.publisher.Flux;
+import com.alibaba.cloud.ai.application.utils.FilesUtils;
+import jakarta.annotation.PreDestroy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.model.ChatModel;
-import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.stereotype.Service;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 
 /**
  * @author yuluo
  * @author <a href="mailto:yuluo08290126@gmail.com">yuluo</a>
  */
 
-@Service
-public class SAAChatService {
+public class TmpFolderConfig implements ApplicationRunner {
 
-	private final ChatClient daschScopeChatClient;
+	private static final String ImageTmpFolder = "tmp/image";
 
-	public SAAChatService(ChatModel chatModel) {
+	private static final String AudioTmpFolder = "tmp/audio";
 
-		this.daschScopeChatClient = ChatClient
-				.builder(chatModel)
-				.build();
+	private static final Logger logger = LoggerFactory.getLogger(TmpFolderConfig.class);
+
+	@Override
+	public void run(ApplicationArguments args) throws Exception {
+
+		logger.info("Init tmp folder");
+
+		FilesUtils.initTmpFolder(ImageTmpFolder);
+		FilesUtils.initTmpFolder(AudioTmpFolder);
+
+		logger.info("Init tmp folder");
 	}
 
-	public Flux<String> chat(String chatPrompt) {
+	@PreDestroy
+	public void destroy() {
 
-		return daschScopeChatClient.prompt(new Prompt(chatPrompt)).stream().content();
+		// todo: delete tmp folder
 	}
 
 }

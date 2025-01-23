@@ -15,35 +15,31 @@
  * limitations under the License.
  */
 
-package com.alibaba.cloud.ai.application.service;
-
-import reactor.core.publisher.Flux;
-
-import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.model.ChatModel;
-import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.stereotype.Service;
+package com.alibaba.cloud.ai.application.entity.result;
 
 /**
  * @author yuluo
  * @author <a href="mailto:yuluo08290126@gmail.com">yuluo</a>
  */
 
-@Service
-public class SAAChatService {
+public enum ResultCode {
 
-	private final ChatClient daschScopeChatClient;
+	SUCCESS(10000, "success"),
+	FAILED(100001, "failed");
 
-	public SAAChatService(ChatModel chatModel) {
+	private final int code;
+	private final String message;
 
-		this.daschScopeChatClient = ChatClient
-				.builder(chatModel)
-				.build();
+	ResultCode(int code, String message) {
+		this.code = code;
+		this.message = message;
 	}
 
-	public Flux<String> chat(String chatPrompt) {
-
-		return daschScopeChatClient.prompt(new Prompt(chatPrompt)).stream().content();
+	public int getCode() {
+		return code;
 	}
 
+	public String getMessage() {
+		return message;
+	}
 }

@@ -17,18 +17,10 @@
 
 package com.alibaba.cloud.ai.application.controller;
 
-import com.alibaba.cloud.ai.application.annotation.UserIp;
-import com.alibaba.cloud.ai.application.entity.result.Result;
-import com.alibaba.cloud.ai.application.service.SAAChatService;
-import com.alibaba.cloud.ai.application.utils.ValidText;
-import io.swagger.v3.oas.annotations.Operation;
+import com.alibaba.cloud.ai.application.service.SAAImageService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
-import jakarta.servlet.http.HttpServletResponse;
-import reactor.core.publisher.Flux;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,34 +30,11 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@Tag(name = "Chat APIs")
+@Tag(name = "Image APIs")
 @RequestMapping("/api/v1/")
-public class SAAChatController {
+public class SAAImageController {
 
 	@Resource
-	private SAAChatService chatService;
-
-	@UserIp
-	@GetMapping("/chat/{prompt}")
-	@Operation(summary = "DashScope Flux Chat")
-	public Flux<Result<String>> chat(
-			@PathVariable("prompt") String prompt,
-			HttpServletResponse response
-	) {
-
-		if (ValidText.isValidate(prompt)) {
-
-			// http error code
-			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-
-			// custom error message
-			return Flux.just(Result.failed("Invalid input."));
-		}
-
-		response.setCharacterEncoding("UTF-8");
-
-		Flux<String> chat = chatService.chat(prompt);
-		return chat.map(Result::success);
-	}
+	private SAAImageService imageService;
 
 }

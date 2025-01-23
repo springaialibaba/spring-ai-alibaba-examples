@@ -15,35 +15,45 @@
  * limitations under the License.
  */
 
-package com.alibaba.cloud.ai.application.service;
+package com.alibaba.cloud.ai.application.aop;
 
-import reactor.core.publisher.Flux;
+import jakarta.servlet.http.HttpServletRequest;
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.model.ChatModel;
-import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 /**
  * @author yuluo
  * @author <a href="mailto:yuluo08290126@gmail.com">yuluo</a>
  */
 
-@Service
-public class SAAChatService {
+@Aspect
+@Component
+public class UserIpAspect {
 
-	private final ChatClient daschScopeChatClient;
+	private final Logger logger = LoggerFactory.getLogger(UserIpAspect.class);
 
-	public SAAChatService(ChatModel chatModel) {
+	private final HttpServletRequest request;
 
-		this.daschScopeChatClient = ChatClient
-				.builder(chatModel)
-				.build();
+	public UserIpAspect(HttpServletRequest request) {
+		this.request = request;
 	}
 
-	public Flux<String> chat(String chatPrompt) {
+	/**
+	 * Todo: 获取用户 ip 用于统计 apikey 调用次数
+	 */
+	@Pointcut("@annotation(com.alibaba.cloud.ai.application.annotation.UserIp)")
+	public void logUserIp() {
+	}
 
-		return daschScopeChatClient.prompt(new Prompt(chatPrompt)).stream().content();
+	@After("logUserIp()")
+	public void after(){
+
+		logger.info("User IP: {}", request.getRemoteAddr());
 	}
 
 }

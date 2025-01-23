@@ -17,11 +17,6 @@
 
 package com.alibaba.cloud.ai.application.service;
 
-import reactor.core.publisher.Flux;
-
-import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.model.ChatModel;
-import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.stereotype.Service;
 
 /**
@@ -30,20 +25,5 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class SAAChatService {
-
-	private final ChatClient daschScopeChatClient;
-
-	public SAAChatService(ChatModel chatModel) {
-
-		this.daschScopeChatClient = ChatClient
-				.builder(chatModel)
-				.build();
-	}
-
-	public Flux<String> chat(String chatPrompt) {
-
-		return daschScopeChatClient.prompt(new Prompt(chatPrompt)).stream().content();
-	}
-
+public class SAAImageService {
 }

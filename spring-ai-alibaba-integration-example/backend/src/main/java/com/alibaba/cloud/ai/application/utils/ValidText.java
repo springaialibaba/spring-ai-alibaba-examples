@@ -15,35 +15,21 @@
  * limitations under the License.
  */
 
-package com.alibaba.cloud.ai.application.service;
-
-import reactor.core.publisher.Flux;
-
-import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.model.ChatModel;
-import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.stereotype.Service;
+package com.alibaba.cloud.ai.application.utils;
 
 /**
  * @author yuluo
  * @author <a href="mailto:yuluo08290126@gmail.com">yuluo</a>
  */
 
-@Service
-public class SAAChatService {
+public final class ValidText {
 
-	private final ChatClient daschScopeChatClient;
-
-	public SAAChatService(ChatModel chatModel) {
-
-		this.daschScopeChatClient = ChatClient
-				.builder(chatModel)
-				.build();
+	private ValidText() {
 	}
 
-	public Flux<String> chat(String chatPrompt) {
+	public static boolean isValidate(String text) {
 
-		return daschScopeChatClient.prompt(new Prompt(chatPrompt)).stream().content();
+		return text != null && !text.isEmpty() && text.matches("^[a-zA-Z0-9.,?!;:'\"()\\s]*$");
 	}
 
 }
