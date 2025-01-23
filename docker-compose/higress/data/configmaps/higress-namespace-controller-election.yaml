@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    control-plane.alpha.kubernetes.io/leader: '{"holderIdentity":"higress-pilot","holderKey":"default","leaseDurationSeconds":30,"acquireTime":"2025-01-21T13:49:52Z","renewTime":"2025-01-21T14:31:35Z","leaderTransitions":0}'
+  creationTimestamp: "2025-01-21T13:49:52Z"
+  managedFields:
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          .: {}
+          f:control-plane.alpha.kubernetes.io/leader: {}
+    manager: pilot-discovery
+    operation: Update
+    time: "2025-01-21T14:31:35Z"
+  name: higress-namespace-controller-election
+  namespace: higress-system
+  resourceVersion: "331"
