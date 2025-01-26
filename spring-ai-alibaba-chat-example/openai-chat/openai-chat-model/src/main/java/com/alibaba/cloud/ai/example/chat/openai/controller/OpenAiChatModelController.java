@@ -63,17 +63,13 @@ public class OpenAiChatModelController {
      * @return Flux<String> types.
      */
     @GetMapping("/stream/chat")
-    public String streamChat(HttpServletResponse response) {
+    public Flux<String> streamChat(HttpServletResponse response) {
 
         // 避免返回乱码
         response.setCharacterEncoding("UTF-8");
-        StringBuilder res = new StringBuilder();
 
-        Flux<ChatResponse> stream = openAiChatModel.stream(new Prompt(DEFAULT_PROMPT));
-        stream.toStream().toList().forEach(resp -> {
-            res.append(resp.getResult().getOutput().getContent());
-        });
-        return res.toString();
+        Flux<ChatResponse> chatResponseFlux = openAiChatModel.stream(new Prompt(DEFAULT_PROMPT));
+        return chatResponseFlux.map(resp -> resp.getResult().getOutput().getContent());
     }
 
     /**

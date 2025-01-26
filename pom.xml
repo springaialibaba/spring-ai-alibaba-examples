@@ -41,10 +41,10 @@
 		<maven.compiler.target>17</maven.compiler.target>
 
 		<!-- Spring AI -->
-		<spring-ai.version>1.0.0-M3</spring-ai.version>
+		<spring-ai.version>1.0.0-M5</spring-ai.version>
 
 		<!-- Spring AI Alibaba -->
-		<spring-ai-alibaba.version>1.0.0-M3.3</spring-ai-alibaba.version>
+		<spring-ai-alibaba.version>1.0.0-M5.1</spring-ai-alibaba.version>
 
 		<!-- Spring Boot -->
 		<spring-boot.version>3.4.0</spring-boot.version>
@@ -56,6 +56,7 @@
 	</properties>
 
 	<modules>
+		<module>spring-ai-alibaba-helloworld</module>
 		<module>spring-ai-alibaba-audio-example</module>
 		<module>spring-ai-alibaba-chat-example</module>
 		<module>spring-ai-alibaba-agent-example</module>
@@ -85,6 +86,11 @@
 				<version>${spring-ai.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba.cloud.ai</groupId>
+				<artifactId>spring-ai-alibaba-starter</artifactId>
+				<version>${spring-ai-alibaba.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

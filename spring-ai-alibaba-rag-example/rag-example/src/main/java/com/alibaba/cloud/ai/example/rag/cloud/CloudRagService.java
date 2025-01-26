@@ -27,7 +27,7 @@ import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.document.DocumentReader;
-import org.springframework.ai.document.DocumentRetriever;
+import org.springframework.ai.rag.retrieval.search.DocumentRetriever;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -54,7 +54,7 @@ public class CloudRagService implements RagService {
 
 	private static final Logger logger = LoggerFactory.getLogger(CloudRagService.class);
 
-	private static final String indexName = "spring-ai-alibaba-index";
+	private static final String indexName = "spring-ai知识库";
 
 	@Value("classpath:/data/spring_ai_alibaba_quickstart.pdf")
 	private Resource springAiResource;

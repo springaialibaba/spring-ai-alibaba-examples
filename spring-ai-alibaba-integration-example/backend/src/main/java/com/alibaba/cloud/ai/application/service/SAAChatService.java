@@ -17,7 +17,6 @@
 
 package com.alibaba.cloud.ai.application.service;
 
-import jakarta.servlet.http.HttpServletResponse;
 import reactor.core.publisher.Flux;
 
 import org.springframework.ai.chat.client.ChatClient;
@@ -42,9 +41,7 @@ public class SAAChatService {
 				.build();
 	}
 
-	public Flux<String> chat(String chatPrompt, HttpServletResponse response) {
-
-		response.setCharacterEncoding("UTF-8");
+	public Flux<String> chat(String chatPrompt) {
 
 		return daschScopeChatClient.prompt(new Prompt(chatPrompt)).stream().content();
 	}

@@ -109,8 +109,11 @@ public class LocalRagService implements RagService {
 
     public Flux<ChatResponse> retrieve(String message) {
         // Enable hybrid search, both embedding and full text search
-        SearchRequest searchRequest = SearchRequest.defaults()
-                .withFilterExpression(new FilterExpressionBuilder().eq(textField, message).build());
+        SearchRequest searchRequest = SearchRequest.builder().
+                topK(4)
+                .similarityThresholdAll()
+                .filterExpression(new FilterExpressionBuilder().eq(textField, message).build())
+                .build();
 
         // Step3 - Retrieve and llm generate
         String promptTemplate = getPromptTemplate(systemResource);
