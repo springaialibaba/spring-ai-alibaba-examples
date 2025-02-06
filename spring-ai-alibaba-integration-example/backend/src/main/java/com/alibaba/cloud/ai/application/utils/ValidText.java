@@ -29,7 +29,7 @@ public final class ValidText {
 
 	public static boolean isValidate(String text) {
 
-		return text != null && !text.isEmpty() && text.matches("^[a-zA-Z0-9.,?!;:'\"()\\s]*$");
+		return text != null && !text.isEmpty();
 	}
 
 }

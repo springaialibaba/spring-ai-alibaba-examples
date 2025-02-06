@@ -53,19 +53,14 @@ public class SAAChatController {
 			HttpServletResponse response
 	) {
 
-		if (ValidText.isValidate(prompt)) {
+		if (!ValidText.isValidate(prompt)) {
 
-			// http error code
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-
-			// custom error message
-			return Flux.just(Result.failed("Invalid input."));
+			return Flux.just(Result.failed("No chat prompt provided"));
 		}
 
 		response.setCharacterEncoding("UTF-8");
 
-		Flux<String> chat = chatService.chat(prompt);
-		return chat.map(Result::success);
+		return chatService.chat(prompt).map(Result::success);
 	}
-
 }

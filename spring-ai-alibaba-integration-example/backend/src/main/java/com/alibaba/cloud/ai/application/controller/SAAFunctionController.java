@@ -15,31 +15,26 @@
  * limitations under the License.
  */
 
-package com.alibaba.cloud.ai.application.config;
+package com.alibaba.cloud.ai.application.controller;
 
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.info.Info;
+import com.alibaba.cloud.ai.application.service.SAAFunctionService;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.annotation.Resource;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author yuluo
  * @author <a href="mailto:yuluo08290126@gmail.com">yuluo</a>
- *
- * http://localhost:8080/doc.html#/home
  */
 
-@Configuration
-public class Knife4jConfig {
-	@Bean
-	public OpenAPI customOpenAPI() {
-		return new OpenAPI()
-				.info(new Info()
-						.title("Spring AI Alibaba Playground")
-						.version("1.0.0")
-						.description("Spring AI Alibaba Playground APIs")
-				);
-	}
+@RestController
+@Tag(name = "Function Calling APIs")
+@RequestMapping("/api/v1/")
+public class SAAFunctionController {
+
+	@Resource
+	private SAAFunctionService functionService;
 
 }

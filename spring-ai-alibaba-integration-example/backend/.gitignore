@@ -36,3 +36,8 @@ target/
 **/node_modules
 
 logs/
+
+# ignore test.
+*.wav
+*.png
+*.jpg

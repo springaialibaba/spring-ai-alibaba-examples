@@ -15,31 +15,29 @@
  * limitations under the License.
  */
 
-package com.alibaba.cloud.ai.application.config;
+package com.alibaba.cloud.ai.application.service;
 
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.info.Info;
-
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.model.ChatModel;
+import org.springframework.stereotype.Service;
 
 /**
  * @author yuluo
  * @author <a href="mailto:yuluo08290126@gmail.com">yuluo</a>
- *
- * http://localhost:8080/doc.html#/home
  */
 
-@Configuration
-public class Knife4jConfig {
-	@Bean
-	public OpenAPI customOpenAPI() {
-		return new OpenAPI()
-				.info(new Info()
-						.title("Spring AI Alibaba Playground")
-						.version("1.0.0")
-						.description("Spring AI Alibaba Playground APIs")
-				);
+@Service
+public class SAAFunctionService {
+
+	private final ChatClient dashScopeChatClient;
+
+	public SAAFunctionService(ChatModel chatModel) {
+
+		this.dashScopeChatClient = ChatClient
+				.builder(chatModel)
+				.build();
 	}
+
+
 
 }
