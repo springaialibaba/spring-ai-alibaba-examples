@@ -5,9 +5,11 @@
 ## Quick Start
 
 - JDK 17
-- Milvus (Docker)
+- Milvus (Docker Compose)
 
-1. 通过 Docker 安装 Milvus。
+1. 通过 Docker Compose 安装 Milvus。
+   - docker-compose的yml文件见目录/spring-ai-alibaba-examples/docker-compose/milvus/docker-compose.yml
+   - 详细安装文档见地址：https://milvus.io/docs/install_standalone-docker-compose.md
 2. 启动 Milvus。
 3. 创建 collection
 4. 打开 Milvus 向量检索。
@@ -15,5 +17,8 @@
 6. 运行本项目
 
 其中Milvus的配置如下：
+注意：不同版本Milvus的配置略有不同，Milvus2.3.0版本才原生支持 Cosine 距离，请根据实际情况调整
+
+截图是Attu的WebPortal界面 (Milvus GUI)，介绍地址见：https://github.com/zilliztech/attu
 
 ![img.png](img.png)
