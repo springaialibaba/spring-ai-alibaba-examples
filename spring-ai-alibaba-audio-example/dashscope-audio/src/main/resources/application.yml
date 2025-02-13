@@ -7,5 +7,4 @@ spring:
 
   ai:
     dashscope:
-      chat:
         api-key: ${AI_DASHSCOPE_API_KEY}
