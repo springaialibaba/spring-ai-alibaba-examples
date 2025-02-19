@@ -22,12 +22,12 @@
 
 | Category | Options                                |
 |----------|----------------------------------------|
-| Chat     | DashScope, OpenAI, ark（火山方舟）, ollama, ZhiPuAI, moonshot（月之暗面） |
-| RAG      | ES, milvus, pgvector                   |
-| 多模态    | ark（火山方舟）, Dashscope              |
-| Image    | Dashscope, OpenAI                      |
+| Chat     | DashScope, OpenAI, ark（火山方舟）, Ollama, ZhiPuAI, Moonshot（月之暗面） |
+| RAG      | ES, Milvus, Pgvector                   |
+| 多模态    | ark（火山方舟）, DashScope              |
+| Image    | DashScope, OpenAI                      |
 | Audio    | DashScope                              |
-| 开发生态  | MCP，Nacos，Higress，Kong，可观测，Ptompt 模版，函数调用，集成示例，结构化输出 |
+| 开发生态  | MCP,Nacos,Higress,Kong,可观测,Prompt模版,函数调用,集成示例,结构化输出 |
 
 ## 项目结构
 
