@@ -22,5 +22,15 @@ spring:
   application:
     name: spring-ai-alibaba-integration-application
 
+  ai:
+    vectorstore:
+      milvus:
+        client:
+          host: "https://in03-594505991139561.serverless.gcp-us-west1.cloud.zilliz.com"
+          token: "dd6d4107e283fad25aa5892a7a3746a0698f35736d10e83dcac9f0746fe1b31c0bf024bea5d997ed0a44224e92ae5adfdf5e773b"
+        collectionName: "spring-ai-alibaba-plg-ground"
+        metric-type: cosine
+
   profiles:
     active: dev
+

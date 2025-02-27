@@ -17,6 +17,8 @@
 
 package com.alibaba.cloud.ai.application;
 
+import io.milvus.v2.client.MilvusClientV2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -30,6 +32,13 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 
 @SpringBootApplication
 public class SpringAIIntegrationApplication {
+
+	@Autowired
+	private final MilvusClientV2 client;
+
+	public SpringAIIntegrationApplication (MilvusClientV2 milvusClientV2) {
+		this.client = milvusClientV2;
+    }
 
 	public static void main(String[] args) {
 

@@ -1,0 +1,26 @@
+autoDetectedPackages:
+- ai.spring.demo.ai.playground
+- com.alibaba.ai.examples
+- com.alibaba.cloud.ai.application
+- com.alibaba.cloud.ai.example
+- com.alibaba.cloud.ai.observationhandlerexample
+- org.springframework.ai.mcp.samples.filesystem
+- org.springframework.ai.mcp.samples.sqlite
+enableAutoDetect: true
+funcDisplayConfig:
+  skipConstructors: false
+  skipFieldAccess: true
+  skipFieldChange: true
+  skipGetters: true
+  skipNonProjectPackages: true
+  skipPrivateMethods: false
+  skipSetters: true
+ignoreSameClassCall: null
+ignoreSamePackageCall: null
+includedPackagePrefixes: null
+includedParentClasses: null
+name: xcodemap-filter
+recordMode: smart
+sourceDisplayConfig:
+  color: blue
+startOnDebug: false
