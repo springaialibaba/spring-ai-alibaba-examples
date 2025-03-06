@@ -22,7 +22,6 @@ import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.openai.OpenAiChatOptions;
-import org.springframework.ai.openai.api.OpenAiApi;
 import org.springframework.ai.openai.api.ResponseFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -81,10 +80,10 @@ public class OpenAiChatModelController {
     public String customChat() {
 
         OpenAiChatOptions customOptions = OpenAiChatOptions.builder()
-                .withTopP(0.7)
-                .withModel("gpt-4o")
-                .withMaxTokens(1000)
-                .withTemperature(0.8)
+                .topP(0.7)
+                .model("gpt-4o")
+                .maxTokens(1000)
+                .temperature(0.8)
                 .build();
 
         return openAiChatModel.call(new Prompt(DEFAULT_PROMPT, customOptions)).getResult().getOutput().getContent();
@@ -122,11 +121,11 @@ public class OpenAiChatModelController {
                 """;
 
         OpenAiChatOptions customOptions = OpenAiChatOptions.builder()
-                .withTopP(0.7)
-                .withModel("gpt-4o")
-                .withTemperature(0.4)
-                .withMaxTokens(4096)
-                .withResponseFormat(new ResponseFormat(ResponseFormat.Type.JSON_SCHEMA, jsonSchema))
+                .topP(0.7)
+                .model("gpt-4o")
+                .temperature(0.4)
+                .maxTokens(4096)
+                .responseFormat(new ResponseFormat(ResponseFormat.Type.JSON_SCHEMA, jsonSchema))
                 .build();
 
         return openAiChatModel.call(new Prompt(JSON_OUTPUT_PROMPT, customOptions)).getResult().getOutput().getContent();

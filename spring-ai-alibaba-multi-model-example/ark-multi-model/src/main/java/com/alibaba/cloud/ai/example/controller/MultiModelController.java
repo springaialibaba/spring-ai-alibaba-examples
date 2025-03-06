@@ -42,7 +42,7 @@ import java.util.Map;
 /**
  * ark Multi-Model REST Controller
  * 提供聊天、图片生成、文本向量等多个模型能力的API接口
- * 
+ *
  * @author brian xiadong
  */
 @RestController
@@ -78,7 +78,7 @@ public class MultiModelController {
                 // 设置 ChatClient 中 ChatModel 的 Options 参数
                 .defaultOptions(
                         OpenAiChatOptions.builder()
-                                .withTopP(0.7)
+                                .topP(0.7)
                                 .build()
                 )
                 .build();

@@ -78,9 +78,9 @@ public class MoonshotModelController {
     @GetMapping("/custom/chat")
     public String customChat() {
         MoonshotChatOptions moonshotChatOptions = MoonshotChatOptions.builder()
-                .withModel("moonshot-v1-32k")
-                .withTopP(0.8)
-                .withTemperature(0.8)
+                .model("moonshot-v1-32k")
+                .topP(0.8)
+                .temperature(0.8)
                 .build();
 
         return moonshotChatModel.call(new Prompt(DEFAULT_PROMPT, moonshotChatOptions)).getResult().getOutput().getContent();

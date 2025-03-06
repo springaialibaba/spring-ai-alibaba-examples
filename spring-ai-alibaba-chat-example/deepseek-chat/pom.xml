@@ -34,6 +34,11 @@
     <description>Spring AI Alibaba DeepSeek Chat Example</description>
     <name>Spring AI Alibaba DeepSeek Chat Examples</name>
 
+    <modules>
+        <module>deepseek-chat-model</module>
+        <module>deepseek-chat-client</module>
+    </modules>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -45,11 +50,6 @@
             <artifactId>spring-ai-openai-spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
-
-<!--    <modules>-->
-<!--        <module>deepseek-chat-model</module>-->
-<!--        <module>deepseek-chat-client</module>-->
-<!--    </modules>-->
 
     <build>
         <plugins>

@@ -49,8 +49,8 @@ public class MoonshotClientController {
                 // 设置Options
                 .defaultOptions(
                         MoonshotChatOptions.builder()
-                                .withTopP(0.8)
-                                .withTemperature(0.8)
+                                .topP(0.8)
+                                .temperature(0.8)
                                 .build()
                 )
                 .build();

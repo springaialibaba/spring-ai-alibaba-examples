@@ -80,10 +80,10 @@ public class ZhiPuAiChatModelController {
     public String customChat() {
 
         ZhiPuAiChatOptions customOptions = ZhiPuAiChatOptions.builder()
-                .withTopP(0.7)
-                .withModel("glm-4-flash")
-                .withMaxTokens(1000)
-                .withTemperature(0.8)
+                .topP(0.7)
+                .model("glm-4-flash")
+                .maxTokens(1000)
+                .temperature(0.8)
                 .build();
 
         return zhipuAiChatModel.call(new Prompt(DEFAULT_PROMPT, customOptions)).getResult().getOutput().getContent();

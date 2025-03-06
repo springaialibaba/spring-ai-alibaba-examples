@@ -7,11 +7,10 @@ spring:
 
   ai:
     openai:
-      api-key:
-        ${AI_OPENAI_API_KEY}
-      base-url: ${AI_OPENAI_BASE_URL}
+      api-key: ${AI_DEEPSEEK_API_KEY}
+      base-url: https://api.deepseek.com
       chat:
         options:
-          model: ${AI_OPENAI_CHAT_MODEL}
+          model: deepseek-chat
       embedding:
         enabled: false
