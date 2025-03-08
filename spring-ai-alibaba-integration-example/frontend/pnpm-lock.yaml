@@ -6,7 +6,7 @@ settings:
 
 patchedDependencies:
   '@ant-design/x@1.0.4':
-    hash: 469a833a25c5c0bfe6a52dffd2d0b652b539112f3c8da53863933579fd08bfc1
+    hash: p6mzpmrgei5a5rckpgxbizwzfq
     path: patches/@ant-design__x@1.0.4.patch
 
 importers:
@@ -18,7 +18,7 @@ importers:
         version: 5.5.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@ant-design/x':
         specifier: ^1.0.4
-        version: 1.0.4(patch_hash=469a833a25c5c0bfe6a52dffd2d0b652b539112f3c8da53863933579fd08bfc1)(antd@5.23.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 1.0.4(patch_hash=p6mzpmrgei5a5rckpgxbizwzfq)(antd@5.23.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       antd:
         specifier: ^5.23.0
         version: 5.23.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -2171,7 +2171,7 @@ snapshots:
       resize-observer-polyfill: 1.5.1
       throttle-debounce: 5.0.2
 
-  '@ant-design/x@1.0.4(patch_hash=469a833a25c5c0bfe6a52dffd2d0b652b539112f3c8da53863933579fd08bfc1)(antd@5.23.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@ant-design/x@1.0.4(patch_hash=p6mzpmrgei5a5rckpgxbizwzfq)(antd@5.23.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@ant-design/colors': 7.2.0
       '@ant-design/cssinjs': 1.22.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)

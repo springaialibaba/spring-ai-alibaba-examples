@@ -91,9 +91,21 @@
 			<version>6.6.9.Final</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.alibaba.cloud.ai</groupId>
+			<artifactId>spring-ai-alibaba-starter-function-calling-baidumap</artifactId>
+			<version>${spring-ai-alibaba.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba.cloud.ai</groupId>
+			<artifactId>spring-ai-alibaba-starter-function-calling-baidutranslate</artifactId>
+			<version>${spring-ai-alibaba.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
+		<finalName>app.jar</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
