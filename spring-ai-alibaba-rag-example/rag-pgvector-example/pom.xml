@@ -25,9 +25,8 @@
 		<version>${revision}</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<groupId>com.alibaba.cloud.ai</groupId>
 	<artifactId>rag-pgvector-example</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>${revision}</version>
 	<name>rag-pgvector-example</name>
 	<description>Demo project for Spring AI Alibaba</description>
 

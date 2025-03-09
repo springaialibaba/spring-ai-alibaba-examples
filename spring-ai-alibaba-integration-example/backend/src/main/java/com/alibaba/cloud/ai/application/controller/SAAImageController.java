@@ -57,24 +57,24 @@ public class SAAImageController {
 	@UserIp
 	@PostMapping("/image2text")
 	@Operation(summary = "DashScope Image Recognition")
-	public Flux<Result<String>> image2text(
+	public Flux<String> image2text(
 			@RequestParam(value = "prompt", required = false) String prompt,
 			@RequestParam("image") MultipartFile image
 	) {
 
 		if (image.isEmpty()) {
-			return Flux.just(Result.failed("No image file provided"));
+			return Flux.just("No image file provided");
 		}
 
 		if (!StringUtils.hasText(prompt)) {
 			prompt = "请你用一句话描述这张图片";
 		}
 
-		Flux<Result<String>> res;
+		Flux<String> res;
 		try {
-			 res = imageService.image2Text(prompt, image).map(Result::success);
+			 res = imageService.image2Text(prompt, image);
 		} catch (Exception e) {
-			return Flux.just(Result.failed(e.getMessage()));
+			return Flux.just(e.getMessage());
 		}
 
 		return res;

@@ -36,5 +36,6 @@ spring:
         boot:
           allow_jdbc_metadata_access: false
 
-  web-search:
-    api-key: ${WEB_SEARCH_API_KEY}
+  iqs:
+    search:
+      api-key: ${ALIYUN_IQS_KEY}

@@ -39,7 +39,7 @@ public class RestConfiguration {
 
 	private final Logger logger = LoggerFactory.getLogger(RestConfiguration.class);
 
-	private static final Duration READ_TIMEOUT = Duration.ofMinutes(2);
+	private static final Duration READ_TIMEOUT = Duration.ofMinutes(5);
 
 	@Bean
 	public RestClient.Builder restClient() {

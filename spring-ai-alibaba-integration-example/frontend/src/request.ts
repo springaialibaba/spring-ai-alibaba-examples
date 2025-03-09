@@ -28,12 +28,29 @@ export const getChat = async (
     image?: File;
     model?: string;
     chatId?: string;
+    deepThink?: boolean;
+    onlineSearch?: boolean;
   }
 ) => {
-  const { image, model, chatId } = params;
+  const { image, model, chatId, onlineSearch, deepThink } = params;
   let res: any;
-  if (image === undefined) {
-    res = (await fetch(BASE_URL + "/chat?prompt=" + message, {
+  if (image !== undefined) {
+    const formData = new FormData();
+    formData.append("prompt", message || "");
+    formData.append("image", image);
+    res = (await fetch(BASE_URL + "/image2text", {
+      method: "POST",
+      body: formData
+    })) as any;
+  } else if (onlineSearch) {
+    res = (await fetch(BASE_URL + "/search?query=" + message, {
+      method: "GET",
+      headers: {
+        chatId: chatId ? chatId : ""
+      }
+    })) as any;
+  } else if (deepThink) {
+    res = (await fetch(BASE_URL + "/deep-thinking/chat?prompt=" + message, {
       method: "GET",
       headers: {
         model: model ? model : "",
@@ -41,12 +58,12 @@ export const getChat = async (
       }
     })) as any;
   } else {
-    const formData = new FormData();
-    formData.append("prompt", message || "");
-    formData.append("image", image);
-    res = (await fetch(BASE_URL + "/image2text", {
-      method: "POST",
-      body: formData
+    res = (await fetch(BASE_URL + "/chat?prompt=" + message, {
+      method: "GET",
+      headers: {
+        model: model ? model : "",
+        chatId: chatId ? chatId : ""
+      }
     })) as any;
   }
 

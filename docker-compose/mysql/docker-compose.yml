@@ -1,0 +1,13 @@
+services:
+
+  mysql:
+    image: mysql:latest
+    container_name: spring-ai-alibaba-mysql
+    volumes:
+      - ./conf/my.cnf:/etc/my.cnf
+    environment:
+      - "MYSQL_ROOT_PASSWORD=yourpassword"
+      - "MYSQL_DATABASE=yourdbname"
+      - "TZ=Asia/Shanghai"
+    ports:
+      - 3306:3306

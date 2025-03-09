@@ -2,10 +2,12 @@ services:
 
   backend:
     container_name: spring-ai-alibaba-playground
-    image: spring-ai-alibaba-playground:57180df
+    image: spring-ai-alibaba-playground:567411f
     environment:
       - AI_DASHSCOPE_API_KEY=${AI_DASHSCOPE_API_KEY}
       - WEB_SEARCH_API_KEY=${WEB_SEARCH_API_KEY}
+      - ALIYUN_IQS_KEY=${ALIYUN_IQS_KEY}
+    # 服务测试暴露端口，部署时应该关闭，不对外暴露
     ports:
       - "8080:8080"
     networks:
@@ -18,7 +20,9 @@ services:
       - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
       - ./nginx/html:/usr/share/nginx/html
     ports:
-      - "3000:80"
+      - "9000:80"
+    depends_on:
+      - backend
     networks:
       - spring-ai-alibaba
 

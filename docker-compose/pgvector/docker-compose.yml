@@ -1,0 +1,18 @@
+services:
+
+  postgres:
+    build:
+      context: .
+      dockerfile: ./postgres16-age/DockerFile
+    container_name: spring-ai-alibaba-postgres
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "root" ]
+      timeout: 45s
+      interval: 10s
+      retries: 10
+    environment:
+      - POSTGRES_DB=vector_store
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "5432:5432"

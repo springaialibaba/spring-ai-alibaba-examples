@@ -52,7 +52,5 @@ RUN echo "shared_preload_libraries = 'age,vector'" >> /usr/share/postgresql/post
 
 # Start PostgreSQL
 
-
-
 #CMD ["/cmd_command.sh"]
 CMD ["postgres"]

@@ -17,9 +17,16 @@
 
 package com.alibaba.cloud.ai.application.service;
 
+import com.alibaba.cloud.ai.dashscope.api.DashScopeApi;
+import com.alibaba.cloud.ai.dashscope.api.DashScopeResponseFormat;
+import com.alibaba.cloud.ai.dashscope.chat.DashScopeChatModel;
+import com.alibaba.cloud.ai.dashscope.chat.DashScopeChatOptions;
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+
+import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY;
+import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_RETRIEVE_SIZE_KEY;
 
 /**
  * @author yuluo
@@ -29,15 +36,32 @@ import org.springframework.stereotype.Service;
 @Service
 public class SAAFunctionService {
 
-	private final ChatClient dashScopeChatClient;
+    private final ChatClient defaultChatClient;
 
-	public SAAFunctionService(ChatModel chatModel) {
+    public SAAFunctionService () {
 
-		this.dashScopeChatClient = ChatClient
-				.builder(chatModel)
-				.build();
-	}
+        this.defaultChatClient =
+                ChatClient.builder(new DashScopeChatModel(new DashScopeApi(System.getenv(
+                        "AI_DASH_SCOPE_API_KEY"))))
+                .build();
+    }
 
+    public Flux<String> chat (String chatId, String model, String chatPrompt) {
 
-
+        return defaultChatClient.prompt()
+                .options(DashScopeChatOptions.builder()
+                        .withModel(model)
+                        .withTemperature(0.8)
+                        .withResponseFormat(DashScopeResponseFormat.builder()
+                                .type(DashScopeResponseFormat.Type.TEXT)
+                                .build())
+                        .build())
+                .user(chatPrompt)
+                .advisors(memoryAdvisor -> memoryAdvisor.param(CHAT_MEMORY_CONVERSATION_ID_KEY,
+                                chatId)
+                        .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 100))
+                .functions("baiduTranslateFunction","baiDuMapGetAddressInformationFunction")
+                .stream()
+                .content();
+    }
 }

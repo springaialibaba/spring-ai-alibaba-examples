@@ -22,7 +22,6 @@ import java.util.Map;
 import java.util.Set;
 
 import com.alibaba.cloud.ai.application.annotation.UserIp;
-import com.alibaba.cloud.ai.application.entity.result.Result;
 import com.alibaba.cloud.ai.application.service.SAABaseService;
 import com.alibaba.cloud.ai.application.service.SAAChatService;
 import com.alibaba.cloud.ai.application.utils.ValidText;
@@ -67,10 +66,10 @@ public class SAAChatController {
 	@UserIp
 	@GetMapping("/chat")
 	@Operation(summary = "DashScope Flux Chat")
-	public Flux<Result<String>> chat(
+	public Flux<String> chat(
 			@RequestParam("prompt") String prompt,
 			HttpServletResponse response,
-			@RequestHeader(value = "models", required = false) String models,
+			@RequestHeader(value = "model", required = false) String model,
 			@RequestHeader(value = "chatId", required = false) String chatId
 	) {
 
@@ -79,7 +78,7 @@ public class SAAChatController {
 		if (!ValidText.isValidate(prompt)) {
 
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			return Flux.just(Result.failed("No chat prompt provided"));
+			return Flux.just("No chat prompt provided");
 		}
 
 		Set<Map<String, String>> dashScope = baseService.getDashScope();
@@ -88,13 +87,13 @@ public class SAAChatController {
 				.distinct()
 				.toList();
 
-		if (StringUtils.hasText(models)) {
-			if (!modelName.contains(models)) {
-				return Flux.just(Result.failed("Input models not support."));
+		if (StringUtils.hasText(model)) {
+			if (!modelName.contains(model)) {
+				return Flux.just("Input model not support.");
 			}
 		}
 		else {
-			models = "qwen-plus";
+			model = "qwen-plus";
 		}
 
 		response.setCharacterEncoding("UTF-8");
@@ -103,7 +102,26 @@ public class SAAChatController {
 			chatId = "spring-ai-alibaba-playground";
 		}
 
-		return chatService.chat(chatId, models, prompt).map(Result::success);
+		return chatService.chat(chatId, model, prompt);
+	}
+
+	@GetMapping("/deep-thinking/chat")
+	public Flux<String> deepThinkingChat(
+			@RequestParam("prompt") String prompt,
+			HttpServletResponse response,
+			@RequestHeader(value = "model", required = false) String model,
+			@RequestHeader(value = "chatId", required = false) String chatId
+	) {
+
+		// 接口限流在审计平台中配置
+
+		if (!ValidText.isValidate(prompt)) {
+
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			return Flux.just("No chat prompt provided");
+		}
+
+		return chatService.deepThinkingChat(chatId, model, prompt);
 	}
 
 }

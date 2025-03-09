@@ -35,6 +35,13 @@ spring:
       hibernate:
         boot:
           allow_jdbc_metadata_access: false
+  iqs:
+    search:
+      api-key: ${ALIYUN_IQS_KEY}
 
-  web-search:
-    api-key: ${WEB_SEARCH_API_KEY}
+# enabled debug log out.
+logging:
+  level:
+#    org.springframework.ai: debug
+#    com.alibaba.dashscope.api: debug
+    com.alibaba.cloud.ai.application.websearch: debug
