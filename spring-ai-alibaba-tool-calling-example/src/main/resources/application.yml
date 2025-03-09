@@ -1,7 +1,7 @@
 spring:
   ai:
     alibaba:
-      plugin:
+      toolcalling:
         translate:
           api-key:${Translate-key}
 

@@ -61,7 +61,7 @@
 		<module>spring-ai-alibaba-chat-example</module>
 		<module>spring-ai-alibaba-agent-example</module>
 		<module>spring-ai-alibaba-image-example</module>
-		<module>spring-ai-alibaba-function-calling-example</module>
+		<module>spring-ai-alibaba-tool-calling-example</module>
 		<module>spring-ai-alibaba-multi-model-example</module>
 		<module>spring-ai-alibaba-observability-example</module>
 		<module>spring-ai-alibaba-prompt-example</module>

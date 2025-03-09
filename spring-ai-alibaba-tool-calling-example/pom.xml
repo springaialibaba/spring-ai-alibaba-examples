@@ -29,7 +29,7 @@
     </parent>
 
     <version>${revision}</version>
-    <artifactId>spring-ai-alibaba-function-calling-example</artifactId>
+    <artifactId>spring-ai-alibaba-tool-calling-example</artifactId>
 
     <description>Spring AI Alibaba Function Calling Example</description>
     <name>Spring AI Alibaba Function Calling Examples</name>
@@ -39,7 +39,7 @@
         <junit-jupiter.version>5.10.0</junit-jupiter.version>
 
         <!-- Spring AI Alibaba -->
-        <spring-ai-alibaba.version>1.0.0-M3.3</spring-ai-alibaba.version>
+        <spring-ai-alibaba.version>1.0.0-M5.1</spring-ai-alibaba.version>
     </properties>
 
     <dependencies>
@@ -52,13 +52,13 @@
 
         <dependency>
             <groupId>com.alibaba.cloud.ai</groupId>
-            <artifactId>spring-ai-alibaba-starter-function-calling-microsofttranslate</artifactId>
+            <artifactId>spring-ai-alibaba-starter-tool-calling-alitranslate</artifactId>
             <version>${spring-ai-alibaba.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.alibaba.cloud.ai</groupId>
-            <artifactId>spring-ai-alibaba-starter-function-calling-weather</artifactId>
+            <artifactId>spring-ai-alibaba-starter-tool-calling-weather</artifactId>
             <version>${spring-ai-alibaba.version}</version>
         </dependency>
 

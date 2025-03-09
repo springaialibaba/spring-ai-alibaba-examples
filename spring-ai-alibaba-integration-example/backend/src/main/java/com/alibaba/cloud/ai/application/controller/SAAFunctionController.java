@@ -38,5 +38,4 @@ public class SAAFunctionController {
 	public SAAFunctionController(SAAFunctionService functionService) {
 		this.functionService = functionService;
 	}
-
 }
