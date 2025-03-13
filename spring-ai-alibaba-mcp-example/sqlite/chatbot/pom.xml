@@ -15,7 +15,7 @@
 	<description>Simple AI Application using MCP client to chat with SQLite</description>
 	<properties>
 		<java.version>17</java.version>
-		<spring.ai.alibaba>1.0.0-M5.1-SNAPSHOT</spring.ai.alibaba>
+		<spring.ai.alibaba>1.0.0-M5.1</spring.ai.alibaba>
 	</properties>
 
 	<dependencyManagement>
@@ -75,6 +75,11 @@
 			<releases>
 				<enabled>false</enabled>
 			</releases>
+		</repository>
+		<repository>
+			<id>aliyunmaven</id>
+			<name>aliyun</name>
+			<url>https://maven.aliyun.com/repository/public</url>
 		</repository>
 	</repositories>
 
