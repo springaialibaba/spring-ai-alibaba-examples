@@ -34,13 +34,13 @@ public class SearchEngine {
 		return headers -> {
 			headers.set("X-API-KEY", properties.getIqsKey());
 			headers.setContentType(MediaType.APPLICATION_JSON);
-			headers.set("user-agent", getUserAgent())
+			headers.set("user-agent", getUserAgent());
 		};
 	}
 
 	private String getUserAgent() {
 
-		return String.format();
+		return "";
 	}
 
 }
