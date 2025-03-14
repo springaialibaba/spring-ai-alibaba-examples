@@ -2,6 +2,7 @@ package com.alibaba.cloud.ai.example.chat.openai.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.ai.openai.OpenAiChatOptions;
+import org.springframework.beans.factory.annotation.Qualifier;
 import reactor.core.publisher.Flux;
 
 import org.springframework.ai.chat.client.ChatClient;
@@ -32,7 +33,7 @@ public class OpenAiClientController {
 
 	private final ChatModel chatModel;
 
-	public OpenAiClientController(ChatModel chatModel) {
+	public OpenAiClientController(@Qualifier("openAiChatModel") ChatModel chatModel) {
 
 		this.chatModel = chatModel;
 

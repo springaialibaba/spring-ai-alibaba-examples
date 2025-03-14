@@ -18,6 +18,7 @@
 package com.alibaba.cloud.ai.example.chat.deepseek.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Qualifier;
 import reactor.core.publisher.Flux;
 
 import org.springframework.ai.chat.model.ChatModel;
@@ -41,7 +42,7 @@ public class OllamaChatModelController {
 
     private final ChatModel ollamaChatModel;
 
-    public OllamaChatModelController(ChatModel chatModel) {
+    public OllamaChatModelController(@Qualifier("ollamaChatModel") ChatModel chatModel) {
         this.ollamaChatModel = chatModel;
     }
 
@@ -79,9 +80,9 @@ public class OllamaChatModelController {
     public String customChat() {
 
         OllamaOptions customOptions = OllamaOptions.builder()
-                .withTopP(0.7)
-                .withModel("llama3")
-                .withTemperature(0.8)
+                .topP(0.7)
+                .model("llama3")
+                .temperature(0.8)
                 .build();
 
         return ollamaChatModel.call(new Prompt(DEFAULT_PROMPT, customOptions)).getResult().getOutput().getContent();

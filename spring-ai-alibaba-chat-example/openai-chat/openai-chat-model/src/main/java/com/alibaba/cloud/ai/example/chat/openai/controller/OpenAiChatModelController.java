@@ -23,6 +23,7 @@ import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.ai.openai.api.ResponseFormat;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,7 +43,7 @@ public class OpenAiChatModelController {
 
     private final ChatModel openAiChatModel;
 
-    public OpenAiChatModelController(ChatModel chatModel) {
+    public OpenAiChatModelController(@Qualifier("openAiChatModel") ChatModel chatModel) {
         this.openAiChatModel = chatModel;
     }
 

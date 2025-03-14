@@ -7,6 +7,6 @@ spring:
 
   ai:
     ollama:
-      base-url: http://localhost:11434
+      base-url: http://140.143.170.96:11434     # 替换为自己的地址
       chat:
         model: deepseek-r1:1.5b

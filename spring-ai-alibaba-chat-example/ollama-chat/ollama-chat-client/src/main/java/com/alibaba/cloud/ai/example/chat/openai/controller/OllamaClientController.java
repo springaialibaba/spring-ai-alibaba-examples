@@ -18,6 +18,7 @@
 package com.alibaba.cloud.ai.example.chat.openai.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Qualifier;
 import reactor.core.publisher.Flux;
 
 import org.springframework.ai.chat.client.ChatClient;
@@ -45,7 +46,7 @@ public class OllamaClientController {
 
 	private final ChatModel ollamaiChatModel;
 
-	public OllamaClientController(ChatModel chatModel) {
+	public OllamaClientController(@Qualifier("ollamaChatModel") ChatModel chatModel) {
 
 		this.ollamaiChatModel = chatModel;
 
@@ -64,8 +65,8 @@ public class OllamaClientController {
 				// 设置 ChatClient 中 ChatModel 的 Options 参数
 				.defaultOptions(
 						OllamaOptions.builder()
-								.withTopP(0.7)
-								.withModel("llama3")
+								.topP(0.7)
+								.model("llama3")
 								.build()
 				)
 				.build();

@@ -2,6 +2,7 @@ package com.alibaba.cloud.ai.example.chat.zhipuai.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.ai.zhipuai.ZhiPuAiChatOptions;
+import org.springframework.beans.factory.annotation.Qualifier;
 import reactor.core.publisher.Flux;
 
 import org.springframework.ai.chat.client.ChatClient;
@@ -29,7 +30,7 @@ public class ZhiPuAiClientController {
 
 	private final ChatModel chatModel;
 
-	public ZhiPuAiClientController(ChatModel chatModel) {
+	public ZhiPuAiClientController( @Qualifier("zhiPuAiChatModel") ChatModel chatModel) {
 
 		this.chatModel = chatModel;
 

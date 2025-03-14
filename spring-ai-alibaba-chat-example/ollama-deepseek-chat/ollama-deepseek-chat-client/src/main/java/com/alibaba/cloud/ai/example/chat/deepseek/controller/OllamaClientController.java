@@ -18,6 +18,7 @@
 package com.alibaba.cloud.ai.example.chat.deepseek.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Qualifier;
 import reactor.core.publisher.Flux;
 
 import org.springframework.ai.chat.client.ChatClient;
@@ -44,9 +45,9 @@ public class OllamaClientController {
 	private final ChatClient ollamaiChatClient;
 
 
-	public OllamaClientController(ChatModel chatModel) {
+	public OllamaClientController(@Qualifier("ollamaChatModel") ChatModel chatModel) {
 		// 构造时，可以设置 ChatClient 的参数
-		// {@link org.springframework.ai.chat.client.ChatClient};
+//		 {@link org.springframework.ai.chat.client.ChatClient};
 		this.ollamaiChatClient = ChatClient.builder(chatModel)
 				// 实现 Chat Memory 的 Advisor
 				// 在使用 Chat Memory 时，需要指定对话 ID，以便 Spring AI 处理上下文。
@@ -60,7 +61,7 @@ public class OllamaClientController {
 				// 设置 ChatClient 中 ChatModel 的 Options 参数
 				.defaultOptions(
 						OllamaOptions.builder()
-								.withTopP(0.7)
+								.topP(0.7)
 								.build()
 				)
 				.build();
@@ -71,7 +72,8 @@ public class OllamaClientController {
 	 */
 	@GetMapping("/simple/chat")
 	public String simpleChat() {
-		return ollamaiChatClient.prompt(DEFAULT_PROMPT).call().content();
+
+		return ollamaiChatClient.prompt(DEFAULT_PROMPT).messages().call().content();
 	}
 
 	/**

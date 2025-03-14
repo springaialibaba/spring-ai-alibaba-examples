@@ -18,6 +18,7 @@
 package com.alibaba.cloud.ai.example.chat.ollama.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Qualifier;
 import reactor.core.publisher.Flux;
 
 import org.springframework.ai.chat.model.ChatModel;
@@ -41,7 +42,7 @@ public class OllamaChatModelController {
 
     private final ChatModel ollamaChatModel;
 
-    public OllamaChatModelController(ChatModel chatModel) {
+    public OllamaChatModelController(@Qualifier("ollamaChatModel") ChatModel chatModel) {
         this.ollamaChatModel = chatModel;
     }
 

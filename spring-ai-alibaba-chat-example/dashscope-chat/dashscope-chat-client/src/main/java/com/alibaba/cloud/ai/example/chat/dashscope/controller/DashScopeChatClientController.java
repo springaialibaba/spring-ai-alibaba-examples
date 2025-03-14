@@ -19,6 +19,7 @@ package com.alibaba.cloud.ai.example.chat.dashscope.controller;
 
 import com.alibaba.cloud.ai.dashscope.chat.DashScopeChatOptions;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Qualifier;
 import reactor.core.publisher.Flux;
 
 import org.springframework.ai.chat.client.ChatClient;
@@ -49,7 +50,7 @@ public class DashScopeChatClientController {
 
 	private final ChatModel chatModel;
 
-	public DashScopeChatClientController(ChatModel chatModel) {
+	public DashScopeChatClientController(@Qualifier("dashscopeChatModel") ChatModel chatModel) {
 
 		this.chatModel = chatModel;
 
