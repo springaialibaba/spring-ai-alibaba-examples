@@ -9,7 +9,7 @@ import {
   useXAgent,
   useXChat
 } from "@ant-design/x";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   CloudUploadOutlined,
   CommentOutlined,
@@ -182,10 +182,10 @@ const roles: GetProp<typeof Bubble.List, "roles"> = {
 };
 
 const Independent: React.FC = () => {
-  // ==================== Style ====================
+  // 页面样式
   const { styles } = useStyle();
 
-  // ==================== State ====================
+  // 上传文件 header 是否开启
   const [headerOpen, setHeaderOpen] = React.useState(false);
 
   const [content, setContent] = React.useState("");
@@ -199,6 +199,12 @@ const Independent: React.FC = () => {
   const [activeKey, setActiveKey] = React.useState(
     defaultConversationsItems[0].key
   );
+
+  // 需要将会话的 key 包裹一层，防止闭包的时候拿不到
+  const activeKeyRef = useRef(activeKey);
+  useEffect(() => {
+    activeKeyRef.current = activeKey;
+  }, [activeKey]);
 
   // 上传的文件列表
   const [attachedFiles, setAttachedFiles] = React.useState<
@@ -220,10 +226,14 @@ const Independent: React.FC = () => {
       onUpdate(JSON.stringify({ role: "ai", value: "" }));
 
       const res = await getChat(
-          encodeURIComponent(JSON.parse(message || "{}")?.value || ""),
+        encodeURIComponent(JSON.parse(message || "{}")?.value || ""),
         (value) => {
           buffer = buffer + decoder.decode(value);
-          onUpdate(JSON.stringify({ role: "ai", value: buffer }));
+
+          // 判断是否用户在模型返回前就切换会话
+          if (activeKey === activeKeyRef.current) {
+            onUpdate(JSON.stringify({ role: "ai", value: buffer }));
+          }
         },
         {
           image: attachedFiles?.[0]?.originFileObj,
@@ -242,9 +252,20 @@ const Independent: React.FC = () => {
           "Request failed." + (res?.statusText ? " " + res?.statusText : "");
       }
 
-      onSuccess(JSON.stringify({ role: "ai", value }));
-    },
-    customParams: [attachedFiles, communicateType, activeKey]
+      if (activeKey === activeKeyRef.current) {
+        onSuccess(JSON.stringify({ role: "ai", value }));
+      } else {
+        const messages = conversationsMap[activeKey].messages;
+        conversationsMap[activeKey].messages = getMessageHistory([
+          ...messages.slice(0, messages.length - 1),
+          {
+            id: messages.length - 1,
+            message: JSON.stringify({ role: "ai", value }),
+            status: "success"
+          }
+        ]);
+      }
+    }
   });
 
   // 获取模型列表
@@ -311,7 +332,7 @@ const Independent: React.FC = () => {
   };
 
   // 将模型返回的消息的 role 转换成历史记录，避免切换会话触发渲染动效
-  const getMessageHistory = () => {
+  const getMessageHistory = (messages: any[]) => {
     return messages.map((item) => {
       const value = JSON.parse(item.message);
       if (value.role === "ai") {
@@ -344,7 +365,7 @@ const Independent: React.FC = () => {
     conversationFlag = conversationFlag + 1;
     conversationsMap[activeKey] = {
       model,
-      messages: getMessageHistory(),
+      messages: getMessageHistory(messages),
       params: {
         onlinSearch: communicateType === "onlineSearch",
         deepThink: communicateType === "deepThink"
@@ -364,7 +385,7 @@ const Independent: React.FC = () => {
   ) => {
     conversationsMap[activeKey] = {
       model,
-      messages: getMessageHistory(),
+      messages: getMessageHistory(messages),
       params: {
         onlinSearch: communicateType === "onlineSearch",
         deepThink: communicateType === "deepThink"
