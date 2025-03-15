@@ -23,21 +23,22 @@
 
 	<parent>
 		<groupId>com.alibaba.cloud.ai</groupId>
-		<artifactId>spring-ai-alibaba-examples</artifactId>
+		<artifactId>spring-ai-alibaba-mcp-example</artifactId>
 		<version>${revision}</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<version>${revision}</version>
-	<artifactId>spring-ai-alibaba-mcp-example</artifactId>
+	<artifactId>spring-ai-alibaba-manul-mcp-example</artifactId>
 	<packaging>pom</packaging>
 
 	<description>Spring AI Alibaba MCP Example</description>
 	<name>Spring AI Alibaba MCP Examples</name>
 
 	<modules>
-		<module>manul-example</module>
-		<module>starter-example</module>
+		<module>filesystem</module>
+		<module>sqlite/chatbot</module>
+		<module>sqlite/simple</module>
 	</modules>
 
 	<build>

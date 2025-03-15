@@ -1,0 +1,15 @@
+{
+    "mcpServers": {
+        "weather": {
+            "command": "java",
+            "args": [
+                "-Dspring.ai.mcp.server.stdio=true",
+                "-Dspring.main.web-application-type=none",
+                "-Dlogging.pattern.console=",
+                "-jar",
+                "/Volumes/资料/codes/github/brianxiadong/spring-ai-alibaba-examples/spring-ai-alibaba-mcp-example/starter-example/server/starter-stdio-server/target/mcp-stdio-server-exmaple-0.0.1-SNAPSHOT.jar"
+            ],
+            "env": {}
+        }
+    }
+}
