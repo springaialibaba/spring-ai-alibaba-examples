@@ -2,6 +2,7 @@ package com.alibaba.cloud.ai.example.chat.openai.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.ai.openai.OpenAiChatOptions;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
 import org.springframework.ai.chat.client.ChatClient;
@@ -9,10 +10,6 @@ import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.chat.memory.InMemoryChatMemory;
 import org.springframework.ai.chat.model.ChatModel;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY;
 import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_RETRIEVE_SIZE_KEY;
@@ -76,10 +73,9 @@ public class OpenAiClientController {
 	 * ChatClient 流式调用
 	 */
 	@GetMapping("/stream/chat")
-	public Flux<String> streamChat(HttpServletResponse response) {
-
+	public Flux<String> streamChat(HttpServletResponse response,@RequestParam (value = "content", defaultValue = "你好，很高兴认识你，能简单介绍一下自己吗？") String content) {
 		response.setCharacterEncoding("UTF-8");
-		return openAiChatClient.prompt(DEFAULT_PROMPT).stream().content();
+		return openAiChatClient.prompt(content).stream().content();
 	}
 
 }

@@ -18,6 +18,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
 import org.springframework.web.client.RestClient;
 
+import java.util.Objects;
+
 @SpringBootApplication
 public class Application  {
 
@@ -37,7 +39,7 @@ public class Application  {
 			// Ingest the document into the vector store
 			vectorStore.write(new TokenTextSplitter().transform(new TextReader(termsOfServiceDocs).read()));
 
-			vectorStore.similaritySearch("Cancelling Bookings").forEach(doc -> {
+			Objects.requireNonNull(vectorStore.similaritySearch("Cancelling Bookings")).forEach(doc -> {
 				logger.info("Similar Document: {}", doc.getContent());
 			});
 		};
