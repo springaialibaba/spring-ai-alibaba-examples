@@ -58,7 +58,7 @@ public class DeepSeekChatModelController {
     public Flux<String> streamChat (HttpServletResponse response) {
         response.setCharacterEncoding("UTF-8");
         Flux<ChatResponse> stream = DeepSeekChatModel.stream(new Prompt(DEFAULT_PROMPT));
-        return stream.map(resp -> resp.getResult().getOutput().getContent());
+        return stream.map(resp -> resp.getResult().getOutput().getText());
     }
 
 

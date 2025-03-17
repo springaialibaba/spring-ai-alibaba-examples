@@ -64,8 +64,8 @@ public class OllamaClientController {
 				// 设置 ChatClient 中 ChatModel 的 Options 参数
 				.defaultOptions(
 						OllamaOptions.builder()
-								.withTopP(0.7)
-								.withModel("llama3")
+								.topP(0.7)
+								.model("llama3")
 								.build()
 				)
 				.build();

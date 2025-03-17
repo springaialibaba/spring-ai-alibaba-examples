@@ -18,6 +18,8 @@
 package com.alibaba.cloud.ai.example.chat.zhipuai.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
+import reactor.core.publisher.Flux;
+
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
@@ -25,7 +27,6 @@ import org.springframework.ai.zhipuai.ZhiPuAiChatOptions;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Flux;
 
 /**
  * @author YunLong
@@ -54,7 +55,7 @@ public class ZhiPuAiChatModelController {
     @GetMapping("/simple/chat")
     public String simpleChat() {
 
-        return zhipuAiChatModel.call(new Prompt(DEFAULT_PROMPT)).getResult().getOutput().getContent();
+        return zhipuAiChatModel.call(new Prompt(DEFAULT_PROMPT)).getResult().getOutput().getText();
     }
 
     /**
@@ -69,7 +70,7 @@ public class ZhiPuAiChatModelController {
         response.setCharacterEncoding("UTF-8");
 
         Flux<ChatResponse> chatResponseFlux = zhipuAiChatModel.stream(new Prompt(DEFAULT_PROMPT));
-        return chatResponseFlux.map(resp -> resp.getResult().getOutput().getContent());
+        return chatResponseFlux.map(resp -> resp.getResult().getOutput().getText());
     }
 
     /**
@@ -86,7 +87,7 @@ public class ZhiPuAiChatModelController {
                 .temperature(0.8)
                 .build();
 
-        return zhipuAiChatModel.call(new Prompt(DEFAULT_PROMPT, customOptions)).getResult().getOutput().getContent();
+        return zhipuAiChatModel.call(new Prompt(DEFAULT_PROMPT, customOptions)).getResult().getOutput().getText();
     }
 
 }

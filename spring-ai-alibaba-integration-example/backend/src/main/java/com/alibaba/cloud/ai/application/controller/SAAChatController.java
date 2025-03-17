@@ -25,6 +25,7 @@ import com.alibaba.cloud.ai.application.annotation.UserIp;
 import com.alibaba.cloud.ai.application.service.SAABaseService;
 import com.alibaba.cloud.ai.application.service.SAAChatService;
 import com.alibaba.cloud.ai.application.utils.ValidText;
+import com.alibaba.cloud.ai.dashscope.api.DashScopeApi;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
@@ -57,11 +58,12 @@ public class SAAChatController {
 	}
 
 	/**
-	 * 发送指定参数获得模型响应。
-	 * 1. 发送 prompt 为空时，返回错误信息。
-	 * 2. 发送模型时，允许为空，当参数有值且在模型配置列表中，调用对应模型。如不存在返回错误。
-	 * 	  模型参数为空时，设置默认模型。qwen-plus
-	 * 3. chatId 聊天记忆，由前端传递，为 Object 类型，不能重复
+	 * Send the specified parameters to get the model response.
+	 * 1. When the send prompt is empty, an error message is returned.
+	 * 2. When sending a model, it is allowed to be empty, and when the parameter has a value and
+	 * 	  is in the model configuration list, the corresponding model is called. If there is no return error.
+	 * 	  If the model parameter is empty, set the default model. qwen-plus
+	 * 3. The chatId chat memory, passed by the front-end, is of type Object and cannot be repeated
 	 */
 	@UserIp
 	@GetMapping("/chat")
@@ -73,7 +75,7 @@ public class SAAChatController {
 			@RequestHeader(value = "chatId", required = false) String chatId
 	) {
 
-		// 接口限流在审计平台中配置
+		// Interface throttling is configured in the audit platform
 
 		if (!ValidText.isValidate(prompt)) {
 
@@ -93,7 +95,7 @@ public class SAAChatController {
 			}
 		}
 		else {
-			model = "qwen-plus";
+			model = DashScopeApi.ChatModel.QWEN_PLUS.getModel();
 		}
 
 		response.setCharacterEncoding("UTF-8");
@@ -112,8 +114,6 @@ public class SAAChatController {
 			@RequestHeader(value = "model", required = false) String model,
 			@RequestHeader(value = "chatId", required = false) String chatId
 	) {
-
-		// 接口限流在审计平台中配置
 
 		if (!ValidText.isValidate(prompt)) {
 

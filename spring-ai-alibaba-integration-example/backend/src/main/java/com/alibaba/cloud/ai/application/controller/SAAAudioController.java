@@ -49,8 +49,7 @@ public class SAAAudioController {
 	}
 
 	/**
-	 * audio2text
-	 * 用于将音频转换为文本输出
+	 * used to convert audio to text output
 	 */
 	@UserIp
 	@PostMapping("/audio2text")
@@ -74,8 +73,7 @@ public class SAAAudioController {
 	}
 
 	/**
-	 * text2audio
-	 * 用于将文本转换为语音输出
+	 * used to convert text into speech output
 	 */
 	@UserIp
 	@GetMapping("/text2audio")
@@ -90,12 +88,12 @@ public class SAAAudioController {
 
 		byte[] audioData = audioService.text2audio(prompt);
 
-		// 测试验证音频数据是否为空
-//		try (FileOutputStream fos = new FileOutputStream("tmp/audio/test-audio.wav")) {
-//			fos.write(audioData);
-//		} catch (IOException e) {
-//			return Result.failed("Test save audio file: " + e.getMessage());
-//		}
+		// test to verify that the audio data is empty
+		// try (FileOutputStream fos = new FileOutputStream("tmp/audio/test-audio.wav")) {
+		// 	fos.write(audioData);
+		// } catch (IOException e) {
+		// 	return Result.failed("Test save audio file: " + e.getMessage());
+		// }
 
 		return Result.success(audioData);
 	}

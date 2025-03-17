@@ -19,7 +19,8 @@ import org.springframework.util.MimeType;
 /**
  * @author yuluo
  * @author <a href="mailto:yuluo08290126@gmail.com">yuluo</a>
- * 数据清洗：过滤无用数据，将数据转换为 Spring AI 的 Document 对象
+ *
+ * Data Cleansing: Filters out useless data and converts it into Spring AI's Document objects
  */
 
 @Component

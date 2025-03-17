@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-   Copyright 2023-2024 the original author or authors.
+   Copyright 2024-2026 the original author or authors.
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -41,10 +41,10 @@
 		<maven.compiler.target>17</maven.compiler.target>
 
 		<!-- Spring AI -->
-		<spring-ai.version>1.0.0-M5</spring-ai.version>
+		<spring-ai.version>1.0.0-M6</spring-ai.version>
 
 		<!-- Spring AI Alibaba -->
-		<spring-ai-alibaba.version>1.0.0-M5.1</spring-ai-alibaba.version>
+		<spring-ai-alibaba.version>1.0.0-M6.1</spring-ai-alibaba.version>
 
 		<!-- Spring Boot -->
 		<spring-boot.version>3.4.0</spring-boot.version>
@@ -74,6 +74,7 @@
 		<module>spring-ai-alibaba-text-summarizer-example</module>
 		<module>spring-ai-alibaba-sql-example</module>
 		<module>spring-ai-alibaba-text-classification-example</module>
+		<module>spring-ai-alibaba-chat-memory-example</module>
 	</modules>
 
 	<dependencyManagement>

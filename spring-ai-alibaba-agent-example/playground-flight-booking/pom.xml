@@ -43,11 +43,11 @@
 			<artifactId>spring-ai-alibaba-starter</artifactId>
 		</dependency>
 
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
@@ -74,10 +74,23 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<jvmArguments>-Xdebug
-						-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5247</jvmArguments>
+						-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5247
+					</jvmArguments>
 					<wait>500</wait>
 					<maxAttempts>240</maxAttempts>
+					<executable>true</executable>
+					<layout>JAR</layout>
 				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+						<configuration>
+							<attach>false</attach>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -99,10 +112,7 @@
 		</plugins>
 	</build>
 
-
-
 	<repositories>
-
 		<repository>
 			<id>spring-milestones</id>
 			<name>Spring Milestones</name>
@@ -113,16 +123,11 @@
 		</repository>
 	</repositories>
 
-	<pluginRepositories>
-
-	</pluginRepositories>
-
 	<profiles>
 		<profile>
 			<id>build-frontend</id>
 			<build>
 				<plugins>
-
 					<plugin>
 						<artifactId>maven-clean-plugin</artifactId>
 						<version>3.2.0</version>
@@ -206,4 +211,5 @@
 			</build>
 		</profile>
 	</profiles>
+
 </project>

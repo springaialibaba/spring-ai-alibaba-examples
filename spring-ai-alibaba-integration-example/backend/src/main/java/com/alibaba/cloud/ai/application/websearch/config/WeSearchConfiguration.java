@@ -45,7 +45,7 @@ public class WeSearchConfiguration {
 		return RewriteQueryTransformer.builder()
 				.chatClientBuilder(chatClient.mutate())
 				.promptTemplate(transformerPromptTemplate)
-				.targetSearchSystem("联网搜索")
+				.targetSearchSystem("Web Search")
 				.build();
 	}
 

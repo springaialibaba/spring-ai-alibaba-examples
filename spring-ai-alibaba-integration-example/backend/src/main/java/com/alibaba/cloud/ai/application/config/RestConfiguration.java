@@ -31,7 +31,7 @@ import org.springframework.web.client.RestClient;
 /**
  * @author yuluo
  * @author <a href="mailto:yuluo08290126@gmail.com">yuluo</a>
- * 解决请求超时问题。
+ * resolve the request timeout issue
  */
 
 @AutoConfiguration

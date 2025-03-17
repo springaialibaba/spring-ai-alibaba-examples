@@ -60,7 +60,7 @@ public class SAAAudioService {
 	}
 
 	/**
-	 * 将文本转为语音
+	 * Convert text to speech
 	 */
 	public byte[] text2audio(String text) {
 
@@ -98,7 +98,7 @@ public class SAAAudioService {
 	}
 
 	/**
-	 * 将语音转为文本
+	 * Convert speech to text
 	 */
 	public Flux<String> audio2text(MultipartFile file) throws IOException {
 

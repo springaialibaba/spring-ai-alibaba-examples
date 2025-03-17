@@ -9,7 +9,7 @@ import {
   useXAgent,
   useXChat
 } from "@ant-design/x";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   CloudUploadOutlined,
   CommentOutlined,
@@ -24,7 +24,11 @@ import {
   GithubOutlined,
   RobotFilled,
   UserOutlined,
-  ExclamationCircleFilled
+  ExclamationCircleFilled,
+  FormOutlined,
+  DingdingOutlined,
+  SyncOutlined,
+  CopyOutlined
 } from "@ant-design/icons";
 import {
   message,
@@ -38,6 +42,8 @@ import {
   Select,
   Modal,
   Radio,
+  Layout,
+  theme,
   type GetProp
 } from "antd";
 import ReactMarkdown from "react-markdown";
@@ -60,6 +66,21 @@ const conversationsMap: Record<
     model: string;
     messages: any[];
     params: { onlinSearch: boolean; deepThink: boolean };
+  }
+> = {};
+
+// 标记当前请求是否是重试
+let isRetry = false;
+
+// 记录每个会话的最后一次请求参数，用于重试
+let lastRequestParamsMap: Record<
+  string,
+  {
+    image: File | undefined;
+    chatId: string;
+    model: string;
+    deepThink: boolean;
+    onlineSearch: boolean;
   }
 > = {};
 
@@ -181,10 +202,12 @@ const roles: GetProp<typeof Bubble.List, "roles"> = {
 };
 
 const Independent: React.FC = () => {
-  // ==================== Style ====================
+  const { token } = theme.useToken();
+
+  // 页面样式
   const { styles } = useStyle();
 
-  // ==================== State ====================
+  // 上传文件 header 是否开启
   const [headerOpen, setHeaderOpen] = React.useState(false);
 
   const [content, setContent] = React.useState("");
@@ -198,6 +221,12 @@ const Independent: React.FC = () => {
   const [activeKey, setActiveKey] = React.useState(
     defaultConversationsItems[0].key
   );
+
+  // 需要将会话的 key 包裹一层，防止闭包的时候拿不到
+  const activeKeyRef = useRef(activeKey);
+  useEffect(() => {
+    activeKeyRef.current = activeKey;
+  }, [activeKey]);
 
   // 上传的文件列表
   const [attachedFiles, setAttachedFiles] = React.useState<
@@ -218,32 +247,53 @@ const Independent: React.FC = () => {
       let buffer = "";
       onUpdate(JSON.stringify({ role: "ai", value: "" }));
 
+      const requestParams = isRetry
+        ? lastRequestParamsMap[activeKey]
+        : {
+            image: attachedFiles?.[0]?.originFileObj,
+            chatId: activeKey,
+            model,
+            deepThink: communicateType === "deepThink",
+            onlineSearch: communicateType === "onlineSearch"
+          };
+      isRetry = false;
+
       const res = await getChat(
-        JSON.parse(message || "{}")?.value || "",
+        encodeURIComponent(JSON.parse(message || "{}")?.value || ""),
         (value) => {
           buffer = buffer + decoder.decode(value);
-          onUpdate(JSON.stringify({ role: "ai", value: buffer }));
+
+          // 判断是否用户在模型返回前就切换会话
+          if (activeKey === activeKeyRef.current) {
+            onUpdate(JSON.stringify({ role: "ai", value: buffer }));
+          }
         },
-        {
-          image: attachedFiles?.[0]?.originFileObj,
-          chatId: activeKey,
-          model,
-          deepThink: communicateType === "deepThink",
-          onlineSearch: communicateType === "onlineSearch"
-        }
+        requestParams
       );
 
       let value: string;
       if (res?.status === 200) {
         value = buffer;
+        lastRequestParamsMap[activeKey] = requestParams;
       } else {
         value =
           "Request failed." + (res?.statusText ? " " + res?.statusText : "");
       }
 
-      onSuccess(JSON.stringify({ role: "ai", value }));
-    },
-    customParams: [attachedFiles, communicateType, activeKey]
+      if (activeKey === activeKeyRef.current) {
+        onSuccess(JSON.stringify({ role: "ai", value }));
+      } else {
+        const messages = conversationsMap[activeKey].messages;
+        conversationsMap[activeKey].messages = getMessageHistory([
+          ...messages.slice(0, messages.length - 1),
+          {
+            id: messages.length - 1,
+            message: JSON.stringify({ role: "ai", value }),
+            status: "success"
+          }
+        ]);
+      }
+    }
   });
 
   // 获取模型列表
@@ -310,7 +360,7 @@ const Independent: React.FC = () => {
   };
 
   // 将模型返回的消息的 role 转换成历史记录，避免切换会话触发渲染动效
-  const getMessageHistory = () => {
+  const getMessageHistory = (messages: any[]) => {
     return messages.map((item) => {
       const value = JSON.parse(item.message);
       if (value.role === "ai") {
@@ -343,7 +393,7 @@ const Independent: React.FC = () => {
     conversationFlag = conversationFlag + 1;
     conversationsMap[activeKey] = {
       model,
-      messages: getMessageHistory(),
+      messages: getMessageHistory(messages),
       params: {
         onlinSearch: communicateType === "onlineSearch",
         deepThink: communicateType === "deepThink"
@@ -363,7 +413,7 @@ const Independent: React.FC = () => {
   ) => {
     conversationsMap[activeKey] = {
       model,
-      messages: getMessageHistory(),
+      messages: getMessageHistory(messages),
       params: {
         onlinSearch: communicateType === "onlineSearch",
         deepThink: communicateType === "deepThink"
@@ -463,7 +513,7 @@ const Independent: React.FC = () => {
     }
   });
 
-  // ==================== Nodes ====================
+  // 默认会话界面
   const placeholderNode = (
     <Space direction="vertical" size={16} className={styles.placeholder}>
       <Welcome
@@ -488,13 +538,42 @@ const Independent: React.FC = () => {
     </Space>
   );
 
+  // 消息下的功能区域
+  const createMessageFooter = (value: string, isLast: boolean) => (
+    <Space size={token.paddingXXS}>
+      {isLast && (
+        <Button
+          color="default"
+          variant="text"
+          size="small"
+          onClick={() => {
+            isRetry = true;
+            const request = messages[messages.length - 2]?.message;
+            setMessages(messages.slice(0, messages.length - 2));
+            onRequest(request);
+          }}
+          icon={<SyncOutlined />}
+        />
+      )}
+      <Button
+        color="default"
+        variant="text"
+        size="small"
+        onClick={() => {
+          navigator.clipboard.writeText(value);
+        }}
+        icon={<CopyOutlined />}
+      />
+    </Space>
+  );
+
   // messages 转 items
   useEffect(() => {
     setItems(
-      messages.map(({ id, message }) => {
+      messages.map(({ id, message }, index) => {
         const item = JSON.parse(message || "{}");
+        const value = item?.value;
         if (item?.role === "file") {
-          const value = item?.value;
           return {
             key: id,
             role: item?.role,
@@ -502,12 +581,15 @@ const Independent: React.FC = () => {
             content: value?.base64
           };
         } else {
-          const value = item?.value;
           return {
             key: id,
             role: item?.role,
             loading: !value,
-            content: value
+            content: value,
+            footer:
+              item?.role === "ai" || item?.role === "aiHistory"
+                ? createMessageFooter(value, index === messages.length - 1)
+                : undefined
           };
         }
       })
@@ -569,7 +651,7 @@ const Independent: React.FC = () => {
   // ==================== Render =================
   return (
     <>
-      <Space className={styles.linkWrapper}>
+      <Space className={styles.topLinkWrapper}>
         <Tooltip title={"spring-ai-alibaba-examples link"}>
           <a
             href="https://github.com/springaialibaba/spring-ai-alibaba-examples"
@@ -588,13 +670,29 @@ const Independent: React.FC = () => {
             <Button icon={<GithubOutlined />} />
           </a>
         </Tooltip>
-        <Tooltip title={"spring-ai-alibabad-docs link "}>
+        <Tooltip title={"spring-ai-alibabad-docs link"}>
           <a
             href="https://sca.aliyun.com/en/ai/"
             target="_blank"
             rel="noopener noreferrer"
           >
             <Button icon={<LinkOutlined />} />
+          </a>
+        </Tooltip>
+      </Space>
+      <Space className={styles.bottomLinkWrapper}>
+        <Tooltip title={"Question Feedback"}>
+          <a
+            href="https://github.com/springaialibaba/spring-ai-alibaba-examples/issues"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button icon={<FormOutlined />} />
+          </a>
+        </Tooltip>
+        <Tooltip title={"Contact Us"}>
+          <a target="_blank" rel="noopener noreferrer">
+            <Button icon={<DingdingOutlined />} />
           </a>
         </Tooltip>
       </Space>
@@ -688,6 +786,16 @@ const Independent: React.FC = () => {
           </Radio.Group>
         </div>
       </div>
+      <Layout.Footer
+        style={{
+          textAlign: "center",
+          padding: "10px 50px",
+          color: "rgba(0, 0, 0, 0.5)",
+          backgroundColor: "rgba(0, 0, 0, 0.03)"
+        }}
+      >
+        Copyright 2024-2026 By srping-ai-alibaba-community
+      </Layout.Footer>
     </>
   );
 };

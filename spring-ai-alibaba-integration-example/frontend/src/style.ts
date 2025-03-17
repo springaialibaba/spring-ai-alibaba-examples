@@ -2,15 +2,20 @@ import { createStyles } from "antd-style";
 
 export const useStyle = createStyles(({ token, css }) => {
   return {
-    linkWrapper: css`
+    topLinkWrapper: css`
       position: absolute;
       right: 30px;
       top: 10px;
     `,
+    bottomLinkWrapper: css`
+      position: absolute;
+      left: 20px;
+      bottom: 20px;
+    `,
     layout: css`
       width: 100%;
       min-width: 1000px;
-      height: calc(100vh - 16px);
+      height: calc(100vh - 56px);
       border-radius: ${token.borderRadius}px;
       display: flex;
       background: ${token.colorBgContainer};

@@ -59,7 +59,7 @@ public class SAABaseController {
 	@GetMapping("/health")
 	public Result<String> health() {
 
-		return Result.success("Spring AI Aliabba Playground is running......");
+		return Result.success("Spring AI Alibaba Playground is running......");
 	}
 
 }

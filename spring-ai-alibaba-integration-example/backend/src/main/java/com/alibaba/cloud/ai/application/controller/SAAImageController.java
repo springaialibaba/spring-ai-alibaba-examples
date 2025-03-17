@@ -52,7 +52,7 @@ public class SAAImageController {
 
 	/**
 	 * Image Recognition
-	 * prompt 可以为空
+	 * prompt can be empty
 	 */
 	@UserIp
 	@PostMapping("/image2text")
@@ -67,7 +67,7 @@ public class SAAImageController {
 		}
 
 		if (!StringUtils.hasText(prompt)) {
-			prompt = "请你用一句话描述这张图片";
+			prompt = "Describe this image in one sentence";
 		}
 
 		Flux<String> res;

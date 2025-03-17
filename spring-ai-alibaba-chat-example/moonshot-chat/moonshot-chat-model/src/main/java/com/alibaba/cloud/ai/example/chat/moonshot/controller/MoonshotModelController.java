@@ -18,6 +18,9 @@
 package com.alibaba.cloud.ai.example.chat.moonshot.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
@@ -25,10 +28,6 @@ import org.springframework.ai.moonshot.MoonshotChatOptions;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
-
-import java.util.Objects;
 
 /**
  * @author kuilz
@@ -50,7 +49,7 @@ public class MoonshotModelController {
      */
     @GetMapping("/simple/chat")
     public String simpleChat() {
-        return moonshotChatModel.call(new Prompt(DEFAULT_PROMPT)).getResult().getOutput().getContent();
+        return moonshotChatModel.call(new Prompt(DEFAULT_PROMPT)).getResult().getOutput().getText();
     }
 
     /**
@@ -65,7 +64,7 @@ public class MoonshotModelController {
                 .flatMap(resp -> {
                     String content = null;
                     if (resp.getResult() != null && resp.getResult().getOutput() != null) {
-                        content = resp.getResult().getOutput().getContent();
+                        content = resp.getResult().getOutput().getText();
                     }
                     return content != null ? Mono.just(content) : Mono.empty();  // 如果 content 为 null，返回 empty
                 });
@@ -83,6 +82,6 @@ public class MoonshotModelController {
                 .temperature(0.8)
                 .build();
 
-        return moonshotChatModel.call(new Prompt(DEFAULT_PROMPT, moonshotChatOptions)).getResult().getOutput().getContent();
+        return moonshotChatModel.call(new Prompt(DEFAULT_PROMPT, moonshotChatOptions)).getResult().getOutput().getText();
     }
 }

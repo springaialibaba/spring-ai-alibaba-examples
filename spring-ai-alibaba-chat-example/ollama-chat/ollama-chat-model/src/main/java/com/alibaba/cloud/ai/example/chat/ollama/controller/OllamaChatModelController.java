@@ -53,7 +53,7 @@ public class OllamaChatModelController {
     @GetMapping("/simple/chat")
     public String simpleChat() {
 
-        return ollamaChatModel.call(new Prompt(DEFAULT_PROMPT)).getResult().getOutput().getContent();
+        return ollamaChatModel.call(new Prompt(DEFAULT_PROMPT)).getResult().getOutput().getText();
     }
 
     /**
@@ -68,7 +68,7 @@ public class OllamaChatModelController {
         response.setCharacterEncoding("UTF-8");
 
         Flux<ChatResponse> stream = ollamaChatModel.stream(new Prompt(DEFAULT_PROMPT));
-        return stream.map(resp -> resp.getResult().getOutput().getContent());
+        return stream.map(resp -> resp.getResult().getOutput().getText());
     }
 
     /**
@@ -84,7 +84,7 @@ public class OllamaChatModelController {
                 .temperature(0.8)
                 .build();
 
-        return ollamaChatModel.call(new Prompt(DEFAULT_PROMPT, customOptions)).getResult().getOutput().getContent();
+        return ollamaChatModel.call(new Prompt(DEFAULT_PROMPT, customOptions)).getResult().getOutput().getText();
     }
 
 }

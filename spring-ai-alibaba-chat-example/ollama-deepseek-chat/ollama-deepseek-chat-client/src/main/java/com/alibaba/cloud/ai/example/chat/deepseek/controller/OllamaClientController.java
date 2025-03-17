@@ -60,7 +60,8 @@ public class OllamaClientController {
 				// 设置 ChatClient 中 ChatModel 的 Options 参数
 				.defaultOptions(
 						OllamaOptions.builder()
-								.withTopP(0.7)
+								.model("deepseek-r1")
+								.topP(0.7)
 								.build()
 				)
 				.build();

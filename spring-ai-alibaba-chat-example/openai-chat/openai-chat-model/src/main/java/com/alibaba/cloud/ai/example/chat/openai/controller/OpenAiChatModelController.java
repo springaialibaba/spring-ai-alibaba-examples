@@ -18,6 +18,8 @@
 package com.alibaba.cloud.ai.example.chat.openai.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
+import reactor.core.publisher.Flux;
+
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
@@ -26,7 +28,6 @@ import org.springframework.ai.openai.api.ResponseFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Flux;
 
 /**
  * @Author: wst
@@ -54,7 +55,7 @@ public class OpenAiChatModelController {
     @GetMapping("/simple/chat")
     public String simpleChat() {
 
-        return openAiChatModel.call(new Prompt(DEFAULT_PROMPT)).getResult().getOutput().getContent();
+        return openAiChatModel.call(new Prompt(DEFAULT_PROMPT)).getResult().getOutput().getText();
     }
 
     /**
@@ -69,7 +70,7 @@ public class OpenAiChatModelController {
         response.setCharacterEncoding("UTF-8");
 
         Flux<ChatResponse> chatResponseFlux = openAiChatModel.stream(new Prompt(DEFAULT_PROMPT));
-        return chatResponseFlux.map(resp -> resp.getResult().getOutput().getContent());
+        return chatResponseFlux.map(resp -> resp.getResult().getOutput().getText());
     }
 
     /**
@@ -86,7 +87,7 @@ public class OpenAiChatModelController {
                 .temperature(0.8)
                 .build();
 
-        return openAiChatModel.call(new Prompt(DEFAULT_PROMPT, customOptions)).getResult().getOutput().getContent();
+        return openAiChatModel.call(new Prompt(DEFAULT_PROMPT, customOptions)).getResult().getOutput().getText();
     }
 
     /**
@@ -128,7 +129,7 @@ public class OpenAiChatModelController {
                 .responseFormat(new ResponseFormat(ResponseFormat.Type.JSON_SCHEMA, jsonSchema))
                 .build();
 
-        return openAiChatModel.call(new Prompt(JSON_OUTPUT_PROMPT, customOptions)).getResult().getOutput().getContent();
+        return openAiChatModel.call(new Prompt(JSON_OUTPUT_PROMPT, customOptions)).getResult().getOutput().getText();
     }
 
 }
