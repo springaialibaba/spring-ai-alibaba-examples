@@ -56,12 +56,12 @@ public class SAAImageService {
 	private static final String DEFAULT_MODEL = "qwen-vl-max-latest";
 
 	/**
-	 * 图片生成文字
+	 * Images generate text
 	 */
 	private final ImageModel imageModel;
 
 	/**
-	 * 多模态支持，用来解析图片
+	 * Multimodal support for parsing images
 	 */
 	private final ChatClient daschScopeChatClient;
 
@@ -105,7 +105,7 @@ public class SAAImageService {
 		StringBuilder result = new StringBuilder();
 		if (response != null) {
 			for (ChatResponse chatResponse : response) {
-				String outputContent = chatResponse.getResult().getOutput().getContent();
+				String outputContent = chatResponse.getResult().getOutput().getText();
 				result.append(outputContent).append("\n");
 			}
 		}

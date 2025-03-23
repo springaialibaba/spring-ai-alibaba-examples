@@ -49,7 +49,7 @@ public class IQSSearchEngine {
 
 	public GenericSearchResult search(String query) {
 
-//		String encodeQ = URLEncoder.encode(query, StandardCharsets.UTF_8);
+		// String encodeQ = URLEncoder.encode(query, StandardCharsets.UTF_8);
 		ResponseEntity<GenericSearchResult> resultResponseEntity = run(query);
 
 		return genericSearchResult(resultResponseEntity);

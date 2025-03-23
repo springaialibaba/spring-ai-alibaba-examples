@@ -19,7 +19,10 @@ spring:
   ai:
     dashscope:
       api-key: ${AI_DASHSCOPE_API_KEY}
-
+    mcp:
+      client:
+        stdio:
+          servers-configuration: classpath:/mcp-servers-config.json
   datasource:
     url: jdbc:sqlite:src/main/resources/db/user.db
     driver-class-name: org.sqlite.JDBC
@@ -42,6 +45,6 @@ spring:
 # enabled debug log out.
 logging:
   level:
-#    org.springframework.ai: debug
-#    com.alibaba.dashscope.api: debug
+    #    org.springframework.ai: debug
+    #    com.alibaba.dashscope.api: debug
     com.alibaba.cloud.ai.application.websearch: debug

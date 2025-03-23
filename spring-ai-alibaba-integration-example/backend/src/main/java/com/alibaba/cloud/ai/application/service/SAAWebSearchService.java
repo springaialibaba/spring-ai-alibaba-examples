@@ -41,6 +41,7 @@ public class SAAWebSearchService {
 
 	private final WebSearchRetriever webSearchRetriever;
 
+	// It works better here with DeepSeek-R1
 	private static final String DEFAULT_WEB_SEARCH_MODEL = "deepseek-r1";
 
 	public SAAWebSearchService(
@@ -57,10 +58,10 @@ public class SAAWebSearchService {
 		this.queryExpander = queryExpander;
 		this.queryArgumentPromptTemplate = queryArgumentPromptTemplate;
 
-		// 用于 DeepSeek-r1 的 reasoning content 整合到输出中
+		// reasoning content for DeepSeek-r1 is integrated into the output
 		this.reasoningContentAdvisor = new ReasoningContentAdvisor(1);
 
-		// 构建 chatClient
+		// Build chatClient
 		this.chatClient = chatClientBuilder
 				.defaultOptions(
 						DashScopeChatOptions.builder()
@@ -82,15 +83,14 @@ public class SAAWebSearchService {
 				.build();
 	}
 
-	// 处理用户输入
+	//Handle user input
 	public Flux<String> chat(String prompt) {
 
 		return chatClient.prompt()
 				.advisors(
-						createRetrievalAugmentationAdvisor(),
-						 // 整合到 reasoning content 输出中
-						 reasoningContentAdvisor,
-						simpleLoggerAdvisor
+					createRetrievalAugmentationAdvisor(),
+					reasoningContentAdvisor,
+					simpleLoggerAdvisor
 				).user(prompt)
 				.stream()
 				.content();

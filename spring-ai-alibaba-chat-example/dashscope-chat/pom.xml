@@ -29,8 +29,6 @@
 	</parent>
 
 	<artifactId>dashscope-chat</artifactId>
-	<packaging>pom</packaging>
-
 	<description>Spring AI Alibaba Dashscope Chat Example</description>
 	<name>Spring AI Alibaba Dashscope Chat Examples</name>
 
@@ -46,11 +44,6 @@
 			<version>${spring-ai-alibaba.version}</version>
 		</dependency>
 	</dependencies>
-
-	<modules>
-		<module>dashscope-chat-model</module>
-		<module>dashscope-chat-client</module>
-	</modules>
 
 	<build>
 		<plugins>

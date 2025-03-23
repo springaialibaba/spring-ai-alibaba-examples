@@ -76,7 +76,7 @@ public class MoreModelCallController {
 						new Prompt(prompt, runtimeOptions))
 				.getResult();
 
-		return gen.getOutput().getContent();
+		return gen.getOutput().getText();
 	}
 
 }

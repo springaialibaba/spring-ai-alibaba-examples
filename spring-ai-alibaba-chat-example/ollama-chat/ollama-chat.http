@@ -1,0 +1,16 @@
+# Ollama Chat API
+
+### Chat Client Simple Chat
+GET http://127.0.0.1:10005/client/simple/chat
+
+### Chat Client Stream Chat
+GET http://127.0.0.1:10005/client/stream/chat
+
+### Chat Model Stream Chat
+GET http://127.0.0.1:10005/model/stream/chat
+
+### Chat Model Stream Chat
+GET http://127.0.0.1:10005/model/simple/chat
+
+### Chat Model Custom Options Chat
+GET http://127.0.0.1:10005/model/custom/chat

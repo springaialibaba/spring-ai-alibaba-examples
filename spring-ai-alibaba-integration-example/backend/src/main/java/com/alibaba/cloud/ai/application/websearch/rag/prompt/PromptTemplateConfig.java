@@ -17,18 +17,18 @@ public class PromptTemplateConfig {
 
 		return new PromptTemplate(
 				"""
-				给定一个用户查询，重写用户问题，使得在 {target} 查询时提供更好的结果。
+				Given a user query, rewrite the user question to provide better results when querying {target}.
+								
+				You should follow these rules:
+								
+				1. Remove any irrelevant information and make sure the query is concise and specific;
+				2. The output must be consistent with the language of the user's query;
+				3. Ensure better understanding and answers from the perspective of large models.
 				
-				你应该遵循以下规则：
-				
-				1. 删除任何不相关的信息，并确保查询简洁具体；
-				2. 输出必须与用户查询的语言一致；
-				3. 保证在大模型的角度更好理解与做出回答。
-				
-				原始查询：
+				Original query:
 				{query}
 				
-				重写之后的查询:
+				Query after rewrite:
 				"""
 		);
 	}
@@ -39,38 +39,40 @@ public class PromptTemplateConfig {
 
 		return new PromptTemplate(
 				"""
-				你将获得一组与问题相关的文档上下文。
-				每个文档都以参考编号开头，如 [[x]]，其中 x 是可以重复的数字。
-				没有引用的文档将被标记为 [[null]]。
-				请使用上下文，并在每个句子的末尾引用上下文（如果适用）。
-				上下文信息如下:
+				You'll get a set of document contexts that are relevant to the issue.
+				Each document begins with a reference number, such as [[x]], where x is a number that can be repeated.
+				Documents that are not referenced will be marked as [[null]].
+				Use context and refer to it at the end of each sentence, if applicable.
+				The context information is as follows:
 				
 				---------------------
 				{context}
 				---------------------
 				
-				在给定上下文信息且没有先验知识的情况下，生成对用户问题的结构化响应。
+				Generate structured responses to user questions given contextual information and without prior knowledge.
+								
+				When you answer user questions, follow these rules:
 				
-				在你回答用户问题时，请遵循以下规则：
+				1. If the answer is not in context, say you don't know;
+				2. Don't provide any information that is not relevant to the question, and don't output any duplicate content;
+				3. Avoid using "context-based..." or "The provided information..." said;
+				4. Your answers must be correct, accurate, and written in an expertly unbiased and professional tone;
+				5. The appropriate text structure in the answer is determined according to the characteristics of the content, please include subheadings in the output to improve readability;
+				6. When generating a response, provide a clear conclusion or main idea first, without a title;
+				7. Make sure each section has a clear subtitle so that users can better understand and refer to your output;
+				8. If the information is complex or contains multiple sections, make sure each section has an appropriate heading to create a hierarchical structure;
+				9. Please refer to the sentence or section with the reference number at the end in [[x]] format;
+				10. If a sentence or section comes from more than one context, list all applicable references, e.g. [[x]][[y]];
+				11. Your output answers must be in beautiful and rigorous markdown format.
+				12. Because your output is in markdown format, please include the link in the reference document in the form of a hyperlink when referencing the context, so that users can click to view it;
+				13. If a reference is marked as [[null]], it does not have to be cited;
+				14. Except for Code. Aside from the specific name and citation, your answer must be written in the same language as the question.
 				
-				1. 如果答案不在上下文中，就说你不知道；
-				2. 不要提供任何与问题无关的信息，也不要输出任何的重复内容；
-				3. 避免使用 “基于上下文...” 或 “The provided information...” 的说法；
-				4. 你的答案必须正确、准确，并使用专家般公正和专业的语气撰写；
-				5. 回答中适当的文本结构是根据内容的特点来确定的，请在输出中包含副标题以提高可读性；
-				6. 生成回复时，先提供明确的结论或中心思想，不需要带有标题；
-				7. 确保每个部分都有清晰的副标题，以便用户可以更好地理解和参考你的输出内容；
-				8. 如果信息复杂或包含多个部分，请确保每个部分都有适当的标题以创建分层结构；
-				9. 请以 [x] 格式引用末尾带有参考编号的句子或部分；
-				10. 如果一个句子或章节来自多个上下文，请列出所有适用的引用，例如 [x][y]；
-				11. 你的输出答案必须保持美观且严谨的 markdown 格式。
-				12. 因为你的输出保持 markdown 格式，请在引用上下文时，以超链接的形式带上参考文档中的链接，方便用户点击查看；
-				13. 如果参考文献被标记为 [null]，则不必引用；
-				14. 除了代码。具体名称和引文外，你的答案必须用与问题相同的语言编写。
+				User Issue:
 				
-				用户问题: {query}
-				
-				你的回答:
+				{query}
+								
+				Your answer:
 				"""
 		);
 	}

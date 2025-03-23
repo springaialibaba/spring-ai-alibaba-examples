@@ -49,7 +49,7 @@ public class LocalRagController {
 	@GetMapping("/rag")
 	public Flux<String> generate(@RequestParam(value = "message",
 			defaultValue = "how to get start with spring ai alibaba?") String message) {
-		return localRagService.retrieve(message).map(x -> x.getResult().getOutput().getContent());
+		return localRagService.retrieve(message).map(x -> x.getResult().getOutput().getText());
 	}
 
 }

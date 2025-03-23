@@ -39,7 +39,7 @@ public class ChatModelController {
         registry.observationConfig().observationHandler(new CustomerObservationHandler());
         OllamaChatModel ollamaChatModel = new OllamaChatModel(
                 new OllamaApi(),
-                new OllamaOptions().withModel("qwen2.5"),
+                OllamaOptions.builder().model("qwen2.5").build(),
                 null,
                 null,
                 registry,

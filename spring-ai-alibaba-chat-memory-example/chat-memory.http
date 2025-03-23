@@ -1,0 +1,10 @@
+# Chat Memory API
+
+### In Memory API
+GET http://127.0.0.1:8080/chat-memory/in-memory?promot="你好"&chatId="100001"
+
+### MySQL Memory API
+GET http://127.0.0.1:8080/chat-memory/mysql?promot="你好"&chatId="100001"
+
+### Redis Memory API
+GET http://127.0.0.1:8080/chat-memory/redis?prompt="你好"&chatId="100001"

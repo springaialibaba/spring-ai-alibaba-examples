@@ -1,6 +1,5 @@
-version: '3.8'
-
 services:
+
   redis:
     image: redis
     ports:
@@ -9,6 +8,6 @@ services:
       - TZ=Asia/Shanghai
     container_name: spring-ai-alibaba-redis
     volumes:
-      - ./data:/data
+      # - ./data:/data
       - ./conf/redis.conf:/etc/redis/redis-stand.conf
     command: redis-server /etc/redis/redis-stand.conf

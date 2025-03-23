@@ -48,7 +48,7 @@ public class CloudRagController {
 	@GetMapping("/bailian/knowledge/generate")
 	public Flux<String> generate(@RequestParam(value = "message",
 			defaultValue = "你好，请问你的知识库文档主要是关于什么内容的?") String message) {
-		return cloudRagService.retrieve(message).map(x -> x.getResult().getOutput().getContent());
+		return cloudRagService.retrieve(message).map(x -> x.getResult().getOutput().getText());
 	}
 
 }

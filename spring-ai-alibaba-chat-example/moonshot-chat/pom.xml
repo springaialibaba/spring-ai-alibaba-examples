@@ -29,8 +29,6 @@
     </parent>
 
     <artifactId>moonshot-chat</artifactId>
-    <packaging>pom</packaging>
-
     <description>Spring AI Alibaba Moonshot Chat Example</description>
     <name>Spring AI Alibaba Moonshot Chat Examples</name>
 
@@ -45,11 +43,6 @@
             <artifactId>spring-ai-moonshot-spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
-
-    <modules>
-        <module>moonshot-chat-model</module>
-        <module>moonshot-chat-client</module>
-    </modules>
 
     <build>
         <plugins>

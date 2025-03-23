@@ -49,13 +49,13 @@ public class DashScopeDocumentRanker implements DocumentRanker {
 		try {
 			List<Document> reorderDocs = new ArrayList<>();
 
-			// 由调用者控制文档数
+			// The caller controls the number of documents
 			DashScopeRerankOptions rerankOptions = DashScopeRerankOptions.builder()
 					.withTopN(documents.size())
 					.build();
 
 			if (Objects.nonNull(query) && StringUtils.hasText(query.text())) {
-				// 组装参数调用 rerankModel
+				// The assembly parameter calls rerankModel
 				RerankRequest rerankRequest = new RerankRequest(
 						query.text(),
 						documents,
@@ -66,7 +66,7 @@ public class DashScopeDocumentRanker implements DocumentRanker {
 				rerankResp.getResults().forEach(res -> {
 					Document outputDocs = res.getOutput();
 
-					// 查找并添加到新的 list 中
+					// Find and add to a new list
 					Optional<Document> foundDocsOptional = documents.stream()
 							.filter(doc ->
 							{
@@ -83,7 +83,7 @@ public class DashScopeDocumentRanker implements DocumentRanker {
 			return reorderDocs;
 		}
 		catch (Exception e) {
-			// 根据异常类型做进一步处理
+			// Further processing is done depending on the type of exception
 			throw new SAAAppException(e.getMessage());
 		}
 	}

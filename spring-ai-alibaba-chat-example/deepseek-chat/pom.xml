@@ -29,15 +29,9 @@
     </parent>
 
     <artifactId>deepseek-chat</artifactId>
-    <packaging>pom</packaging>
 
     <description>Spring AI Alibaba DeepSeek Chat Example</description>
     <name>Spring AI Alibaba DeepSeek Chat Examples</name>
-
-    <modules>
-        <module>deepseek-chat-model</module>
-        <module>deepseek-chat-client</module>
-    </modules>
 
     <dependencies>
         <dependency>

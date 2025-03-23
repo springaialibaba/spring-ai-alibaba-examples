@@ -1,6 +1,7 @@
 networks:
   net:
     driver: bridge
+
 services:
   server:
     image: ghcr.io/chroma-core/chroma:latest

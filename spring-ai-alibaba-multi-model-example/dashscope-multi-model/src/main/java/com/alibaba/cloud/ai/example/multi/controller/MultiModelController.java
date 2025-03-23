@@ -89,7 +89,7 @@ public class MultiModelController {
 				)
 		).call().chatResponse();
 
-		return response.getResult().getOutput().getContent();
+		return response.getResult().getOutput().getText();
 	}
 
 	@GetMapping("/video")
@@ -113,7 +113,7 @@ public class MultiModelController {
 				)
 		).call().chatResponse();
 
-		return response.getResult().getOutput().getContent();
+		return response.getResult().getOutput().getText();
 	}
 
 	@GetMapping("/image/bin")
@@ -140,7 +140,7 @@ public class MultiModelController {
 				)
 		).call().chatResponse();
 
-		return response.getResult().getOutput().getContent();
+		return response.getResult().getOutput().getText();
 	}
 
 	@GetMapping("/stream/image")
@@ -170,7 +170,7 @@ public class MultiModelController {
 		StringBuilder result = new StringBuilder();
 		if (response != null) {
 			for (ChatResponse chatResponse : response) {
-				String outputContent = chatResponse.getResult().getOutput().getContent();
+				String outputContent = chatResponse.getResult().getOutput().getText();
 				result.append(outputContent);
 			}
 		}

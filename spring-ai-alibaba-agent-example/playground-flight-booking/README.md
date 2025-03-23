@@ -24,13 +24,13 @@ Add to the POM the Spring AI Alibaba boot starter:
 <dependency>
     <groupId>org.springframework.ai</groupId>
     <artifactId>spring-ai-alibaba-starter</artifactId>
-    <version>1.0.0-M5.1</version>
+    <version>1.0.0-M6.1</version>
 </dependency>
 ```
 
 Add the DashScope configuration to the `application.properties`:
 
-```
+```properties
 spring.ai.dashscope.api-key=${AI_DASHSCOPE_API_KEY}
 spring.ai.dashscope.chat.options.model=qwen-max
 ```
@@ -44,7 +44,6 @@ spring.ai.dashscope.chat.options.model=qwen-max
 ```shell
 java -jar ./target/playground-flight-booking-example-0.0.1-SNAPSHOT.jar
 ```
-
 
 ## Build Frontend (as needed)
 

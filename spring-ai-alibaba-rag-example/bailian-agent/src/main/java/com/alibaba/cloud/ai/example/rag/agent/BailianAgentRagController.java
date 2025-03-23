@@ -62,7 +62,7 @@ public class BailianAgentRagController {
 		}
 
 		AssistantMessage app_output = response.getResult().getOutput();
-		String content = app_output.getContent();
+		String content = app_output.getText();
 
 		DashScopeAgentApi.DashScopeAgentResponse.DashScopeAgentResponseOutput output = (DashScopeAgentApi.DashScopeAgentResponse.DashScopeAgentResponseOutput) app_output.getMetadata().get("output");
 		List<DashScopeAgentApi.DashScopeAgentResponse.DashScopeAgentResponseOutput.DashScopeAgentResponseOutputDocReference> docReferences = output.docReferences();

@@ -12,15 +12,9 @@
 	</parent>
 
 	<artifactId>ollama-chat</artifactId>
-	<packaging>pom</packaging>
-
 	<description>Spring AI Alibaba Ollama Chat Example</description>
 	<name>Spring AI Alibaba Ollama Chat Examples</name>
 
-	<modules>
-		<module>ollama-chat-model</module>
-		<module>ollama-chat-client</module>
-	</modules>
 
 	<dependencies>
 		<dependency>

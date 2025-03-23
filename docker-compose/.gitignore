@@ -1,2 +1,8 @@
 # ollama models
 ollama/models/*
+
+# redis
+redis/data
+
+# higress
+higress/data

@@ -1,0 +1,16 @@
+# DashScope Chat API
+
+### Chat Client Simple Chat
+GET http://127.0.0.1:10000/client/simple/chat
+
+### Chat Client Stream Chat
+GET http://127.0.0.1:10000/client/stream/chat
+
+### Chat Model Simple Chat
+GET http://127.0.0.1:10000/model/simple/chat
+
+### Chat Model Stream Chat
+GET http://127.0.0.1:10000/model/stream/chat
+
+### Chat Model Custom Options Chat
+GET http://127.0.0.1:10000/model/custom/chat

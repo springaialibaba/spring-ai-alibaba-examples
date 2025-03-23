@@ -67,17 +67,17 @@ public class MorePlatformController {
 
         if ("dashscope".equals(model)) {
             return dashScopeChatModel.call(new Prompt(prompt))
-                    .getResult().getOutput().getContent();
+                    .getResult().getOutput().getText();
         }
 
         if ("ollama".equals(model)) {
             return ollamaChatModel.call(new Prompt(prompt))
-                    .getResult().getOutput().getContent();
+                    .getResult().getOutput().getText();
         }
 
         if ("openAI".equals(model)) {
             return openAIChatModel.call(new Prompt(prompt))
-                    .getResult().getOutput().getContent();
+                    .getResult().getOutput().getText();
         }
         return "Error ...";
     }

@@ -29,8 +29,6 @@
     </parent>
 
     <artifactId>zhipuai-chat</artifactId>
-    <packaging>pom</packaging>
-
     <description>Spring AI Alibaba ZhiPuAi Chat Example</description>
     <name>Spring AI Alibaba ZhiPuAi Chat Examples</name>
 
@@ -45,11 +43,6 @@
             <artifactId>spring-ai-zhipuai-spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
-
-    <modules>
-        <module>zhipuai-chat-model</module>
-        <module>zhipuai-chat-client</module>
-    </modules>
 
     <build>
         <plugins>

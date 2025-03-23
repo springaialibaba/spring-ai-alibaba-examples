@@ -30,17 +30,18 @@ public class MultiQueryExpander implements QueryExpander {
 
 	private static final PromptTemplate DEFAULT_PROMPT_TEMPLATE = new PromptTemplate(
 			"""
-			你是一位信息检索与搜索优化的专家。
-			请生成 {number} 个不同版本的给定查询。
+			You are an expert in information retrieval and search optimization.
+			Generate {number} different versions of a given query.
 						
-			每个变体应涵盖主题的不同视角或方面，同时保持原始查询的核心意图。目标是扩展搜索范围，提高找到相关信息的机会。
+			Each variation should cover a different perspective or aspect of the topic while maintaining the core intent of
+			the original query. The goal is to broaden your search and improve your chances of finding relevant information.
 						
-			请勿解释选择或添加其他文本。
-			提供查询变体，并以换行符分隔。
+			Don't interpret the selection or add additional text.
+			Query variants are provided, separated by line breaks.
 						
-			原始查询：{query}
-						
-			查询变体：
+			Original query: {query}
+									
+			Query variants:
 			"""
 	);
 

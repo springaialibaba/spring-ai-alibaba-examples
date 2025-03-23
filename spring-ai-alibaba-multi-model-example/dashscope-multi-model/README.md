@@ -70,7 +70,7 @@ public String image(
 		)
 		).call().chatResponse();
 
-		return response.getResult().getOutput().getContent();
+		return response.getResult().getOutput().getText();
 		}
 ```
 
@@ -212,7 +212,7 @@ public String video(
             )
     ).call().chatResponse();
 
-    return response.getResult().getOutput().getContent();
+    return response.getResult().getOutput().getText();
 }
 ```
 
