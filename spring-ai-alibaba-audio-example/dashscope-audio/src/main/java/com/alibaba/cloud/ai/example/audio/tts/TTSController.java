@@ -115,8 +115,9 @@ public class TTSController implements ApplicationRunner {
 
 	@PreDestroy
 	public void destroy() throws IOException {
-
-		FileUtils.deleteDirectory(new File(FILE_PATH));
+		// 删除默认的示例路径
+		String example_file_path = "spring-ai-alibaba-audio-example/dashscope-audio/src/main/resources/gen/tts";
+		FileUtils.deleteDirectory(new File(example_file_path));
 	}
 
 }

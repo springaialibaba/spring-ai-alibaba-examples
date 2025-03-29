@@ -1,0 +1,7 @@
+services:
+
+  zipkin:
+    image: 'openzipkin/zipkin:latest'
+    container_name: "spring-ai-alibaba-zipkin"
+    ports:
+      - '9411:9411'

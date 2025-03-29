@@ -1,0 +1,15 @@
+{
+    "mcpServers": {
+        "weather": {
+            "command": "java",
+            "args": [
+                "-Dspring.ai.mcp.server.stdio=true",
+                "-Dspring.main.web-application-type=none",
+                "-Dlogging.pattern.console=",
+                "-jar",
+                "D:\\open_sources\\spring-ai-alibaba-examples\\spring-ai-alibaba-playground\\src\\main\\resources\\mcp-libs\\weather.jar"
+            ],
+            "env": {}
+        }
+    }
+}

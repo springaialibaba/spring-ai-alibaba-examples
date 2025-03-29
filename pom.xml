@@ -57,6 +57,7 @@
 
 	<modules>
 		<module>spring-ai-alibaba-helloworld</module>
+		<module>spring-ai-alibaba-scene-example</module>
 		<module>spring-ai-alibaba-audio-example</module>
 		<module>spring-ai-alibaba-chat-example</module>
 		<module>spring-ai-alibaba-agent-example</module>
@@ -69,12 +70,12 @@
 		<module>spring-ai-alibaba-structured-example</module>
 		<module>spring-ai-alibaba-mcp-example</module>
 		<module>spring-ai-alibaba-nacos-example</module>
-		<module>spring-ai-alibaba-integration-example</module>
 		<module>spring-ai-alibaba-more-platform-and-model-example</module>
 		<module>spring-ai-alibaba-text-summarizer-example</module>
 		<module>spring-ai-alibaba-sql-example</module>
 		<module>spring-ai-alibaba-text-classification-example</module>
 		<module>spring-ai-alibaba-chat-memory-example</module>
+		<module>spring-ai-alibaba-translate-example</module>
 	</modules>
 
 	<dependencyManagement>

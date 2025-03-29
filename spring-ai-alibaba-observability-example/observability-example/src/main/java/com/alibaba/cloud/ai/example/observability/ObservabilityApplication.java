@@ -27,7 +27,6 @@ import io.opentelemetry.api.trace.Span;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.model.function.FunctionCallback;
-import org.springframework.ai.model.function.FunctionCallbackContext;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -51,20 +50,20 @@ public class ObservabilityApplication {
         return builder.build();
     }
 
-    @Bean
-    @ConditionalOnProperty(prefix = DashScopeChatProperties.CONFIG_PREFIX, name = "enabled", havingValue = "true",
-            matchIfMissing = true)
-    public DashScopeChatModel dashscopeChatModel(DashScopeChatProperties chatProperties, List<FunctionCallback> toolFunctionCallbacks,
-                                                 FunctionCallbackContext functionCallbackContext, RetryTemplate retryTemplate,
-                                                 ObjectProvider<ObservationRegistry> observationRegistry, DashScopeApi dashScopeApi) {
-
-        if (!CollectionUtils.isEmpty(toolFunctionCallbacks)) {
-            chatProperties.getOptions().getFunctionCallbacks().addAll(toolFunctionCallbacks);
-        }
-
-        return new DashScopeChatModel(dashScopeApi, chatProperties.getOptions(), functionCallbackContext, retryTemplate,
-                observationRegistry.getIfUnique(() -> ObservationRegistry.NOOP));
-    }
+//    @Bean
+//    @ConditionalOnProperty(prefix = DashScopeChatProperties.CONFIG_PREFIX, name = "enabled", havingValue = "true",
+//            matchIfMissing = true)
+//    public DashScopeChatModel dashscopeChatModel(DashScopeChatProperties chatProperties, List<FunctionCallback> toolFunctionCallbacks,
+//                                                 FunctionCallbackContext functionCallbackContext, RetryTemplate retryTemplate,
+//                                                 ObjectProvider<ObservationRegistry> observationRegistry, DashScopeApi dashScopeApi) {
+//
+//        if (!CollectionUtils.isEmpty(toolFunctionCallbacks)) {
+//            chatProperties.getOptions().getFunctionCallbacks().addAll(toolFunctionCallbacks);
+//        }
+//
+//        return new DashScopeChatModel(dashScopeApi, chatProperties.getOptions(), functionCallbackContext, retryTemplate,
+//                observationRegistry.getIfUnique(() -> ObservationRegistry.NOOP));
+//    }
 }
 
 @Controller

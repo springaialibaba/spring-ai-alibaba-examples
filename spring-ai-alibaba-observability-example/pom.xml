@@ -37,6 +37,7 @@
 
 	<modules>
 		<module>observability-example</module>
+		<module>observability-arms-example</module>
 		<module>observationhandler-example</module>
 	</modules>
 

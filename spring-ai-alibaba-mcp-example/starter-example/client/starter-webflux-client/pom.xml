@@ -19,13 +19,13 @@
 		<dependency>
 			<groupId>org.springframework.ai</groupId>
 			<artifactId>spring-ai-mcp-client-webflux-spring-boot-starter</artifactId>
-			<version>1.0.0-M6</version>
+			<version>${spring-ai.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.alibaba.cloud.ai</groupId>
 			<artifactId>spring-ai-alibaba-starter</artifactId>
-			<version>1.0.0-M6.1</version>
+			<version>${spring-ai-alibaba.version}</version>
 		</dependency>
 		
 	</dependencies>
