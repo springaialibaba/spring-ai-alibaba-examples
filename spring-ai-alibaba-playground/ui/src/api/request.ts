@@ -1,30 +1,9 @@
-const BASE_URL = "/api/v1";
-
-const decoder = new TextDecoder("utf-8");
-
-export const getModels = async () => {
-  const res = (await fetch(BASE_URL + "/dashscope/getModels", {
-    method: "GET"
-  })) as any;
-
-  const reader = res.body.getReader();
-
-  let bufffer = "";
-  await reader.read().then(function process({ done, value }) {
-    if (done) return;
-
-    bufffer += decoder.decode(value);
-
-    return reader.read().then(process);
-  });
-
-  return JSON.parse(bufffer).data;
-};
+import { BASE_URL } from "../constant";
 
 export const getChat = async (
   message: string,
   callback: (value: Uint8Array) => void,
-  params: {
+  params?: {
     image?: File;
     model?: string;
     chatId?: string;
@@ -32,8 +11,7 @@ export const getChat = async (
     onlineSearch?: boolean;
   }
 ) => {
-  
-  const { image, model, chatId, onlineSearch, deepThink } = params;
+  const { image, model, chatId, onlineSearch, deepThink } = params || {};
   let res: any;
   console.log("online search", onlineSearch);
   if (image !== undefined) {

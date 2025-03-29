@@ -7,7 +7,7 @@ import {
   Sender,
   Welcome,
   useXAgent,
-  useXChat,
+  useXChat
 } from "@ant-design/x";
 import {
   CloudUploadOutlined,
@@ -28,7 +28,7 @@ import {
   SearchOutlined,
   CodeOutlined,
   PictureOutlined,
-  PhoneOutlined,
+  PhoneOutlined
 } from "@ant-design/icons";
 import {
   message,
@@ -39,9 +39,10 @@ import {
   Select,
   Modal,
   Layout,
-  theme,
+  theme
 } from "antd";
-import { getChat, getModels } from "./request";
+import { getModels } from "./api/base";
+import { getChat } from "./api/request";
 import { useStyle } from "./style";
 import { litFileSize } from "./utils";
 
@@ -54,13 +55,15 @@ import {
   RobotFilled,
   SmileOutlined,
   ThunderboltOutlined,
-  UserOutlined,
+  UserOutlined
 } from "@ant-design/icons";
 import { GetProp, Space, Tag, Typography } from "antd";
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import { ActionButtonConfig, FunctionMenuItem } from "./types";
 import { Bubble } from "@ant-design/x";
+
+import { DEFAULT_MODEL, MAX_IMAGE_SIZE } from "./constant";
 
 // 导入页面组件
 import ImageGenPage from "./menuPages/imageGenPage";
@@ -78,7 +81,7 @@ export const actionButtonConfig: ActionButtonConfig[] = [
     icon: <GlobalOutlined />,
     styleClass: "searchButton",
     activeColor: "#1677ff",
-    description: "使用网络搜索获取最新信息",
+    description: "使用网络搜索获取最新信息"
   },
   {
     key: "deepThink",
@@ -86,50 +89,48 @@ export const actionButtonConfig: ActionButtonConfig[] = [
     icon: <ThunderboltOutlined />,
     styleClass: "thinkButton",
     activeColor: "#722ed1",
-    description: "深度分析问题并给出详细回答",
-  },
+    description: "深度分析问题并给出详细回答"
+  }
 ];
 
 export const functionMenuItems: FunctionMenuItem[] = [
   {
     key: "image-gen",
     icon: <SearchOutlined />,
-    label: "图像生成",
+    label: "图像生成"
   },
   {
     key: "doc-summary",
     icon: <FormOutlined />,
-    label: "文档总结",
+    label: "文档总结"
   },
   {
     key: "multi-modal",
     icon: <PictureOutlined />,
-    label: "多模态",
+    label: "多模态"
   },
   {
     key: "function-calling",
     icon: <ReadOutlined />,
-    label: "Function Calling",
+    label: "Function Calling"
   },
   {
     key: "rag",
     icon: <CodeOutlined />,
-    label: "RAG",
+    label: "RAG"
   },
   {
     key: "mcp",
     icon: <PhoneOutlined />,
-    label: "MCP",
+    label: "MCP"
   },
   {
     key: "more-examples",
     icon: <PhoneOutlined />,
-    label: "更多案例",
-  },
+    label: "更多案例"
+  }
 ];
 
-const DEFAULT_MODEL = "qwen-plus";
-const MAX_IMAGE_SIZE = 2048;
 const decoder = new TextDecoder("utf-8");
 // 标记创建的下一个会话的 index
 let conversationFlag = 2;
@@ -171,39 +172,39 @@ const defaultConversationsItems = [
           {DEFAULT_MODEL}
         </Tag>
       </span>
-    ),
-  },
+    )
+  }
 ];
 const aiConfig = {
   placement: "start" as "start" | "end",
   avatar: {
-    icon: <RobotFilled />,
+    icon: <RobotFilled />
   },
   styles: {
     content: {
-      borderRadius: 16,
-    },
+      borderRadius: 16
+    }
   },
   messageRender: (content) => (
     <Typography>
       <ReactMarkdown>{content}</ReactMarkdown>
     </Typography>
-  ),
+  )
 };
 const roles: GetProp<typeof Bubble.List, "roles"> = {
   ai: {
     typing: { step: 5, interval: 20 },
-    ...aiConfig,
+    ...aiConfig
   },
   aiHistory: {
-    ...aiConfig,
+    ...aiConfig
   },
   local: {
     placement: "end",
     variant: "shadow",
     avatar: {
-      icon: <UserOutlined />,
-    },
+      icon: <UserOutlined />
+    }
   },
   file: {
     placement: "end",
@@ -213,8 +214,8 @@ const roles: GetProp<typeof Bubble.List, "roles"> = {
         <Image src={base64} style={{ maxHeight: 250, paddingRight: 32 }} />
       );
     },
-    avatar: <></>,
-  },
+    avatar: <></>
+  }
 };
 const renderTitle = (icon: React.ReactElement, title: string) => (
   <Space align="start">
@@ -235,19 +236,19 @@ const placeholderPromptsItems: GetProp<typeof Prompts, "items"> = [
       {
         key: "2-1",
         icon: <HeartOutlined />,
-        description: `Build a chatbot using Spring Ai Alibaba?`,
+        description: `Build a chatbot using Spring Ai Alibaba?`
       },
       {
         key: "2-2",
         icon: <SmileOutlined />,
-        description: `How to use RAG in Spring Ai Alibaba?`,
+        description: `How to use RAG in Spring Ai Alibaba?`
       },
       {
         key: "2-3",
         icon: <CommentOutlined />,
-        description: `What are best practices for using Spring Ai Alibaba?`,
-      },
-    ],
+        description: `What are best practices for using Spring Ai Alibaba?`
+      }
+    ]
   },
   {
     key: "2",
@@ -256,18 +257,18 @@ const placeholderPromptsItems: GetProp<typeof Prompts, "items"> = [
     children: [
       {
         key: "1-1",
-        description: `Does Spring AI Alibaba support workflow and multi-agent?`,
+        description: `Does Spring AI Alibaba support workflow and multi-agent?`
       },
       {
         key: "1-2",
-        description: `The relation between Spring AI and Spring AI Alibaba?`,
+        description: `The relation between Spring AI and Spring AI Alibaba?`
       },
       {
         key: "1-3",
-        description: `Where can I contribute?`,
-      },
-    ],
-  },
+        description: `Where can I contribute?`
+      }
+    ]
+  }
 ];
 
 // 添加页面组件映射
@@ -278,7 +279,7 @@ const pageComponents = {
   "function-calling": FunctionCallingPage,
   rag: RagPage,
   mcp: McpPage,
-  "more-examples": McpPage, // 暂时使用 McpPage 作为占位
+  "more-examples": McpPage // 暂时使用 McpPage 作为占位
 } as const;
 
 const Independent: React.FC = () => {
@@ -310,7 +311,7 @@ const Independent: React.FC = () => {
   // 当前会话交互模式，改为对象形式支持多选
   const [communicateTypes, setCommunicateTypes] = React.useState({
     onlineSearch: false,
-    deepThink: false,
+    deepThink: false
   });
 
   // 当前会话的模型
@@ -369,7 +370,7 @@ const Independent: React.FC = () => {
             chatId: activeKey,
             model,
             deepThink: communicateTypes.deepThink,
-            onlineSearch: communicateTypes.onlineSearch,
+            onlineSearch: communicateTypes.onlineSearch
           };
       isRetry = false;
 
@@ -404,11 +405,11 @@ const Independent: React.FC = () => {
           {
             id: messages.length - 1,
             message: JSON.stringify({ role: "ai", value }),
-            status: "success",
-          },
+            status: "success"
+          }
         ]);
       }
-    },
+    }
   });
 
   // 获取模型列表
@@ -422,7 +423,7 @@ const Independent: React.FC = () => {
             <Tooltip title={desc} placement="right">
               {model}
             </Tooltip>
-          ),
+          )
         }))
       );
     });
@@ -433,7 +434,7 @@ const Independent: React.FC = () => {
   >([]);
 
   const { onRequest, messages, setMessages } = useXChat({
-    agent,
+    agent
   });
 
   // ==================== Event ====================
@@ -449,17 +450,17 @@ const Independent: React.FC = () => {
           message: JSON.stringify({
             role: "file",
             value: {
-              base64: nowImageBase64,
-            },
+              base64: nowImageBase64
+            }
           }),
-          status: "success",
-        },
+          status: "success"
+        }
       ]);
     }
     onRequest(
       JSON.stringify({
         role: "local",
-        value: nextContent,
+        value: nextContent
       })
     );
     setContent("");
@@ -469,7 +470,7 @@ const Independent: React.FC = () => {
     onRequest(
       JSON.stringify({
         role: "local",
-        value: info.data.description,
+        value: info.data.description
       })
     );
   };
@@ -502,8 +503,8 @@ const Independent: React.FC = () => {
               {nextModel}
             </Tag>
           </span>
-        ),
-      },
+        )
+      }
     ]);
     conversationFlag = conversationFlag + 1;
     conversationsMap[activeKey] = {
@@ -511,8 +512,8 @@ const Independent: React.FC = () => {
       messages: getMessageHistory(messages),
       params: {
         onlineSearch: communicateTypes.onlineSearch,
-        deepThink: communicateTypes.deepThink,
-      },
+        deepThink: communicateTypes.deepThink
+      }
     };
     setHeaderOpen(false);
     setAttachedFiles([]);
@@ -535,8 +536,8 @@ const Independent: React.FC = () => {
       messages: getMessageHistory(messages),
       params: {
         onlineSearch: communicateTypes.onlineSearch,
-        deepThink: communicateTypes.deepThink,
-      },
+        deepThink: communicateTypes.deepThink
+      }
     };
     setHeaderOpen(false);
     setAttachedFiles([]);
@@ -545,7 +546,7 @@ const Independent: React.FC = () => {
     setModel(conversationsMap[key].model || DEFAULT_MODEL);
     setCommunicateTypes({
       onlineSearch: conversationsMap[key].params.onlineSearch,
-      deepThink: conversationsMap[key].params.deepThink,
+      deepThink: conversationsMap[key].params.deepThink
     });
     // 清除当前激活的菜单页面，回到聊天列表
     setActiveMenuPage(null);
@@ -598,10 +599,10 @@ const Independent: React.FC = () => {
         setModel(conversationsMap[activeKey].model || DEFAULT_MODEL);
         setCommunicateTypes({
           onlineSearch: conversationsMap[activeKey].params.onlineSearch,
-          deepThink: conversationsMap[activeKey].params.deepThink,
+          deepThink: conversationsMap[activeKey].params.deepThink
         });
         setConversationsItems(newConversationsItems);
-      },
+      }
     });
   };
   const menuConfig: ConversationsProps["menu"] = (conversation) => ({
@@ -610,8 +611,8 @@ const Independent: React.FC = () => {
         label: "Delete",
         key: "delete",
         icon: <DeleteOutlined />,
-        danger: true,
-      },
+        danger: true
+      }
     ],
     onClick: (menuInfo) => {
       if (menuInfo.key === "delete") {
@@ -623,7 +624,7 @@ const Independent: React.FC = () => {
           confirmDelete(conversation.key);
         }
       }
-    },
+    }
   });
 
   // 添加页面状态控制
@@ -684,11 +685,11 @@ const Independent: React.FC = () => {
         items={placeholderPromptsItems}
         styles={{
           list: {
-            width: "100%",
+            width: "100%"
           },
           item: {
-            flex: 1,
-          },
+            flex: 1
+          }
         }}
         onItemClick={onPromptsItemClick}
       />
@@ -735,7 +736,7 @@ const Independent: React.FC = () => {
             key: id,
             role: item?.role,
             loading: !value,
-            content: value?.base64,
+            content: value?.base64
           };
         } else {
           return {
@@ -746,7 +747,7 @@ const Independent: React.FC = () => {
             footer:
               item?.role === "ai" || item?.role === "aiHistory"
                 ? createMessageFooter(value, index === messages.length - 1)
-                : undefined,
+                : undefined
           };
         }
       })
@@ -773,8 +774,8 @@ const Independent: React.FC = () => {
       onOpenChange={setHeaderOpen}
       styles={{
         content: {
-          padding: 0,
-        },
+          padding: 0
+        }
       }}
     >
       <Attachments
@@ -789,7 +790,7 @@ const Independent: React.FC = () => {
             : {
                 icon: <CloudUploadOutlined />,
                 title: "Upload files",
-                description: "Click or drag files to this area to upload",
+                description: "Click or drag files to this area to upload"
               }
         }
       />
@@ -843,7 +844,7 @@ const Independent: React.FC = () => {
           onClick={() => {
             setCommunicateTypes((prev) => ({
               ...prev,
-              [button.key]: !prev[button.key],
+              [button.key]: !prev[button.key]
             }));
           }}
         >
@@ -876,7 +877,7 @@ const Independent: React.FC = () => {
     height: "100%",
     transition: "opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
     backgroundColor: token.colorBgContainer,
-    overflowY: "auto" as const,
+    overflowY: "auto" as const
   };
 
   // ==================== Render =================
@@ -990,7 +991,7 @@ const Independent: React.FC = () => {
               opacity: !activeMenuPage ? 1 : 0,
               flex: 1,
               flexDirection: "column",
-              transition: "opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+              transition: "opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1)"
             }}
           >
             <Bubble.List
@@ -1012,7 +1013,7 @@ const Independent: React.FC = () => {
                 style={{
                   ...basePageStyle,
                   display: activeMenuPage === key ? "block" : "none",
-                  opacity: activeMenuPage === key ? 1 : 0,
+                  opacity: activeMenuPage === key ? 1 : 0
                 }}
               >
                 <Component />
