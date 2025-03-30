@@ -17,7 +17,14 @@
 
 package com.alibaba.cloud.ai.example.chat.ollama.controller;
 
+import com.alibaba.cloud.ai.example.chat.ollama.constants.PromotConstant;
+import com.alibaba.cloud.ai.example.chat.ollama.vo.ChatRequestVO;
+import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import reactor.core.publisher.Flux;
 
 import org.springframework.ai.chat.client.ChatClient;
@@ -37,7 +44,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/client")
 public class OllamaChatClientController {
 
-	private static final String DEFAULT_PROMPT = "你好，介绍下你自己！请用中文回答。";
+
+	@Value("spring.ai.ollama.chat.model")
+	private String model;
 
 	private final ChatClient ollamaiChatClient;
 
@@ -54,7 +63,7 @@ public class OllamaChatClientController {
 				.defaultOptions(
 						OllamaOptions.builder()
 								.topP(0.7)
-								.model("llama3")
+								.model(model)
 								.build()
 				)
 				.build();
@@ -66,7 +75,7 @@ public class OllamaChatClientController {
 	@GetMapping("/simple/chat")
 	public String simpleChat() {
 
-		return ollamaiChatClient.prompt(DEFAULT_PROMPT).call().content();
+		return ollamaiChatClient.prompt(PromotConstant.DEFAULT_PROMPT).call().content();
 	}
 
 	/**
@@ -76,7 +85,16 @@ public class OllamaChatClientController {
 	public Flux<String> streamChat(HttpServletResponse response) {
 
 		response.setCharacterEncoding("UTF-8");
-		return ollamaiChatClient.prompt(DEFAULT_PROMPT).stream().content();
+		return ollamaiChatClient.prompt(PromotConstant.DEFAULT_PROMPT).stream().content();
+	}
+
+	/**
+	 * ChatClient 流式调用 - prompt有中文建议使用post请求
+	 */
+	@PostMapping("/stream/chat")
+	public Flux<String> streamChat(@RequestBody ChatRequestVO chatRequestVO, HttpServletResponse response) {
+		response.setCharacterEncoding("UTF-8");
+		return ollamaiChatClient.prompt(chatRequestVO.getPrompt()).stream().content();
 	}
 
 }
