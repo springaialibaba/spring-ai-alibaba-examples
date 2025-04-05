@@ -37,6 +37,7 @@
 
 	<modules>
 		<module>server/starter-stdio-server</module>
+		<module>server/starter-stock-server</module>
 		<module>server/starter-webflux-server</module>
 		<module>client/starter-default-client</module>
 		<module>client/starter-webflux-client</module>
