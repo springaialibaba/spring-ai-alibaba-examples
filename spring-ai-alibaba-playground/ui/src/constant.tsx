@@ -1,11 +1,7 @@
 import {
   GlobalOutlined,
   ThunderboltOutlined,
-  SearchOutlined,
-  FormOutlined,
   ReadOutlined,
-  CodeOutlined,
-  PhoneOutlined,
   CommentOutlined,
   FireOutlined,
   HeartOutlined,
@@ -13,6 +9,10 @@ import {
   RobotFilled,
   UserOutlined,
   PlusOutlined,
+  PictureOutlined,
+  DatabaseOutlined,
+  ApiOutlined,
+  ToolOutlined,
 } from "@ant-design/icons";
 import React from "react";
 import DocSummaryPage from "./menuPages/docSummaryPage";
@@ -37,10 +37,10 @@ export const pageComponents = {
   [MenuPage.ImageGen]: ImageGenPage,
   [MenuPage.DocSummary]: DocSummaryPage,
   [MenuPage.MultiModal]: MultiModalPage,
-  [MenuPage.FunctionCalling]: FunctionCallingPage,
+  [MenuPage.ToolCalling]: FunctionCallingPage,
   [MenuPage.Rag]: RagPage,
   [MenuPage.Mcp]: McpPage,
-  [MenuPage.MoreExamples]: McpPage, // 暂时使用 McpPage 作为占位
+  // [MenuPage.MoreExamples]: McpPage, // 暂时使用 McpPage 作为占位
 } as const;
 
 // 按钮配置列表
@@ -90,12 +90,12 @@ export const functionMenuItems: FunctionMenuItem[] = [
   },
   {
     key: "image-gen",
-    icon: <SearchOutlined />,
+    icon: <PictureOutlined />,
     label: "图像生成",
   },
   {
     key: "doc-summary",
-    icon: <FormOutlined />,
+    icon: <ReadOutlined />,
     label: "文档总结",
   },
   // {
@@ -104,25 +104,25 @@ export const functionMenuItems: FunctionMenuItem[] = [
   //   label: "多模态",
   // },
   {
-    key: "function-calling",
-    icon: <ReadOutlined />,
-    label: "Function Calling",
+    key: "tool-calling",
+    icon: <ToolOutlined />,
+    label: "Tool Calling",
   },
   {
     key: "rag",
-    icon: <CodeOutlined />,
+    icon: <DatabaseOutlined />,
     label: "RAG",
   },
   {
     key: "mcp",
-    icon: <PhoneOutlined />,
+    icon: <ApiOutlined />,
     label: "MCP",
   },
-  {
-    key: "more-examples",
-    icon: <PhoneOutlined />,
-    label: "更多案例",
-  },
+  // {
+  //   key: "more-examples",
+  //   icon: <PhoneOutlined />,
+  //   label: "更多案例",
+  // },
 ];
 
 const renderTitle = (icon: React.ReactElement, title: string) => (

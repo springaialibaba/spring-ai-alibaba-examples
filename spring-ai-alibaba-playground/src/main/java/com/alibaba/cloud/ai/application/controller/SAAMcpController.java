@@ -17,6 +17,8 @@
 package com.alibaba.cloud.ai.application.controller;
 
 import com.alibaba.cloud.ai.application.annotation.UserIp;
+import com.alibaba.cloud.ai.application.entity.result.Result;
+import com.alibaba.cloud.ai.application.entity.tools.ToolCallResp;
 import com.alibaba.cloud.ai.application.service.SAAMcpService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -46,15 +48,12 @@ public class SAAMcpController {
 
     @UserIp
     @GetMapping("/mcp")
-    @Operation(summary = "DashScope Mcp Chat")
-    public String chat(
-            HttpServletResponse response,
-            @Validated @RequestParam("prompt") String prompt,
-            @RequestHeader(value = "chatId", required = false, defaultValue = "spring-ai-alibaba-playground-mcp") String chatId
+    @Operation(summary = "DashScope MCP Chat")
+    public Result<ToolCallResp> chat(
+            @Validated @RequestParam("prompt") String prompt
     ) {
 
-        response.setCharacterEncoding("UTF-8");
-        return mcpService.chat(chatId, prompt);
+        return Result.success(mcpService.chat(prompt));
     }
 
 }

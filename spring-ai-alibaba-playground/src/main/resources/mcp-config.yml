@@ -8,3 +8,11 @@ mcpServers:
       - "-jar"
       - "mcp-libs/weather.jar"
     env: {}
+  github:
+    # windows 下为 npx.cmd mac 为 npx
+    command: npx.cmd
+    args:
+      - "-y"
+      - "@modelcontextprotocol/server-github"
+    env:
+      GITHUB_PERSONAL_ACCESS_TOKEN: ${GITHUB_PERSONAL_ACCESS_TOKEN}

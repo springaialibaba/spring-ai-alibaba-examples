@@ -1,4 +1,4 @@
-package com.alibaba.cloud.ai.application.entity;
+package com.alibaba.cloud.ai.application.entity.mcp;
 
 import java.util.Map;
 

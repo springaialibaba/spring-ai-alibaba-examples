@@ -90,6 +90,12 @@
 			<version>${spring-ai.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.ai</groupId>
+			<artifactId>spring-ai-markdown-document-reader</artifactId>
+			<version>${spring-ai.version}</version>
+		</dependency>
+
 		<!-- Spring AI Alibaba -->
 		<dependency>
 			<groupId>com.alibaba.cloud.ai</groupId>
@@ -100,6 +106,12 @@
 		<dependency>
 			<groupId>com.alibaba.cloud.ai</groupId>
 			<artifactId>spring-ai-alibaba-jdbc-memory</artifactId>
+			<version>${spring-ai-alibaba.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba.cloud.ai</groupId>
+			<artifactId>spring-ai-alibaba-starter-analyticdb-store</artifactId>
 			<version>${spring-ai-alibaba.version}</version>
 		</dependency>
 
@@ -128,6 +140,21 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
+
+		<!-- HttpClient 核心库 -->
+		<dependency>
+			<groupId>org.apache.httpcomponents.client5</groupId>
+			<artifactId>httpclient5</artifactId>
+			<version>5.2.3</version> <!-- 请检查最新版本 -->
+		</dependency>
+
+		<!-- 如果需要使用 HttpClient 连接池管理 -->
+		<dependency>
+			<groupId>org.apache.httpcomponents.core5</groupId>
+			<artifactId>httpcore5</artifactId>
+			<version>5.2.3</version> <!-- 请检查最新版本 -->
+		</dependency>
+
 
 		<dependency>
 			<groupId>io.micrometer</groupId>

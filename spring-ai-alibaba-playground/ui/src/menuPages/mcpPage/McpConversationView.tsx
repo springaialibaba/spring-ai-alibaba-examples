@@ -1,13 +1,14 @@
+// TODO: 可能不需要这个文件了
 import React, { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { Sender } from "@ant-design/x";
 import CodeInfo from "./components/CodeInfo";
 import OutputResult from "./components/OutputResult";
-import { useStyles } from "./style";
 import { useConversationContext } from "../../stores/conversation.store";
 import BasePage from "../components/BasePage";
 import { McpMessage, Message } from "./types";
 import { getMcp } from "../../api/mcp";
+import { useStyles } from "./style";
 
 // 将存储的消息转换为UI显示的消息
 const mapStoredMessagesToUIMessages = (messages: McpMessage[]): Message[] => {
@@ -43,7 +44,6 @@ const McpConversationView = ({ conversationId }: McpConversationViewProps) => {
     activeConversation,
     chooseActiveConversation,
     updateActiveConversation,
-    addMessage,
   } = useConversationContext();
 
   // 跟踪组件是否首次加载，用于处理URL中的prompt参数

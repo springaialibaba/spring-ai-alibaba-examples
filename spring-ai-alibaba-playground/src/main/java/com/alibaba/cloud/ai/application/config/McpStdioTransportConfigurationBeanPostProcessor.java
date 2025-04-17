@@ -20,7 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
-import com.alibaba.cloud.ai.application.entity.McpServerConfig;
+import com.alibaba.cloud.ai.application.entity.mcp.McpServerConfig;
 import com.alibaba.cloud.ai.application.exception.SAAAppException;
 import com.alibaba.cloud.ai.application.utils.McpServerUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -75,21 +75,23 @@ public class McpStdioTransportConfigurationBeanPostProcessor implements BeanPost
 				mcpServerConfig = McpServerUtils.getMcpServerConfig();
 
 				// Handle the jar relative path issue in the configuration file.
-				// Todo: 是否跳过除了 jar 之外的 mcp server config.
 				for (Map.Entry<String, McpStdioClientProperties.Parameters> entry : mcpServerConfig.getMcpServers()
 						.entrySet()) {
 
-					McpStdioClientProperties.Parameters serverConfig = entry.getValue();
-					String oldMcpLibsPath = McpServerUtils.getLibsPath(serverConfig.args());
-					String rewriteMcpLibsAbsPath = getMcpLibsAbsPath(McpServerUtils.getLibsPath(serverConfig.args()));
-					if (rewriteMcpLibsAbsPath != null) {
-						serverConfig.args().remove(oldMcpLibsPath);
-						serverConfig.args().add(rewriteMcpLibsAbsPath);
+					if (entry.getValue() != null && entry.getValue().command().startsWith("java")) {
+
+						McpStdioClientProperties.Parameters serverConfig = entry.getValue();
+						String oldMcpLibsPath = McpServerUtils.getLibsPath(serverConfig.args());
+						String rewriteMcpLibsAbsPath = getMcpLibsAbsPath(McpServerUtils.getLibsPath(serverConfig.args()));
+						if (rewriteMcpLibsAbsPath != null) {
+							serverConfig.args().remove(oldMcpLibsPath);
+							serverConfig.args().add(rewriteMcpLibsAbsPath);
+						}
 					}
 				}
 
 				String msc = objectMapper.writeValueAsString(mcpServerConfig);
-				logger.debug("Load MCP Server Config: {}", msc);
+				logger.debug("Registry McpServer config: {}", msc);
 
 				// write mcp client
 				mcpStdioClientProperties.setServersConfiguration(new ByteArrayResource(msc.getBytes()));

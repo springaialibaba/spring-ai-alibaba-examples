@@ -4,6 +4,9 @@ import { GetProp } from "antd";
 import { Bubble } from "@ant-design/x";
 import { useEffect, useRef } from "react";
 
+/**
+ * 生成图像的数据结构
+ */
 export interface GeneratedImage {
   id: string;
   url: string;
@@ -12,6 +15,9 @@ export interface GeneratedImage {
   dataUrl?: string;
 }
 
+/**
+ * 聊天消息的数据结构
+ */
 export interface ChatMessage {
   role: "user" | "assistant";
   content: string;
@@ -19,11 +25,17 @@ export interface ChatMessage {
   images?: GeneratedImage[];
 }
 
+/**
+ * AI模型能力配置
+ */
 export interface AiCapabilities {
   deepThink: boolean;
   onlineSearch: boolean;
 }
 
+/**
+ * 对话会话的数据结构
+ */
 export interface Conversation {
   id: string;
   title: string;
@@ -36,7 +48,11 @@ export interface Conversation {
 // 存储键名
 const STORAGE_KEY = "app_conversations";
 
-// 处理blob到dataUrl的转换，用于持久化
+/**
+ * 将Blob对象转换为DataURL格式
+ * @param blob - 要转换的Blob对象
+ * @returns 转换后的DataURL字符串
+ */
 const blobToDataUrl = (blob: Blob): Promise<string> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -46,7 +62,12 @@ const blobToDataUrl = (blob: Blob): Promise<string> => {
   });
 };
 
-// 在保存前处理会话数据
+/**
+ * 处理会话数据用于存储
+ * 主要处理图片数据，将blob转换为dataUrl
+ * @param conversations - 要处理的会话列表
+ * @returns 处理后可以存储的会话列表
+ */
 const prepareConversationsForStorage = async (
   conversations: Conversation[]
 ): Promise<Conversation[]> => {
@@ -84,7 +105,10 @@ const prepareConversationsForStorage = async (
   return processedConversations;
 };
 
-// 从 localStorage 加载数据
+/**
+ * 从localStorage加载会话数据
+ * @returns 存储的会话列表，如果没有则返回空数组
+ */
 const loadConversationsFromStorage = (): Conversation[] => {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
@@ -107,6 +131,12 @@ const aiCapabilitiesAtom = atom<AiCapabilities>({
   onlineSearch: false,
 });
 
+/**
+ * 用于管理对话上下文的React Hook
+ * 提供对话的创建、更新、删除和读取功能
+ * 自动将对话数据持久化到localStorage
+ * @returns 包含对话状态和操作方法的对象
+ */
 export const useConversationContext = () => {
   const [conversations, setConversations] = useAtom(conversationsAtom);
   const [activeConversation, setActiveConversation] = useAtom(
@@ -134,7 +164,6 @@ export const useConversationContext = () => {
           STORAGE_KEY,
           JSON.stringify(processedConversations)
         );
-        console.log("Saved conversations to localStorage");
       } catch (error) {
         console.error("Failed to save conversations to localStorage:", error);
       }
@@ -147,7 +176,11 @@ export const useConversationContext = () => {
     };
   }, [conversations]);
 
-  // 更新AI能力状态
+  /**
+   * 更新特定AI能力的状态
+   * @param key - 要更新的能力名称
+   * @param value - 是否启用该能力
+   */
   const updateCapability = (key: keyof AiCapabilities, value: boolean) => {
     // 当前逻辑是互斥的（只能启用一种能力），但未来可能会支持多种同时启用
     const newCapabilities = Object.keys(aiCapabilities).reduce((acc, k) => {
@@ -170,6 +203,10 @@ export const useConversationContext = () => {
     }
   };
 
+  /**
+   * 切换特定AI能力的状态
+   * @param key - 要切换的能力名称
+   */
   const toggleCapability = (key: keyof AiCapabilities) => {
     const currentValue = aiCapabilities[key];
     updateCapability(key, !currentValue);
@@ -186,24 +223,30 @@ export const useConversationContext = () => {
     }
   }, [activeConversation?.id]);
 
+  /**
+   * 创建新的对话会话
+   * @param type - 对话类型
+   * @param items - 初始消息项
+   * @param content - 用户输入内容，可选，用于生成标题
+   * @returns 新创建的对话会话对象
+   */
   const createConversation = (
     type: MenuPage,
-    items: GetProp<typeof Bubble.List, "items">
+    items: GetProp<typeof Bubble.List, "items">,
+    content?: string
   ) => {
-    console.log("previous createConversation", conversations);
-
-    // 根据类型生成合适的标题和唯一ID
+    // UUID
     const timestamp = Date.now();
     let title = "";
-    switch (type) {
-      case MenuPage.Chat:
-        title = `对话 ${timestamp.toString().slice(-8)}`;
-        break;
-      case MenuPage.ImageGen:
-        title = `图像生成 ${timestamp.toString().slice(-8)}`;
-        break;
-      default:
-        title = `对话 ${timestamp.toString().slice(-8)}`;
+
+    if (content && content.trim()) {
+      const maxLength = 15;
+      title =
+        content.trim().length > maxLength
+          ? `${content.trim().substring(0, maxLength)}...`
+          : content.trim();
+    } else {
+      title = `对话 ${timestamp.toString().slice(-8)}`;
     }
 
     const newConversation: Conversation = {
@@ -219,6 +262,10 @@ export const useConversationContext = () => {
     return newConversation;
   };
 
+  /**
+   * 删除指定ID的对话会话
+   * @param conversationId - 要删除的对话ID
+   */
   const deleteConversation = (conversationId: string) => {
     setConversations(
       conversations.filter((conv) => conv.id !== conversationId)
@@ -228,29 +275,36 @@ export const useConversationContext = () => {
     }
   };
 
+  /**
+   * 更新全部对话会话列表
+   * @param conversations - 新的对话会话列表
+   */
   const updateConversations = (conversations: Conversation[]) => {
     setConversations([...conversations]);
   };
 
+  /**
+   * 更新指定的对话会话，会同时更新localStorage
+   * @param conversation - 要更新的对话会话对象
+   */
   const updateActiveConversation = (conversation: Conversation) => {
-    console.log("Updating conversation:", conversation.id);
-    console.log("New messages:", conversation.messages);
-
     // 更新 conversations 数组
     const updatedConversations = conversations.map((conv) =>
       conv.id === conversation.id ? conversation : conv
     );
 
-    console.log("Updated conversations:", updatedConversations);
     setConversations(updatedConversations);
 
     // 如果是当前活跃的对话，也更新 activeConversation
     if (activeConversation?.id === conversation.id) {
-      console.log("Updating active conversation");
       setActiveConversation(conversation);
     }
   };
 
+  /**
+   * 更新指定的对话会话，但不更新localStorage
+   * @param conversation - 要更新的对话会话对象
+   */
   const updateConversationWithoutLocalStorage = (
     conversation: Conversation
   ) => {
@@ -267,43 +321,42 @@ export const useConversationContext = () => {
     }
   };
 
-  const addMessage = (message: ChatMessage) => {
-    if (!activeConversation) {
-      console.error("No active conversation to add message to");
-      return;
-    }
+  // /**
+  //  * 向当前活跃的对话添加新消息
+  //  * @param message - 要添加的消息对象
+  //  */
+  // const addMessage = (message: ChatMessage) => {
+  //   if (!activeConversation) {
+  //     console.error("No active conversation to add message to");
+  //     return;
+  //   }
+  //   // 创建更新后的对话对象
+  //   const updatedConversation = {
+  //     ...activeConversation,
+  //     messages: [...activeConversation.messages, message],
+  //   };
+  //   // 更新 conversations 数组
+  //   const updatedConversations = conversations.map((conv) =>
+  //     conv.id === activeConversation.id ? updatedConversation : conv
+  //   );
 
-    console.log("Adding message to conversation:", message);
-    console.log("Current conversation messages:", activeConversation.messages);
+  //   // 更新状态
+  //   setConversations(updatedConversations);
+  //   setActiveConversation(updatedConversation);
 
-    // 创建更新后的对话对象
-    const updatedConversation = {
-      ...activeConversation,
-      messages: [...activeConversation.messages, message],
-    };
+  //   // 直接更新到 localStorage 确保保存
+  //   try {
+  //     localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedConversations));
+  //   } catch (error) {
+  //     console.error("addMessage: Failed to save to localStorage:", error);
+  //   }
+  // };
 
-    console.log("Updated conversation messages:", updatedConversation.messages);
-
-    // 更新 conversations 数组
-    const updatedConversations = conversations.map((conv) =>
-      conv.id === activeConversation.id ? updatedConversation : conv
-    );
-
-    // 更新状态
-    setConversations(updatedConversations);
-    setActiveConversation(updatedConversation);
-
-    // 直接更新到 localStorage 确保保存
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedConversations));
-      console.log(
-        "addMessage: Directly saved to localStorage with new message"
-      );
-    } catch (error) {
-      console.error("addMessage: Failed to save to localStorage:", error);
-    }
-  };
-
+  /**
+   * 更新对话的标题
+   * @param conversationId - 要更新标题的对话ID
+   * @param newTitle - 新的标题
+   */
   const updateConversationTitle = (
     conversationId: string,
     newTitle: string
@@ -322,6 +375,10 @@ export const useConversationContext = () => {
     }
   };
 
+  /**
+   * 选择指定ID的对话作为当前活跃对话
+   * @param conversationId - 要选择的对话ID
+   */
   const chooseActiveConversation = (conversationId: string) => {
     const conversation = conversations.find(
       (conv) => conv.id === conversationId
@@ -331,6 +388,9 @@ export const useConversationContext = () => {
     }
   };
 
+  /**
+   * 清除当前活跃的对话
+   */
   const clearActiveConversation = () => {
     setActiveConversation(null);
   };
@@ -348,7 +408,6 @@ export const useConversationContext = () => {
     updateConversationWithoutLocalStorage,
     chooseActiveConversation,
     clearActiveConversation,
-    addMessage,
     updateConversationTitle,
   };
 };

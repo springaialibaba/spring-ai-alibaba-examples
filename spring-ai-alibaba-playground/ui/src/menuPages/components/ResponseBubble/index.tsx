@@ -11,6 +11,7 @@ interface ResponseBubbleProps {
   content: string;
   timestamp: number;
   isError?: boolean;
+  footer?: () => React.ReactNode;
 }
 
 // 缓存防止重复
@@ -20,6 +21,7 @@ const ResponseBubble: React.FC<ResponseBubbleProps> = ({
   content,
   timestamp,
   isError = false,
+  footer = null,
 }) => {
   const { token } = theme.useToken();
   const { styles } = useStyle();
@@ -120,9 +122,9 @@ const ResponseBubble: React.FC<ResponseBubbleProps> = ({
         </ReactMarkdown>
       </div>
       <div className={styles.messageTime}>
-        {new Date(timestamp).toLocaleTimeString()}
+        {new Date(timestamp).toLocaleString()}
       </div>
-      {!isError && createMessageFooter(content)}
+      {!isError && (footer ? footer() : createMessageFooter(content))}
     </div>
   );
 };

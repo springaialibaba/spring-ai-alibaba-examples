@@ -53,6 +53,10 @@ public class ToolCallResp {
 	 * 工具执行耗时
 	 */
 	private Long toolCostTime;
+	/**
+	 * Tool 记录tool返回的中间结果
+	 */
+	private String toolResponse;
 
 	public enum ToolState {
 		/**
@@ -145,18 +149,28 @@ public class ToolCallResp {
 		this.toolCostTime = toolCostTime;
 	}
 
+	public String getToolResponse() {
+		return toolResponse;
+	}
+
+	public void setToolResponse(String toolResponse) {
+		this.toolResponse = toolResponse;
+	}
+
 	@Override
 	public String toString() {
-
-		return "ToolCallResp {" + "status=" + status
-				+ ", toolName='" + toolName + '\''
-				+ ", toolParameters='" + toolParameters + '\''
-				+ ", toolResult='" + toolResult + '\''
-				+ ", toolStartTime=" + toolStartTime
-				+ ", toolEndTime=" + toolEndTime
-				+ ", errorMessage='" + errorMessage + '\''
-				+ ", toolInput='" + toolInput + '\''
-				+ '}';
+		return "ToolCallResp{" +
+				"status=" + status +
+				", toolName='" + toolName + '\'' +
+				", toolParameters='" + toolParameters + '\'' +
+				", toolResult='" + toolResult + '\'' +
+				", toolStartTime=" + toolStartTime +
+				", toolEndTime=" + toolEndTime +
+				", errorMessage='" + errorMessage + '\'' +
+				", toolInput='" + toolInput + '\'' +
+				", toolCostTime=" + toolCostTime +
+				", toolResponse='" + toolResponse + '\'' +
+				'}';
 	}
 
 	// return a null ToolCallResp

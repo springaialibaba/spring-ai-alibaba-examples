@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Tooltip, Image, Card, message } from "antd";
+import { Tooltip, Image, Card, message, theme } from "antd";
 import {
   ReloadOutlined,
   DownloadOutlined,
@@ -20,6 +20,7 @@ const GeneratedImage: React.FC<GeneratedImageProps> = ({
   prompt,
   onReload,
 }) => {
+  const { token } = theme.useToken();
   const [previewVisible, setPreviewVisible] = useState(false);
   const [imageError, setImageError] = useState(false);
 
@@ -66,14 +67,17 @@ const GeneratedImage: React.FC<GeneratedImageProps> = ({
     <Card
       bodyStyle={{
         padding: 0,
+        height: "350px",
       }}
       style={{
         position: "relative",
-        // height: "400px",
         width: "100%",
         overflow: "hidden",
         padding: 0,
-        borderRadius: "8px",
+        borderRadius: token.borderRadiusLG,
+        maxWidth: "450px",
+        margin: "0 auto",
+        height: "350px",
       }}
       onMouseEnter={(e) => {
         const overlay = e.currentTarget.querySelector(
@@ -100,8 +104,11 @@ const GeneratedImage: React.FC<GeneratedImageProps> = ({
             alignItems: "center",
             justifyContent: "center",
             height: "100%",
-            backgroundColor: "#f5f5f5",
-            color: "#999",
+            width: "100%",
+            backgroundColor: token.colorBgElevated,
+            color: token.colorText,
+            border: `1px dashed ${token.colorBorder}`,
+            borderRadius: token.borderRadiusLG,
           }}
         >
           <WarningOutlined style={{ fontSize: "32px", marginBottom: "8px" }} />
@@ -127,7 +134,7 @@ const GeneratedImage: React.FC<GeneratedImageProps> = ({
             alt={prompt}
             style={{
               width: "100%",
-              height: "100%",
+              height: "350px",
               objectFit: "cover",
             }}
             preview={{

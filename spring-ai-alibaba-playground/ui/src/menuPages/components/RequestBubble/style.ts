@@ -10,6 +10,7 @@ export const useStyle = createStyles(({ token }) => ({
     borderRadius: token.borderRadius,
     maxWidth: "80%",
     alignSelf: "flex-end",
+    marginLeft: "auto",
     willChange: "transform, opacity",
     transform: "translateZ(0)",
     backfaceVisibility: "hidden",

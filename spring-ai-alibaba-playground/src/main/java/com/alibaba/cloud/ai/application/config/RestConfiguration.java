@@ -17,15 +17,16 @@
 
 package com.alibaba.cloud.ai.application.config;
 
-import java.net.http.HttpClient;
-import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.hc.client5.http.classic.HttpClient;
+import org.apache.hc.client5.http.config.RequestConfig;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.core5.util.Timeout;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.client.JdkClientHttpRequestFactory;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestClient;
 
 /**
@@ -37,20 +38,17 @@ import org.springframework.web.client.RestClient;
 @AutoConfiguration
 public class RestConfiguration {
 
-	private final Logger logger = LoggerFactory.getLogger(RestConfiguration.class);
-
-	private static final Duration READ_TIMEOUT = Duration.ofMinutes(5);
-
 	@Bean
-	public RestClient.Builder restClient() {
+	public RestClient.Builder createRestClient() {
+		RequestConfig requestConfig = RequestConfig.custom()
+				.setConnectTimeout(Timeout.of(10, TimeUnit.MINUTES))
+				.setResponseTimeout(Timeout.of(10, TimeUnit.MINUTES))
+				.setConnectionRequestTimeout(Timeout.of(10, TimeUnit.MINUTES))
+				.build();
 
-		logger.warn("RestClient.Builder timeout set to: {}", READ_TIMEOUT);
+		HttpClient httpClient = HttpClients.custom().setDefaultRequestConfig(requestConfig).build();
 
-		JdkClientHttpRequestFactory requestFactory = new JdkClientHttpRequestFactory(
-				HttpClient.newHttpClient()
-		);
-
-		requestFactory.setReadTimeout(READ_TIMEOUT);
+		HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory(httpClient);
 
 		return RestClient.builder().requestFactory(requestFactory);
 	}

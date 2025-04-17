@@ -1,8 +1,16 @@
 import React from "react";
-import BasePage from "../components/BasePage";
+import { useParams } from "react-router-dom";
+import FunctionCallingConversationView from "./FunctionCallingConversationView";
+import FunctionCallingLandingView from "./FunctionCallingLandingView";
 
 const FunctionCallingPage: React.FC = () => {
-  return <BasePage title="Function Calling"></BasePage>;
+  const { conversationId } = useParams<{ conversationId?: string }>();
+
+  if (conversationId) {
+    return <FunctionCallingConversationView conversationId={conversationId} />;
+  } else {
+    return <FunctionCallingLandingView />;
+  }
 };
 
 export default FunctionCallingPage;

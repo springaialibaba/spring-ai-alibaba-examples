@@ -75,7 +75,7 @@ public class CustomerSupportAssistant {
 						new SimpleLoggerAdvisor()
 				)
 						
-				.defaultFunctions("getBookingDetails", "changeBooking", "cancelBooking") // FUNCTION CALLING
+				.defaultTools("getBookingDetails", "changeBooking", "cancelBooking") // FUNCTION CALLING
 
 				.build();
 		// @formatter:on
@@ -84,11 +84,14 @@ public class CustomerSupportAssistant {
 	public Flux<String> chat(String chatId, String userMessageContent) {
 
 		return this.chatClient.prompt()
-			.system(s -> s.param("current_date", LocalDate.now().toString()))
-			.user(userMessageContent)
-			.advisors(a -> a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, chatId).param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 100)) // 设置advisor参数， 记忆使用chatId， 拉取最近的100条记录
-			.stream()
-			.content();
+				.system(s -> s.param("current_date", LocalDate.now().toString()))
+				.user(userMessageContent)
+				.advisors(
+						a -> a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, chatId).param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 100)) // 设置advisor参数，
+																															// 记忆使用chatId，
+																															// 拉取最近的100条记录
+				.stream()
+				.content();
 	}
 
 }

@@ -32,10 +32,10 @@ import reactor.core.publisher.Flux;
 
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -66,11 +66,11 @@ public class SAAChatController {
 	 * 3. The chatId chat memory, passed by the front-end, is of type Object and cannot be repeated
 	 */
 	@UserIp
-	@GetMapping("/chat")
+	@PostMapping("/chat")
 	@Operation(summary = "DashScope Flux Chat")
 	public Flux<String> chat(
 			HttpServletResponse response,
-			@Validated @RequestParam("prompt") String prompt,
+			@Validated @RequestBody String prompt,
 			@RequestHeader(value = "model", required = false) String model,
 			@RequestHeader(value = "chatId", required = false, defaultValue = "spring-ai-alibaba-playground-chat") String chatId
 	) {
@@ -94,10 +94,10 @@ public class SAAChatController {
 		return chatService.chat(chatId, model, prompt);
 	}
 
-	@GetMapping("/deep-thinking/chat")
+	@PostMapping("/deep-thinking/chat")
 	public Flux<String> deepThinkingChat(
 			HttpServletResponse response,
-			@Validated @RequestParam("prompt") String prompt,
+			@Validated @RequestBody String prompt,
 			@RequestHeader(value = "model", required = false) String model,
 			@RequestHeader(value = "chatId", required = false, defaultValue = "spring-ai-alibaba-playground-deepthink-chat") String chatId
 	) {

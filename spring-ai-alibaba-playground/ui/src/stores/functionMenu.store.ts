@@ -10,7 +10,7 @@ export enum MenuPage {
   ImageGen = "image-gen",
   DocSummary = "doc-summary",
   MultiModal = "multi-modal",
-  FunctionCalling = "function-calling",
+  ToolCalling = "tool-calling",
   Rag = "rag",
   Mcp = "mcp",
   MoreExamples = "more-examples",

@@ -17,6 +17,21 @@
 
 spring:
   ai:
+
+    # 向量数据库配置
+    vectorstore:
+      analytic:
+        enabled: false
+        dbInstanceId: gp-bp1238pvyz0g78u2m
+        regionId: cn-hangzhou
+        managerAccount: ${ADB_MANAGER_ACCOUNT}
+        managerAccountPassword: ${ADB_MANAGER_ACCOUNT_PASSWORD}
+        namespace: saa
+        namespacePassword: saa@2025
+        collectName: saa
+        access-key-id: ${ADB_ACCESS_KEY_ID}
+        access-key-secret: ${ADB_ACCESS_KEY_SECRET}
+
     dashscope:
       api-key: ${AI_DASHSCOPE_API_KEY}
     # 使用自定义增强的 mcp server config 替换

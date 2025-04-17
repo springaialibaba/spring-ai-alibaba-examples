@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start:backend": "cd .. && mvn spring-boot:run -Dskip.frontend.build=true",
+    "start:backend": "cd .. && mvn spring-boot:run -Dspring-boot.run.profiles=dev -Dskip.npm",
     "start:all": "concurrently \"npm run start:backend\" \"npm run dev\""
   },
   "dependencies": {

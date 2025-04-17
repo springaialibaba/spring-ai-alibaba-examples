@@ -26,7 +26,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,6 +47,8 @@ public class SAAToolsController {
     }
 
 	/**
+	 * http://127.0.0.1:8080/api/v1/tool-call?prompt="使用百度翻译将隐私计算翻译为英文"
+	 *
 	 * 触发百度翻译：使用百度翻译将隐私计算翻译为英文
 	 * 触发百度地图：使用百度地图查找杭州市的银行 ATM 机信息 or 使用百度地图查找杭州的信息
 	 */
@@ -55,11 +56,10 @@ public class SAAToolsController {
 	@GetMapping("/tool-call")
 	@Operation(summary = "DashScope ToolCall Chat")
 	public Result<ToolCallResp> chat(
-			@Validated @RequestParam("prompt") String prompt,
-			@RequestHeader(value = "chatId", required = false, defaultValue = "spring-ai-alibaba-playground-functions") String chatId
+			@Validated @RequestParam("prompt") String prompt
 	) {
 
-		return Result.success(functionService.chat(chatId, prompt));
+		return Result.success(functionService.chat(prompt));
 	}
 
 }
