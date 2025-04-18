@@ -1,0 +1,10 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: simple-example
+
+  ai:
+    dashscope:
+      api-key: ${DASHSCOPE_API_KEY}

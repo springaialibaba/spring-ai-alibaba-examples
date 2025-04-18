@@ -1,6 +1,6 @@
 import { message } from "antd";
 import type { GetProp, UploadProps } from "antd";
-import { ChatMessage, Message } from "./menuPages/ChatPage/types";
+import { ChatMessage, Message } from "./menuPages/chatPage/types";
 import { AiCapabilities } from "./stores/conversation.store";
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
@@ -15,22 +15,6 @@ export const litFileSize = (file: FileType, size: number) => {
 };
 
 export const decoder = new TextDecoder("utf-8");
-
-// 创建AI请求参数
-export const createAiRequestParams = (
-  conversationId: string | undefined,
-  modelValue: string | undefined,
-  aiCapabilities: AiCapabilities,
-  additionalParams: Record<string, any> = {}
-) => {
-  return {
-    chatId: conversationId,
-    model: modelValue,
-    deepThink: aiCapabilities.deepThink,
-    onlineSearch: aiCapabilities.onlineSearch,
-    ...additionalParams,
-  };
-};
 
 // 聊天持久化消息映射为UI表示
 export const mapStoredMessagesToUIMessages = (
@@ -55,46 +39,26 @@ export const mapStoredMessagesToUIMessages = (
   );
 };
 
-export const createTagMerger = (startTag: string, endTag: string) => {
-  const queue: { content: string }[] = [];
-  let currentContent = "";
-  let lastProcessedLength = 0;
+export const scrollToBottom = (container: HTMLElement | null) => {
+  if (!container) return;
+  requestAnimationFrame(() => {
+    const lastMessage = container.lastElementChild as HTMLElement;
 
-  const tagMerger = (fullText: string) => {
-    // 计算新增的部分
-    const newPart = fullText.slice(lastProcessedLength);
-    lastProcessedLength = fullText.length;
-
-    // 如果遇到纯文本，说明标签区域结束，清空队列
-    if (!newPart.includes(startTag) || !newPart.includes(endTag)) {
-      if (currentContent) {
-        queue.push({ content: currentContent });
-        currentContent = "";
-      }
-      return newPart;
+    if (lastMessage) {
+      // 使用平滑滚动
+      lastMessage.scrollIntoView({ behavior: "smooth", block: "end" });
     }
+  });
+};
 
-    // 提取内容
-    const content = newPart.replace(startTag, "").replace(endTag, "");
-
-    // 合并内容
-    currentContent += content;
-
-    // null表示这个chunk已经被处理
-    return null;
-  };
-
-  const getResult = () => {
-    if (currentContent) {
-      queue.push({ content: currentContent });
+export const throttle = (func: (...args: any[]) => void, time: number) => {
+  let inThrottle: boolean;
+  return function (...args: any[]) {
+    const context = this;
+    if (!inThrottle) {
+      func.apply(context, args);
+      inThrottle = true;
+      setTimeout(() => (inThrottle = false), time);
     }
-    return queue
-      .map(({ content }) => `${startTag}${content}${endTag}`)
-      .join("");
-  };
-
-  return {
-    tagMerger,
-    getResult,
   };
 };

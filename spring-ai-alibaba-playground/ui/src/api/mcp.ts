@@ -1,4 +1,4 @@
-import { BASE_URL } from "../constant";
+import { BASE_URL } from "../const";
 
 interface McpResponse {
   data: string;

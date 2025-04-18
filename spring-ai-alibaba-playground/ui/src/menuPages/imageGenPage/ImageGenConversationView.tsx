@@ -14,6 +14,7 @@ import {
   GeneratedImageType,
   ImageResponse,
 } from "./types";
+import { scrollToBottom } from "../../utils";
 
 const ImageGenConversationView: React.FC<{ conversationId: string }> = ({
   conversationId,
@@ -47,23 +48,23 @@ const ImageGenConversationView: React.FC<{ conversationId: string }> = ({
   }, []);
 
   // 立即滚动到底部
-  const immediateScrollToBottom = useCallback(() => {
-    if (!messagesContainerRef.current) return;
-    const container = messagesContainerRef.current;
-    const lastMessage = container.lastElementChild as HTMLElement;
+  // const immediateScrollToBottom = useCallback(() => {
+  //   if (!messagesContainerRef.current) return;
+  //   const container = messagesContainerRef.current;
+  //   const lastMessage = container.lastElementChild as HTMLElement;
 
-    if (lastMessage) {
-      const lastMessageTop = lastMessage.offsetTop;
-      const lastMessageHeight = lastMessage.clientHeight;
-      container.scrollTop =
-        lastMessageTop + lastMessageHeight - container.clientHeight;
-    }
-  }, []);
+  //   if (lastMessage) {
+  //     const lastMessageTop = lastMessage.offsetTop;
+  //     const lastMessageHeight = lastMessage.clientHeight;
+  //     container.scrollTop =
+  //       lastMessageTop + lastMessageHeight - container.clientHeight;
+  //   }
+  // }, []);
 
   // 监听消息变化，触发滚动
   useEffect(() => {
-    immediateScrollToBottom();
-  }, [activeConversation?.messages, immediateScrollToBottom]);
+    scrollToBottom(messagesContainerRef.current);
+  }, [activeConversation?.messages]);
 
   useEffect(() => {
     if (isFirstLoad.current && activeConversation) {
@@ -138,7 +139,6 @@ const ImageGenConversationView: React.FC<{ conversationId: string }> = ({
       content: prompt,
       timestamp: Date.now(),
     };
-
     // 添加生成中的占位消息
     const placeholderMessage: ExtendedChatMessage = {
       role: "assistant" as const,
@@ -159,10 +159,9 @@ const ImageGenConversationView: React.FC<{ conversationId: string }> = ({
     };
     updateActiveConversation(updatedConversation);
 
-    immediateScrollToBottom();
+    scrollToBottom(messagesContainerRef.current);
 
     let timeoutId: number | null = null;
-
     try {
       // 设置超时检测
       timeoutId = window.setTimeout(() => {

@@ -365,7 +365,7 @@ const McpLandingView = () => {
         </div>
       </div>
 
-      {/* 加载中 */}
+      {/* TODO: 统一加一个过渡的动画，现在的页面切换看着有点生硬 */}
       {isFetchingServers && (
         <div className={styles.loadingOverlay}>
           <Spin size="large" />

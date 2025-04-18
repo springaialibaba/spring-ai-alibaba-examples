@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Sender, Bubble } from "@ant-design/x";
-import { actionButtonConfig, PlaceholderNode } from "../../constant";
+import { actionButtonConfig, PlaceholderNode } from "../../const";
 import { useStyle } from "./style";
 import {
   MenuPage,

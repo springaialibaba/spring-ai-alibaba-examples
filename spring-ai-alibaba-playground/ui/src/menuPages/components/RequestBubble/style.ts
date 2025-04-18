@@ -2,6 +2,7 @@ import { createStyles } from "antd-style";
 
 export const useStyle = createStyles(({ token }) => ({
   userMessage: {
+    fontFamily: token.fontFamilyCode,
     display: "flex",
     flexDirection: "column",
     padding: token.padding,

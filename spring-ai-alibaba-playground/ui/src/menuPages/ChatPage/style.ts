@@ -79,13 +79,13 @@ export const useStyle = createStyles(({ token, css }) => {
     senderContainer: css`
       position: fixed;
       bottom: 32px;
-      left: 314px;
-      width: calc(100% - 350px);
+      left: 294px;
+      width: calc(100% - 315px);
     `,
     senderContainerCollapsed: css`
       position: fixed;
       bottom: 32px;
-      width: 100%;
+      width: calc(100% - 32px);
       padding: 0 16px;
     `,
     landingContainer: css`
@@ -105,8 +105,8 @@ export const useStyle = createStyles(({ token, css }) => {
     landingSender: css`
       position: fixed;
       bottom: 80px;
-      left: 324px;
-      width: calc(100% - 360px);
+      left: 294px;
+      width: calc(100% - 315px);
     `,
     landingSenderCollapsed: css`
       position: fixed;

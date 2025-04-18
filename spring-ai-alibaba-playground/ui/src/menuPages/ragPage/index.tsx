@@ -4,7 +4,7 @@ import BasePage from "../components/BasePage";
 import KnowledgeBaseList from "./components/KnowledgeBaseList";
 import { RagMessage } from "./types";
 import { useStyles } from "./style";
-import { ragQuery } from "../../api/rag";
+// import { ragQuery } from "../../api/rag";
 import {
   KnowledgeBase,
   useKnowledgeBaseStore,
@@ -107,18 +107,18 @@ const RagPage = () => {
 
     try {
       // 调用RAG查询API
-      const response = await ragQuery(text, activeKnowledgeBase.id, (value) => {
-        const chunk = decoder.decode(value);
-        responseText += chunk;
+      // const response = await ragQuery(text, activeKnowledgeBase.id, (value) => {
+      //   const chunk = decoder.decode(value);
+      //   responseText += chunk;
 
-        // 更新界面上的响应（流式）
-        const assistantMessage = createAssistantMessage(responseText);
-        setMessages([...updatedMessages, assistantMessage]);
-      });
+      //   // 更新界面上的响应（流式）
+      //   const assistantMessage = createAssistantMessage(responseText);
+      //   setMessages([...updatedMessages, assistantMessage]);
+      // });
 
-      if (!response.ok) {
-        throw new Error("RAG查询失败");
-      }
+      // if (!response.ok) {
+      //   throw new Error("RAG查询失败");
+      // }
 
       // 最终消息
       const finalMessages = [

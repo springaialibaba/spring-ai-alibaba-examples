@@ -80,7 +80,7 @@ const ImageGenLandingView: React.FC = () => {
           className={styles.masonryGrid}
           columnClassName={styles.masonryColumn}
         >
-          {templateImages.map((image) => (
+          {[...templateImages].map((image) => (
             <TemplateImage
               key={image.id}
               id={image.id}

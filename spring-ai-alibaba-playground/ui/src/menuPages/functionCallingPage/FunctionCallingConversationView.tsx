@@ -13,7 +13,7 @@ import { mapStoredMessagesToUIMessages } from "../../utils";
 import ResponseBubble from "../components/ResponseBubble";
 import RequestBubble from "../components/RequestBubble";
 import { FunctionCallingUiMessage } from "./types";
-import { Message } from "../ChatPage/types";
+import { Message } from "../chatPage/types";
 import { useStyles } from "./style";
 
 interface FunctionCallingConversationViewProps {

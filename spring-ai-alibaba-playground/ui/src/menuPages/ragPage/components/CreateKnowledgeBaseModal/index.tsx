@@ -3,7 +3,7 @@ import { Modal, Form, Input, Upload, message } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
 import type { UploadFile } from "antd/es/upload/interface";
 import { useStyles } from "../../style";
-import { createKnowledgeBase } from "../../../../api/rag";
+// import { createKnowledgeBase } from "../../../../api/rag";
 
 interface CreateKnowledgeBaseModalProps {
   visible: boolean;
@@ -45,7 +45,7 @@ const CreateKnowledgeBaseModal = ({
       const files = fileList.map((file) => file.originFileObj as File);
 
       // 调用API创建知识库
-      await createKnowledgeBase(values.name, files);
+      // await createKnowledgeBase(values.name, files);
 
       message.success("知识库创建成功");
       handleCancel();

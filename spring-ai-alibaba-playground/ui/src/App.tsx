@@ -23,7 +23,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { pageComponents } from "./constant";
+import { pageComponents } from "./const";
 import FunctionMenu from "./menuPages/components/FunctionMenu";
 import { useTheme } from "./hooks/useTheme";
 import { ThemeProvider } from "antd-style";
@@ -49,8 +49,6 @@ const Independent: React.FC = () => {
   // 根据当前主题设置body背景色
   useEffect(() => {
     document.body.style.backgroundColor = isDark ? "#141414" : "#ffffff";
-
-    // 如果是暗色主题，添加class
     if (isDark) {
       document.body.classList.add("dark-theme");
     } else {
@@ -114,7 +112,6 @@ const Independent: React.FC = () => {
         </Tooltip>
       </Space>
       <div className={styles.layout}>
-        {/* 左侧菜单不应用过渡效果 */}
         <FunctionMenu />
         {/* 菜单页面容器 */}
         <div style={{ flex: 1, position: "relative", overflow: "hidden" }}>

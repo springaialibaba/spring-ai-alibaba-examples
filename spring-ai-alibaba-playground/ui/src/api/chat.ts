@@ -1,4 +1,4 @@
-import { BASE_URL } from "../constant";
+import { BASE_URL } from "../const";
 
 interface ChatParams {
   model?: string;
@@ -51,10 +51,9 @@ export const getChat = async (
     throw new Error("Failed to get response reader");
   }
 
-  console.log("reader", reader);
   await reader.read().then(function process({ done, value }) {
     if (done) return;
-    callback?.(value); // TODO: 支持打字机效果
+    callback?.(value);
     return reader.read().then(process);
   });
 

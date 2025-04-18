@@ -7,7 +7,7 @@ import {
 } from "@ant-design/icons";
 import { useStyles } from "../../style";
 import { KnowledgeBase } from "../../types";
-import { createKnowledgeBase } from "../../../../api/rag";
+// import { createKnowledgeBase } from "../../../../api/rag";
 import { useKnowledgeBaseStore } from "../../../../stores/knowledgeBase.store";
 import CreateKnowledgeBaseModal from "../../../../menuPages/ragPage/components/CreateKnowledgeBaseModal";
 
@@ -59,18 +59,18 @@ const KnowledgeBaseList: React.FC<KnowledgeBaseListProps> = ({
     }
 
     setIsSubmitting(true);
-    try {
-      const files = fileList.map((file) => file.originFileObj);
-      await createKnowledgeBase(knowledgeBaseName, files);
-      message.success("知识库创建成功");
-      setIsModalVisible(false);
-      onUpdate();
-    } catch (error) {
-      console.error("创建知识库失败:", error);
-      message.error("创建知识库失败");
-    } finally {
-      setIsSubmitting(false);
-    }
+    // try {
+    //   const files = fileList.map((file) => file.originFileObj);
+    //   await createKnowledgeBase(knowledgeBaseName, files);
+    //   message.success("知识库创建成功");
+    //   setIsModalVisible(false);
+    //   onUpdate();
+    // } catch (error) {
+    //   console.error("创建知识库失败:", error);
+    //   message.error("创建知识库失败");
+    // } finally {
+    //   setIsSubmitting(false);
+    // }
   };
 
   const handleDelete = async (id: string) => {

@@ -41,6 +41,7 @@
 		<module>rag-milvus-example</module>
 		<module>rag-pgvector-example</module>
 		<module>module-rag</module>
+        <module>spring-ai-alibaba-vector-databases-example</module>
 	</modules>
 
     <build>

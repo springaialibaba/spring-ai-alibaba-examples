@@ -257,7 +257,7 @@ export const useConversationContext = () => {
       createdAt: timestamp,
       capabilities: { ...aiCapabilities }, // 保存当前能力设置
     };
-    setConversations([...conversations, newConversation]);
+    setConversations([newConversation, ...conversations]);
     setActiveConversation(newConversation);
     return newConversation;
   };
