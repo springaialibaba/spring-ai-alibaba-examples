@@ -67,6 +67,12 @@
             <version>${junit-jupiter.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.alibaba.cloud.ai</groupId>
+            <artifactId>spring-ai-alibaba-starter-tool-calling-baidumap</artifactId>
+            <version>1.0.0-M6.2-SNAPSHOT</version>
+        </dependency>
+
     </dependencies>
 
     <build>
