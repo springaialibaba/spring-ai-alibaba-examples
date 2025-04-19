@@ -1,10 +1,12 @@
 import {
   LinkOutlined,
   GithubOutlined,
-  FormOutlined,
-  DingdingOutlined,
   BulbOutlined,
   BulbFilled,
+  WechatWorkOutlined,
+  SnippetsOutlined,
+  FormOutlined,
+  DingtalkOutlined,
 } from "@ant-design/icons";
 import {
   Button,
@@ -16,7 +18,7 @@ import {
 } from "antd";
 import { useStyle } from "./style";
 import { Space } from "antd";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -27,6 +29,7 @@ import { pageComponents } from "./const";
 import FunctionMenu from "./menuPages/components/FunctionMenu";
 import { useTheme } from "./hooks/useTheme";
 import { ThemeProvider } from "antd-style";
+import TipsModalComponent from "./menuPages/components/TipsModal";
 
 // 定义深色主题和浅色主题的算法
 import darkAlgorithm from "antd/es/theme/themes/dark";
@@ -46,6 +49,18 @@ const Independent: React.FC = () => {
   const { styles } = useStyle();
   const isDark = actualTheme === "dark";
 
+  // contact modal
+  const [weChatModalVisible, setweChatModalVisible] = useState(false);
+  const [dingTalkModalVisible, setDingTalkModalVisible] = useState(false);
+
+  const showDingTalkModal = () => {
+    setDingTalkModalVisible(true);
+  };
+
+  const showWeChatModal = () => {
+    setweChatModalVisible(true);
+  };
+
   // 根据当前主题设置body背景色
   useEffect(() => {
     document.body.style.backgroundColor = isDark ? "#141414" : "#ffffff";
@@ -59,6 +74,18 @@ const Independent: React.FC = () => {
   // ==================== Render =================
   return (
     <>
+      <TipsModalComponent
+        way="WeChat"
+        imageLink="dingtalk.png"
+        isVisible={dingTalkModalVisible}
+        setModalVisible={setDingTalkModalVisible}
+      />
+      <TipsModalComponent
+        way="dingTalk"
+        imageLink="wechat.png"
+        isVisible={weChatModalVisible}
+        setModalVisible={setweChatModalVisible}
+      />
       <Space className={styles.topLinkWrapper}>
         <Tooltip title={isDark ? "切换到亮色模式" : "切换到暗色模式"}>
           <Button
@@ -73,7 +100,7 @@ const Independent: React.FC = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Button icon={<GithubOutlined />} />
+            <Button icon={<SnippetsOutlined />} />
           </a>
         </Tooltip>
         <Tooltip title={"spring-ai-alibaba link"}>
@@ -85,9 +112,9 @@ const Independent: React.FC = () => {
             <Button icon={<GithubOutlined />} />
           </a>
         </Tooltip>
-        <Tooltip title={"spring-ai-alibabad-docs link"}>
+        <Tooltip title={"官方文档"}>
           <a
-            href="https://sca.aliyun.com/en/ai/"
+            href="https://java2ai.com"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -98,19 +125,20 @@ const Independent: React.FC = () => {
       {/* <Space className={styles.bottomLinkWrapper}>
         <Tooltip title={"Question Feedback"}>
           <a
-            href="https://github.com/springaialibaba/spring-ai-alibaba-examples/issues"
+            href="https://github.com/alibaba/spring-ai-alibaba/issues"
             target="_blank"
             rel="noopener noreferrer"
           >
             <Button icon={<FormOutlined />} />
           </a>
         </Tooltip>
-        <Tooltip title={"Contact Us"}>
+        <Tooltip title={"Contact Us By Dingding"}>
           <a target="_blank" rel="noopener noreferrer">
-            <Button icon={<DingdingOutlined />} />
+            <Button icon={<DingtalkOutlined />} onClick={showDingTalkModal} />
           </a>
         </Tooltip>
       </Space> */}
+
       <div className={styles.layout}>
         <FunctionMenu />
         {/* 菜单页面容器 */}

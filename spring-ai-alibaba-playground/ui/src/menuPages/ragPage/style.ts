@@ -16,7 +16,7 @@ export const useStyles = createStyles(({ token, css }) => {
     `,
     rightPanel: css`
       width: 67%;
-      /* height: 100%; */
+      height: 100%;
       padding-left: 8px;
     `,
     card: css`
@@ -46,7 +46,7 @@ export const useStyles = createStyles(({ token, css }) => {
       width: 100%;
     `,
     resultPanel: css`
-      height: calc(100% - 16px);
+      height: calc(100% - 17px);
       padding: 0 16px 16px;
       display: flex;
       flex-direction: column;

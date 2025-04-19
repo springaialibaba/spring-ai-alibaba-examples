@@ -72,9 +72,11 @@ export const useStyle = createStyles(({ token, css }) => {
       }
     `,
     chooseModel: css`
+      display: flex;
       flex-direction: column;
       color: rgba(0, 0, 0, 0.88);
-      margin: 8px 0 8px;
+      margin: 0 0 12px;
+      gap: 8px;
     `,
     conversationsContainer: css`
       display: flex;
@@ -178,6 +180,10 @@ export const useStyle = createStyles(({ token, css }) => {
       left: 20px;
       bottom: 8px;
       z-index: 10;
+    `,
+    menuTitle: css`
+      color: #e3e3e377;
+      font-size: 14px;
     `,
   };
 });

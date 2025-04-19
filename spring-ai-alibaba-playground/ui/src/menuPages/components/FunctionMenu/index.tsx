@@ -7,6 +7,7 @@ import {
   CloseOutlined,
   FormOutlined,
   DingdingOutlined,
+  WechatWorkOutlined,
 } from "@ant-design/icons";
 import {
   Button,
@@ -16,6 +17,7 @@ import {
   Typography,
   Input,
   Tooltip,
+  Modal,
 } from "antd";
 import React, { useEffect, useState, useRef } from "react";
 import { useStyle } from "./style";
@@ -54,6 +56,8 @@ const FunctionMenu = () => {
   >(null);
   const [editingTitle, setEditingTitle] = useState("");
   const inputRef = useRef<any>(null);
+  const [isDingTalkModalOpen, setIsDingTalkModalOpen] = useState(false);
+  const [isWeChatModalOpen, setIsWeChatModalOpen] = useState(false);
 
   useEffect(() => {
     initModelOptionList();
@@ -194,7 +198,9 @@ const FunctionMenu = () => {
 
         {/* 🌟 模型选择 */}
         <div className={styles.chooseModel}>
-          <Typography.Text>模型选择</Typography.Text>
+          <Typography.Text className={styles.menuTitle}>
+            模型选择
+          </Typography.Text>
           <Select
             onChange={(value) => chooseModel(value)}
             options={modelOptionList}
@@ -203,7 +209,9 @@ const FunctionMenu = () => {
           />
         </div>
         <div className={styles.conversationsContainer}>
-          <Typography.Text>对话历史</Typography.Text>
+          <Typography.Text className={styles.menuTitle}>
+            对话历史
+          </Typography.Text>
           <div className={styles.conversationsScrollContainer}>
             {conversations.map((conversation) => (
               <div
@@ -290,7 +298,7 @@ const FunctionMenu = () => {
         </div>
 
         <Space className={styles.bottomLinkWrapper}>
-          <Tooltip title={"Question Feedback"}>
+          <Tooltip title={"问题反馈"}>
             <a
               href="https://github.com/springaialibaba/spring-ai-alibaba-examples/issues"
               target="_blank"
@@ -299,12 +307,53 @@ const FunctionMenu = () => {
               <Button icon={<FormOutlined />} />
             </a>
           </Tooltip>
-          <Tooltip title={"Contact Us"}>
-            <a target="_blank" rel="noopener noreferrer">
-              <Button icon={<DingdingOutlined />} />
-            </a>
+          <Tooltip title={"钉钉群"}>
+            <Button
+              icon={<DingdingOutlined />}
+              onClick={() => setIsDingTalkModalOpen(true)}
+            />
+          </Tooltip>
+
+          <Tooltip title={"微信群"}>
+            <Button
+              icon={<WechatWorkOutlined />}
+              onClick={() => setIsWeChatModalOpen(true)}
+            />
           </Tooltip>
         </Space>
+
+        <Modal
+          title="钉钉群"
+          open={isDingTalkModalOpen}
+          onCancel={() => setIsDingTalkModalOpen(false)}
+          centered
+        >
+          <img
+            src="/dingtalk.png"
+            alt="钉钉群"
+            style={{
+              width: "100%",
+              margin: "0 auto",
+            }}
+          />
+        </Modal>
+
+        <Modal
+          title="微信群"
+          open={isWeChatModalOpen}
+          onCancel={() => setIsWeChatModalOpen(false)}
+          centered
+        >
+          <img
+            src="/wechat.png"
+            alt="微信群"
+            style={{
+              width: "100%",
+              textAlign: "center",
+              margin: "0 auto",
+            }}
+          />
+        </Modal>
       </div>
     </>
   );

@@ -6,12 +6,9 @@ import { useConversationContext } from "../../stores/conversation.store";
 import BasePage from "../components/BasePage";
 import { getChat } from "../../api/chat";
 import { Button, theme } from "antd";
-import { CloudUploadOutlined } from "@ant-design/icons";
-import { Attachments } from "@ant-design/x";
-import { actionButtonConfig, MAX_IMAGE_SIZE } from "../../const";
+import { actionButtonConfig } from "../../const";
 import {
   decoder,
-  litFileSize,
   mapStoredMessagesToUIMessages,
   scrollToBottom,
 } from "../../utils";
