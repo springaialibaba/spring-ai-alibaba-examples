@@ -1,0 +1,10 @@
+spring:
+  ai:
+    alibaba:
+      vectorstore:
+        opensearch:
+          access-pass-word:
+          access-user-name:
+          instance-id:
+          endpoint:
+          enabled: true
