@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
    Copyright 2025 the original author or authors.
 
@@ -15,52 +14,49 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xmlns="http://maven.apache.org/POM/4.0.0"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.alibaba.cloud.ai</groupId>
+        <artifactId>spring-ai-alibaba-examples</artifactId>
+        <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    <artifactId>spring-ai-alibaba-observability-example</artifactId>
 
-	<parent>
-		<groupId>com.alibaba.cloud.ai</groupId>
-		<artifactId>spring-ai-alibaba-examples</artifactId>
-		<version>${revision}</version>
-		<relativePath>../pom.xml</relativePath>
-	</parent>
+    <version>${revision}</version>
+    <packaging>pom</packaging>
+    <name>Spring AI Alibaba Observability Examples</name>
 
-	<version>${revision}</version>
-	<artifactId>spring-ai-alibaba-observability-example</artifactId>
-	<packaging>pom</packaging>
+    <description>Spring AI Alibaba Observability Example</description>
 
-	<description>Spring AI Alibaba Observability Example</description>
-	<name>Spring AI Alibaba Observability Examples</name>
+    <modules>
+        <module>observability-example</module>
+        <module>observability-arms-example</module>
+        <module>observationhandler-example</module>
+    </modules>
 
-	<modules>
-		<module>observability-example</module>
-		<module>observability-arms-example</module>
-		<module>observationhandler-example</module>
-	</modules>
+    <dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-deploy-plugin</artifactId>
-				<version>${maven-deploy-plugin.version}</version>
-				<configuration>
-					<skip>true</skip>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
 
-	<dependencies>
+    </dependencies>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
-	</dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>${maven-deploy-plugin.version}</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

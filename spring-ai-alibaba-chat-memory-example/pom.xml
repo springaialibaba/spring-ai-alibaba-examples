@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
    Copyright 2023-2025 the original author or authors.
 
@@ -15,91 +14,88 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.alibaba.cloud.ai</groupId>
+        <artifactId>spring-ai-alibaba-examples</artifactId>
+        <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
 
-	<parent>
-		<groupId>com.alibaba.cloud.ai</groupId>
-		<artifactId>spring-ai-alibaba-examples</artifactId>
-		<version>${revision}</version>
-		<relativePath>../pom.xml</relativePath>
-	</parent>
+    <artifactId>spring-ai-alibaba-chat-memory-example</artifactId>
+    <version>${revision}</version>
+    <name>Spring AI Alibaba ChatMemory Examples</name>
 
-	<artifactId>spring-ai-alibaba-chat-memory-example</artifactId>
-	<version>${revision}</version>
+    <description>Spring AI Alibaba ChatMemory Example</description>
 
-	<description>Spring AI Alibaba ChatMemory Example</description>
-	<name>Spring AI Alibaba ChatMemory Examples</name>
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
-	<properties>
-		<maven.compiler.source>17</maven.compiler.source>
-		<maven.compiler.target>17</maven.compiler.target>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+    <dependencies>
 
-	<dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud.ai</groupId>
+            <artifactId>spring-ai-alibaba-starter</artifactId>
+            <version>${spring-ai-alibaba.version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>com.alibaba.cloud.ai</groupId>
-			<artifactId>spring-ai-alibaba-starter</artifactId>
-			<version>${spring-ai-alibaba.version}</version>
-		</dependency>
+        <!-- 包含此依赖的 Chat Memory 尚未发布。需要 install 运行！ -->
+        <dependency>
+            <groupId>com.alibaba.cloud.ai</groupId>
+            <artifactId>spring-ai-alibaba-jdbc-memory</artifactId>
+            <version>1.0.0-M6.2-SNAPSHOT</version>
+        </dependency>
 
-		<!-- 包含此依赖的 Chat Memory 尚未发布。需要 install 运行！ -->
-		<dependency>
-			<groupId>com.alibaba.cloud.ai</groupId>
-			<artifactId>spring-ai-alibaba-jdbc-memory</artifactId>
-			<version>1.0.0-M6.2-SNAPSHOT</version>
-		</dependency>
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.49.1.0</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.xerial</groupId>
-			<artifactId>sqlite-jdbc</artifactId>
-			<version>3.49.1.0</version>
-		</dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud.ai</groupId>
+            <artifactId>spring-ai-alibaba-redis-memory</artifactId>
+            <version>1.0.0-M6.2-SNAPSHOT</version>
+        </dependency>
 
-		<dependency>
-			<groupId>com.alibaba.cloud.ai</groupId>
-			<artifactId>spring-ai-alibaba-redis-memory</artifactId>
-			<version>1.0.0-M6.2-SNAPSHOT</version>
-		</dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>5.2.0</version>
+        </dependency>
 
-		<dependency>
-			<groupId>redis.clients</groupId>
-			<artifactId>jedis</artifactId>
-			<version>5.2.0</version>
-		</dependency>
+    </dependencies>
 
-	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>${spring-boot.version}</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-deploy-plugin</artifactId>
-				<version>${maven-deploy-plugin.version}</version>
-			</plugin>
-		</plugins>
-	</build>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>${maven-deploy-plugin.version}</version>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
