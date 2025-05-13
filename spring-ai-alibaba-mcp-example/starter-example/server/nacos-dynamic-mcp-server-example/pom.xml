@@ -30,7 +30,7 @@
         <dependency>
             <groupId>com.alibaba.cloud.ai</groupId>
             <artifactId>spring-ai-alibaba-mcp-nacos-dynamic-server</artifactId>
-            <version>1.0.0-M6.2-SNAPSHOT</version>
+            <version>1.0.0-M8.1-SNAPSHOT</version>
         </dependency>
 
         <!-- MCP Server WebFlux 支持 -->

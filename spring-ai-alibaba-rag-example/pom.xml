@@ -27,7 +27,6 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <version>${revision}</version>
     <artifactId>spring-ai-alibaba-rag-example</artifactId>
     <packaging>pom</packaging>
 

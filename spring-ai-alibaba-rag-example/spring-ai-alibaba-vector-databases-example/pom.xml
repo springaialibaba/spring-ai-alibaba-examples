@@ -10,7 +10,6 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>com.alibaba.cloud.ai.example</groupId>
     <artifactId>spring-ai-alibaba-vector-databases-example</artifactId>
     <packaging>pom</packaging>
     <modules>
