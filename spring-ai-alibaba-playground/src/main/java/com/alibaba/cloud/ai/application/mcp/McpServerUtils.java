@@ -75,10 +75,15 @@ public final class McpServerUtils {
 	public static String getMcpLibsAbsPath(String jarName) {
 
 		File file = new File(jarName);
-		if (new File(jarName).isAbsolute()) {
+		if (file.isAbsolute()) {
 			return file.getAbsolutePath();
 		}
-
+		
+		File workDirFile = new File(System.getProperty("user.dir"), jarName);
+		if (workDirFile.exists()) {
+			return workDirFile.getAbsolutePath();
+		}
+		
 		try {
 			Resource resource = new ClassPathResource(jarName);
 			File fileResource = resource.getFile();
@@ -87,11 +92,12 @@ public final class McpServerUtils {
 				return fileResource.getAbsolutePath();
 			}
 			else {
-				throw new SAAAppException("File not found: " + fileResource.getAbsolutePath());
+				throw new SAAAppException("File not found: " + jarName + ", tried locations: " 
+						+ workDirFile.getAbsolutePath() + ", " + fileResource.getAbsolutePath());
 			}
 		}
 		catch (IOException e) {
-			throw new SAAAppException(e.getMessage());
+			throw new SAAAppException("Cannot load file: " + jarName + ", error: " + e.getMessage());
 		}
 	}
 

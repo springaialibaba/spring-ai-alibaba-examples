@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.alibaba.cloud.ai</groupId>
+        <version>${revision}</version>
+        <artifactId>spring-ai-alibaba-mcp-starter-example</artifactId>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>nacos-dynamic-mcp-server-example</artifactId>
+    <description>Nacos Dynamic MCP Server Example</description>
+    <name>Nacos Dynamic MCP Server Example</name>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+        
+        <!-- Dynamic Mcp Server -->
+        <dependency>
+            <groupId>com.alibaba.cloud.ai</groupId>
+            <artifactId>spring-ai-alibaba-mcp-nacos-dynamic-server</artifactId>
+            <version>1.0.0-M6.2-SNAPSHOT</version>
+        </dependency>
+
+        <!-- MCP Server WebFlux 支持 -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-mcp-server-webflux-spring-boot-starter</artifactId>
+            <version>1.0.0-M6</version>
+        </dependency>
+
+    </dependencies>
+
+</project>

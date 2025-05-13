@@ -38,22 +38,22 @@
 		<maven-deploy-plugin.version>3.1.1</maven-deploy-plugin.version>
 
 		<!-- Spring AI -->
-		<spring-ai-alibaba.version>1.0.0-M3.1</spring-ai-alibaba.version>
-		<spring-ai.version>1.0.0-M3</spring-ai.version>
+		<spring-ai-alibaba.version>1.0.0-M6.1</spring-ai-alibaba.version>
+		<spring-ai.version>1.0.0-M6</spring-ai.version>
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>com.alibaba.cloud.ai</groupId>
-			<artifactId>spring-ai-alibaba-starter</artifactId>
-			<version>${spring-ai-alibaba.version}</version>
-		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>com.alibaba.cloud.ai</groupId>
+			<artifactId>spring-ai-alibaba-starter</artifactId>
+			<version>${spring-ai-alibaba.version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.ai</groupId>

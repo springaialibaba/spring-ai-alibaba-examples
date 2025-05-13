@@ -3,15 +3,13 @@ spring:
     name: rag-pgvector-example
 
   datasource:
-    url: jdbc:postgresql://${POSTGRES_ADDR}:5432/${POSTGRES_DATABASE}
-    username: ${POSTGRES_USERNAME}
-    password: ${POSTGRES_PASSWORD}
+    url: jdbc:postgresql://127.0.0.1:5432/postgres
+    username: postgres
+    password: mysecretpassword
 
   ai:
     dashscope:
-      api-key:  ${AI_DASHSCOPE_API_KEY}
-      # workspace-id: ${AI_DASHSCOPE_WORKSPACE_ID}
-
+      api-key: ${DASH_SCOPE_API_KEY}
     vectorstore:
       pgvector:
         dimensions: 1536

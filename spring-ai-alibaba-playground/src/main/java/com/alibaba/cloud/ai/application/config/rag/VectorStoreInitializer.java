@@ -67,9 +67,39 @@ public class VectorStoreInitializer {
 	}
 
 	private List<MarkdownDocumentReader> loadMarkdownDocuments() throws IOException, URISyntaxException {
-
 		List<MarkdownDocumentReader> readers;
+		
+		// 首先检查jar包当前运行目录是否存在markdown文件
+		Path currentDirPath = Paths.get(System.getProperty("user.dir"), "rag", "markdown");
+		
+		if (Files.exists(currentDirPath) && Files.isDirectory(currentDirPath)) {
+			logger.debug("Found markdown directory in current running directory: {}", currentDirPath);
+			
+			try (Stream<Path> paths = Files.walk(currentDirPath)) {
+				List<Path> markdownFiles = paths.filter(Files::isRegularFile)
+						.filter(path -> path.toString().endsWith(".md"))
+						.collect(Collectors.toList());
+				
+				if (!markdownFiles.isEmpty()) {
+					logger.debug("Loading {} markdown files from current directory", markdownFiles.size());
+					readers = markdownFiles.stream()
+							.map(path -> {
+								String filePath = path.toAbsolutePath().toString();
+								return new MarkdownDocumentReader("file:" + filePath);
+							})
+							.collect(Collectors.toList());
+					return readers;
+				} else {
+					logger.debug("No markdown files found in current directory, falling back to resources");
+				}
+			}
+		} else {
+			logger.debug("Markdown directory not found in current directory, falling back to resources");
+		}
+		
+		// 如果当前运行目录没有找到，则从resources目录加载
 		Path markdownDir = Paths.get(getClass().getClassLoader().getResource("rag/markdown").toURI());
+		logger.debug("Loading markdown files from resources directory: {}", markdownDir);
 
 		try (Stream<Path> paths = Files.walk(markdownDir)) {
 			readers = paths.filter(Files::isRegularFile)

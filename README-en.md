@@ -1,61 +1,24 @@
 # Spring AI Alibaba Examples
 
-> Examples for Spring AI Alibaba.
+> Spring AI Alibaba Repo: https://github.com/alibaba/spring-ai-alibaba
+>
+> Spring AI Alibaba Website: https://java2ai.com
+>
+> Spring AI Alibaba Website Repo: https://github.com/springaialibaba/spring-ai-alibaba-website
 
 English | [中文](./README.md)
 
 ## Introduction
 
-This repository contains numerous examples to demonstrate the usage of Spring AI Alibaba from basic to advanced levels and best practices for AI projects.
-For more detailed information, please refer to the README.md in each sub-project and the [Spring AI Alibaba official website](https://java2ai.com).
+This repository contains various Example module projects that demonstrate the usage of Spring AI and Spring AI Alibaba, from basic to advanced practices and best practices for AI projects. For more detailed introductions, please refer to the README.md of each subproject and the Spring AI Alibaba website.
 
 ## How to Contribute
 
 We welcome contributions in any form, including but not limited to:
 
-- Usage examples of Spring AI Alibaba;
-- Usage of Spring AI Alibaba API;
-- Usage examples of Spring AI;
-- Best practices for AI projects, etc.
+1. Usage examples of Spring AI and Spring AI Alibaba;
+2. Use of Spring AI and Spring AI Alibaba APIs;
+3. Best practices for AI projects, etc.
 
-This project repository is under construction, please read the [Roadmap.md](./Roadmap-en.md) for more information.
+The project has been initially set up, and we will add and remove certain Example modules based on the main repository. Please follow Spring AI Alibaba for more information.
 
-## Integrated Features and Models
-
-| Category | Options                                |
-|----------|----------------------------------------|
-| Chat     | DashScope, OpenAI, ark (Volcano Ark), ollama, ZhiPuAI, moonshot |
-| RAG      | ES, milvus, pgvector                   |
-| Multimodal | ark (Volcano Ark), Dashscope        |
-| Image    | Dashscope, OpenAI                      |
-| Audio    | DashScope                              |
-| Development Ecosystem | MCP, Nacos, Higress, Kong, Observability, Prompt templates, Function calling, Integration examples, Structured output |
-
-## Project Structure
-
-In this Example project, we organize modules by functionality, aiming to modularize each Example for easy discovery and use.
-A basic module example is as follows:
-
-```text
-|-spring-ai-alibaba-chat-example
-|-- dashscope
-|----chat-model
-|------ src
-|------ README.md
-|------ pom.xml
-|----chat-client
-|------ src
-|------ README.md
-|------ pom.xml
-|-- ollama
-|----chat-model
-|------ src
-|------ README.md
-|------ pom.xml
-|----chat-client
-|------ src
-|------ README.md
-|------ pom.xml
-|-- ...... (other LLMs)
-|- ......(other Examples)
-``` 

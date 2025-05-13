@@ -58,7 +58,13 @@
         <dependency>
             <groupId>com.alibaba.cloud.ai</groupId>
             <artifactId>spring-ai-alibaba-starter-tool-calling-weather</artifactId>
-            <version>${spring-ai-alibaba.version}</version>
+            <version>1.0.0-M6.2-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.cloud.ai</groupId>
+            <artifactId>spring-ai-alibaba-starter-tool-calling-microsofttranslate</artifactId>
+            <version>1.0.0-M6.2-SNAPSHOT</version>
         </dependency>
 
         <dependency>

@@ -15,7 +15,7 @@
  */
 
 
-package com.alibaba.cloud.ai.example.rag.demo;
+package com.alibaba.cloud.ai.example.rag.controller;
 
 import com.alibaba.cloud.ai.advisor.RetrievalRerankAdvisor;
 import com.alibaba.cloud.ai.model.RerankModel;
@@ -29,6 +29,8 @@ import org.springframework.ai.reader.tika.TikaDocumentReader;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
+import org.springframework.ai.vectorstore.filter.Filter;
+import org.springframework.ai.vectorstore.filter.FilterExpressionBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -40,7 +42,10 @@ import reactor.core.publisher.Flux;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author WANG, ZHEN
@@ -48,7 +53,8 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/ai")
-public class Demo {
+public class RagPgVectorController {
+
     @Value("classpath:/prompts/system-qa.st")
     private Resource systemResource;
 
@@ -59,7 +65,7 @@ public class Demo {
     private final ChatModel chatModel;
     private final RerankModel rerankModel;
 
-    public Demo(VectorStore vectorStore, ChatModel chatModel, RerankModel rerankModel) {
+    public RagPgVectorController(VectorStore vectorStore, ChatModel chatModel, RerankModel rerankModel) {
         this.vectorStore = vectorStore;
         this.chatModel = chatModel;
         this.rerankModel = rerankModel;
@@ -88,7 +94,7 @@ public class Demo {
     @GetMapping("/rag/importText")
     public ResponseEntity<String> insertText(@RequestParam("text") String text) {
         // 1.parameter verification
-        if (!StringUtils.hasText(text)){
+        if (!StringUtils.hasText(text)) {
             return ResponseEntity.badRequest().body("Please enter text");
         }
         // 2.parse document
@@ -129,10 +135,11 @@ public class Demo {
         return ResponseEntity.ok(msg);
     }
 
+
     @GetMapping(value = "/rag", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<ChatResponse> generate(@RequestParam(value = "message",
             defaultValue = "how to get start with spring ai alibaba?") String message) throws IOException {
-        SearchRequest searchRequest = SearchRequest.defaults();
+        SearchRequest searchRequest = SearchRequest.builder().topK(2).build();
         String promptTemplate = systemResource.getContentAsString(StandardCharsets.UTF_8);
 
         return ChatClient.builder(chatModel)
@@ -143,4 +150,72 @@ public class Demo {
                 .stream()
                 .chatResponse();
     }
+
+    /**
+     * read and write multiple files and write it into a vector store
+     * @param file
+     * @return
+     */
+    @PostMapping(value = "/rag/importFileV2", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<String> importFileV2(@RequestPart(value = "file", required = false) MultipartFile file) {
+        // 1. file verification
+        if (file == null || file.isEmpty()) {
+            return ResponseEntity.badRequest().body("必须上传非空的文件");
+        }
+        // 2. parse files
+        List<Document> docs = new TikaDocumentReader(file.getResource()).get();
+
+        // 3. Splitting Text
+        List<Document> splitDocs = new TokenTextSplitter().apply(docs);
+
+        String fileId = UUID.randomUUID().toString();
+        for (Document doc : splitDocs) {
+            doc.getMetadata().put("fileId", fileId);
+        }
+
+        // 4. create embedding and store to vector store
+        vectorStore.add(splitDocs);
+
+        // 5.return success prompt
+        String msg = String.format("successfully inserted %d text fragments into vector store," +
+                " fileId: %s", splitDocs.size(), fileId);
+        return ResponseEntity.ok(msg);
+    }
+
+    /**
+     * search the vector store
+     * @param message
+     * @param fileId
+     * @return
+     * @throws IOException
+     */
+    @GetMapping(value = "/rag/searchV2")
+    public  Flux<String> search(@RequestParam(value = "message",
+            defaultValue = "what is blibaba?") String message,
+                                         @RequestParam(value = "fileId", required = true)
+                                         String fileId) throws IOException {
+
+        FilterExpressionBuilder b = new FilterExpressionBuilder();
+        Filter.Expression expression = b.eq("fileId", fileId).build();
+
+        SearchRequest searchRequest = SearchRequest.builder().topK(1).filterExpression(expression).build();
+        String promptTemplate = systemResource.getContentAsString(StandardCharsets.UTF_8);
+
+        return ChatClient.builder(chatModel)
+                .defaultAdvisors(new RetrievalRerankAdvisor(vectorStore, rerankModel, searchRequest, promptTemplate, 0.1))
+                .build()
+                .prompt()
+                .user(message)
+                .stream()
+                .content();
+    }
+
+    @PostMapping(value = "/rag/deleteFilesV2")
+    public ResponseEntity<String> deleteFiles(@RequestParam(value = "fileId", required = false) String fileId) {
+        FilterExpressionBuilder b = new FilterExpressionBuilder();
+        Filter.Expression expression = b.eq("fileId", fileId).build();
+        vectorStore.delete(expression);
+        return ResponseEntity.ok("successfully deleted");
+    }
+
 }

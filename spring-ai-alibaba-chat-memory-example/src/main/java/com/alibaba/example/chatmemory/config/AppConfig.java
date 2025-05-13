@@ -40,7 +40,7 @@ public class AppConfig {
 		return new MessageChatMemoryAdvisor(new RedisChatMemory(
 				"127.0.0.1",
 				6379,
-				"springaialibaba123456"
+				null
 		));
 	}
 

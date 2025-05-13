@@ -10,7 +10,7 @@ mcpServers:
     env: {}
   github-mcp-server:
     # windows 下为 npx.cmd mac 为 npx
-    command: npx.cmd
+    command: npx
     args:
       - "-y"
       - "@modelcontextprotocol/server-github"

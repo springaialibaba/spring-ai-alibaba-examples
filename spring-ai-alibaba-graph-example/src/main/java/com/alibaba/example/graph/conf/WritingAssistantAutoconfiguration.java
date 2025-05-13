@@ -18,9 +18,6 @@
 
 package com.alibaba.example.graph.conf;
 
-import com.alibaba.cloud.ai.dashscope.api.DashScopeApi;
-import com.alibaba.cloud.ai.dashscope.chat.DashScopeChatModel;
-import com.alibaba.cloud.ai.dashscope.chat.DashScopeChatOptions;
 import com.alibaba.cloud.ai.graph.GraphRepresentation;
 import com.alibaba.example.graph.dispatcher.FeedbackDispatcher;
 import com.alibaba.example.graph.node.RewordingNode;
@@ -35,7 +32,6 @@ import com.alibaba.cloud.ai.graph.state.AgentStateFactory;
 import com.alibaba.cloud.ai.graph.state.strategy.ReplaceStrategy;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -91,16 +87,6 @@ public class WritingAssistantAutoconfiguration {
 		System.out.println("==================================\n");
 
 		return graph;
-	}
-
-	@Bean
-	public ChatModel chatModel(@Value("${spring.ai.dashscope.api-key:#{null}}") String apiKey) {
-		DashScopeChatOptions options = DashScopeChatOptions.builder()
-			.withModel(DashScopeApi.ChatModel.QWEN_PLUS.getModel())
-			.build();
-
-		DashScopeApi dashScopeApi = new DashScopeApi(apiKey);
-		return new DashScopeChatModel(dashScopeApi, options);
 	}
 
 }

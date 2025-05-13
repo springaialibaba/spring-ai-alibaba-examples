@@ -12,29 +12,4 @@
 
 ## Spring AI Alibaba Example 的项目结构
 
-在此 Example 项目中，我们按照功能的方式组合模块，力求将每个 Example 的功能模块化，方便大家查找和使用。
-一个基本的模块示例如下：
-
-```text
-|-spring-ai-alibaba-chat-example
-|-- dashscope-chat
-|----dashscope-chat-model
-|------ src
-|------ README.md
-|------ pom.xml
-|----dashscope-chat-client
-|------ src
-|------ README.md
-|------ pom.xml
-|-- ollama-chat
-|----ollama-chat-model
-|------ src
-|------ README.md
-|------ pom.xml
-|----ollama-chat-client
-|------ src
-|------ README.md
-|------ pom.xml
-|-- ...... (other LLMs)
-|- ......(other Examples)
-```
+在此 Example 项目中，我们按照功能的方式组合模块，力求将每个 Example 的功能模块化，方便大家查找和使用。在给每个 Example 项目命名时，尽量使用见名之意的模块起名方式，您可以通过查看模块名来找到响应的 Example 项目。

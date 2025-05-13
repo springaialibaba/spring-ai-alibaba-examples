@@ -2,6 +2,10 @@ spring:
   ai:
     alibaba:
       toolcalling:
+        microsofttranslate:
+          enabled: true
+          api-key: ${MICROSOFT_TRANSLATE_API_KEY}
+          region: ${MICROSOFT_TRANSLATE_REGION}
         baidutranslate:
           enabled: true
           app-id: ${BAIDU_TRANSLATE_APP_ID}

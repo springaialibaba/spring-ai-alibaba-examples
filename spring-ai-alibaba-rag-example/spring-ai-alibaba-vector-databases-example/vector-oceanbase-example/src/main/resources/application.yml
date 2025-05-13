@@ -1,0 +1,16 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: oceanbase-example
+  ai:
+    dashscope:
+      api-key: ${DASHSCOPE_API_KEY}
+    vectorstore:
+      oceanbase:
+        enabled: true
+        url: ${OCEANBASE_URL:jdbc:oceanbase://localhost:2881/springai}
+        username: ${OCEANBASE_USERNAME:root@test}
+        password: ${OCEANBASE_PASSWORD:test}
+        tableName: test_ai

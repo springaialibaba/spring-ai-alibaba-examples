@@ -22,7 +22,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  *
  * @author WANG,ZHEN
- * @since 1.0.0-M3
+ * @author zhouyou.ltx
+ * @since 1.0.0-M6
  */
 
 @SpringBootApplication

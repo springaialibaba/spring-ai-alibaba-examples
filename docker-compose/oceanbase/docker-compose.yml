@@ -1,0 +1,10 @@
+services:
+  oceanbase:
+    image: oceanbase/oceanbase-ce:4.2.5.3-103000022025033117
+    container_name: oceanbase
+    environment:
+      - MODE=MINI
+      - OB_TENANT_PASSWORD=test
+      - OB_DATAFILE_SIZE=2G
+    ports:
+      - 2881:2881

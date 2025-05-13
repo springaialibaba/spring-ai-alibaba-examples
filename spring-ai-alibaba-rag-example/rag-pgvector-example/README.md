@@ -18,13 +18,44 @@ Rag includes the following steps:
 3. Generate result based on filtered trunks.
 
 For how to run and test local rag example, please refer to the following instructions:
-```
-1. start application.
-2. import document by using curl http request.
-curl -X GET http://127.0.0.1:8080/ai/rag/importDocument
 
-3. retrieval and generation
-curl -G 'http://127.0.0.1:8080/ai/rag' --data-urlencode 'message=如何快速开始spring ai alibaba'
+
+
+```code
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE TABLE IF NOT EXISTS vector_store (
+id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
+content text,
+metadata json,
+embedding vector(1536)
+);
+
+CREATE INDEX ON vector_store USING HNSW (embedding vector_cosine_ops);
 ```
+
+#### Import File
+```bash
+curl -X POST http://localhost:8080/ai/rag/importFileV2 \
+  -F "file=@/path/to/your/file" 
+```
+This endpoint allows you to import a file for RAG processing. The file will be processed and stored in the vector database.
+
+#### Search with File ID
+```bash
+curl -G 'http://localhost:8080/ai/rag/search' \
+  --data-urlencode 'messages=what is alibaba?' \
+  --data-urlencode 'fileId={fileId}'
+```
+This endpoint performs a search query within a specific file's content. Replace `{fileId}` with the actual file ID.
+
+#### Delete Files
+```bash
+curl -X DELETE 'http://localhost:8080/ai/rag/deleteFiles?fileId={fileId}'
+```
+This endpoint allows you to delete a specific file from the vector database. Replace `{fileId}` with the actual file ID you want to delete.
+
+
+
+
 ### Pgvector DockerFile
 to [README.md](../../docker-compose/pgvector/README.md)
