@@ -40,39 +40,36 @@ import java.util.Map;
 @RestController
 @RequestMapping("/analyze")
 public class ParallelController {
-    private final CompiledGraph engine;
 
-    public ParallelController(StateGraph parallelGraph) throws GraphStateException {
-        SaverConfig saverConfig = SaverConfig.builder().build();
-        //  编译时可设中断点
-        this.engine = parallelGraph.compile(
-                CompileConfig.builder()
-                        .saverConfig(saverConfig)
-                        .interruptBefore("merge")
-                        .build());
-    }
+	private final CompiledGraph engine;
 
-    @GetMapping
-    public Map<String, Object> analyze(@RequestParam String text) {
-        return engine.invoke(Map.of("inputText", text)).get().data();
-    }
+	public ParallelController(StateGraph parallelGraph) throws GraphStateException {
+		SaverConfig saverConfig = SaverConfig.builder().build();
+		// 编译时可设中断点
+		this.engine = parallelGraph
+			.compile(CompileConfig.builder().saverConfig(saverConfig).interruptBefore("merge").build());
+	}
 
-    @GetMapping(path = "/stream", produces = "text/event-stream")
-    public Flux<Map<String, Object>> analyzeStream(@RequestParam String text) {
-        RunnableConfig cfg = RunnableConfig.builder()
-                .streamMode(CompiledGraph.StreamMode.SNAPSHOTS)
-                .build();
-        return Flux.create(sink -> {
-            engine.stream(Map.of("inputText", text), cfg)
-                    .forEachAsync(node -> sink.next(node.state().data()))
-                    .whenComplete((v, e) -> {
-                        if (e != null) {
-                            sink.error(e);
-                        } else {
-                            sink.complete();
-                        }
-                    });
-        });
-    }
+	@GetMapping
+	public Map<String, Object> analyze(@RequestParam String text) {
+		return engine.invoke(Map.of("inputText", text)).get().data();
+	}
+
+	@GetMapping(path = "/stream", produces = "text/event-stream")
+	public Flux<Map<String, Object>> analyzeStream(@RequestParam String text) {
+		RunnableConfig cfg = RunnableConfig.builder().streamMode(CompiledGraph.StreamMode.SNAPSHOTS).build();
+		return Flux.create(sink -> {
+			engine.stream(Map.of("inputText", text), cfg)
+				.forEachAsync(node -> sink.next(node.state().data()))
+				.whenComplete((v, e) -> {
+					if (e != null) {
+						sink.error(e);
+					}
+					else {
+						sink.complete();
+					}
+				});
+		});
+	}
 
 }

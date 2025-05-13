@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.nio.charset.StandardCharsets;
+
 /**
  * @author 北极星
  */
@@ -58,7 +60,7 @@ public class DeepSeekChatModelController {
      */
     @GetMapping("/stream/chat")
     public Flux<String> streamChat (HttpServletResponse response) {
-        response.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
         Flux<ChatResponse> stream = DeepSeekChatModel.stream(new Prompt(DEFAULT_PROMPT));
         return stream.map(resp -> resp.getResult().getOutput().getText());
     }

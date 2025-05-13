@@ -39,14 +39,14 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 
-    @Bean
-    public ChatModel chatModel(@Value("${spring.ai.dashscope.api-key:#{null}}") String apiKey) {
-        DashScopeChatOptions options = DashScopeChatOptions.builder()
-                .withModel(DashScopeApi.ChatModel.QWEN_PLUS.getModel())
-                .build();
+	@Bean
+	public ChatModel chatModel(@Value("${spring.ai.dashscope.api-key:#{null}}") String apiKey) {
+		DashScopeChatOptions options = DashScopeChatOptions.builder()
+			.withModel(DashScopeApi.ChatModel.QWEN_PLUS.getModel())
+			.build();
 
-        DashScopeApi dashScopeApi = new DashScopeApi(apiKey);
-        return new DashScopeChatModel(dashScopeApi, options);
-    }
+		DashScopeApi dashScopeApi = new DashScopeApi(apiKey);
+		return new DashScopeChatModel(dashScopeApi, options);
+	}
 
 }

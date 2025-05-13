@@ -1,0 +1,21 @@
+{
+    "maven.view": "hierarchical",
+    "java.jdt.ls.vmargs": "-Xmx8G -Xms4G",
+    "maven.terminal.favorites": [
+        {
+            "alias": "full-build",
+            "command": "clean package",
+            "debug": false
+        },
+        {
+            "alias": "full-build without tests",
+            "command": "clean package -DskipTests",
+            "debug": false
+        },
+        {
+            "alias": "full-build without tests & test compile",
+            "command": "clean package -Dmaven.test.skip=true",
+            "debug": false
+        }
+    ]
+}

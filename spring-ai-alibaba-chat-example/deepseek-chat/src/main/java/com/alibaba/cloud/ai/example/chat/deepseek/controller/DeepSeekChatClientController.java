@@ -16,8 +16,7 @@
  */
 package com.alibaba.cloud.ai.example.chat.deepseek.controller;
 
-import reactor.core.publisher.Flux;
-
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
@@ -29,6 +28,7 @@ import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 
 /**
  * @author 北极星
@@ -82,8 +82,9 @@ public class DeepSeekChatClientController {
      * 流式生成接口 - 支持实时获取生成过程的分块响应
      */
     @GetMapping("/ai/stream")
-    public Flux<String> stream () {
-
+    public Flux<String> stream (HttpServletResponse response) {
+        // 避免返回乱码
+        response.setCharacterEncoding("UTF-8");
         return this.DeepSeekChatClient.prompt(DEFAULT_PROMPT)
                 .stream()
                 .content();
