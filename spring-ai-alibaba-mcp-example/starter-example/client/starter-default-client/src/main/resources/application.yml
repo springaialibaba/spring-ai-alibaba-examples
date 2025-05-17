@@ -5,7 +5,7 @@ spring:
     web-application-type: none
   ai:
     dashscope:
-      api-key: ${DASH_SCOPE_API_KEY}
+      api-key: ${AI_DASHSCOPE_API_KEY}
     mcp:
       client:
         stdio:
