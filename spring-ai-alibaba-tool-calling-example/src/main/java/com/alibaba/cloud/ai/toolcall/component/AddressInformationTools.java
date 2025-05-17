@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 the original author or authors.
+ * Copyright 2024-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,25 +12,21 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * @author yHong
  */
+package com.alibaba.cloud.ai.toolcall.component;
 
-package com.alibaba.example;
+import com.alibaba.cloud.ai.toolcalling.baidumap.BaiduMapSearchInfoService;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+public class AddressInformationTools {
 
-/**
- * @author yHong
- * @version 1.0
- * @since 2025/4/21 20:00
- */
-@SpringBootApplication
-public class Application {
+    private final BaiduMapSearchInfoService service;
 
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-	}
+    public AddressInformationTools(BaiduMapSearchInfoService service) {
+        this.service = service;
+    }
+
+    public String getAddressInformation(String address) {
+        return service.apply(new BaiduMapSearchInfoService.Request(address)).message();
+    }
 
 }

@@ -18,17 +18,13 @@
 
 package com.alibaba.example.graph.conf;
 
-import com.alibaba.cloud.ai.graph.GraphRepresentation;
+import com.alibaba.cloud.ai.graph.*;
 import com.alibaba.example.graph.dispatcher.FeedbackDispatcher;
 import com.alibaba.example.graph.node.RewordingNode;
 import com.alibaba.example.graph.node.SummarizerNode;
 import com.alibaba.example.graph.node.SummaryFeedbackClassifierNode;
 import com.alibaba.example.graph.node.TitleGeneratorNode;
 import org.springframework.ai.chat.model.ChatModel;
-import com.alibaba.cloud.ai.graph.GraphStateException;
-import com.alibaba.cloud.ai.graph.OverAllState;
-import com.alibaba.cloud.ai.graph.StateGraph;
-import com.alibaba.cloud.ai.graph.state.AgentStateFactory;
 import com.alibaba.cloud.ai.graph.state.strategy.ReplaceStrategy;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
@@ -55,18 +51,17 @@ public class WritingAssistantAutoconfiguration {
 
 		ChatClient chatClient = ChatClient.builder(chatModel).defaultAdvisors(new SimpleLoggerAdvisor()).build();
 
-		AgentStateFactory<OverAllState> stateFactory = (inputs) -> {
+		OverAllStateFactory stateFactory = () -> {
 			OverAllState state = new OverAllState();
 			state.registerKeyAndStrategy("original_text", new ReplaceStrategy());
 			state.registerKeyAndStrategy("summary", new ReplaceStrategy());
 			state.registerKeyAndStrategy("summary_feedback", new ReplaceStrategy());
 			state.registerKeyAndStrategy("reworded", new ReplaceStrategy());
 			state.registerKeyAndStrategy("title", new ReplaceStrategy());
-			state.input(inputs);
 			return state;
 		};
 
-		StateGraph graph = new StateGraph("Writing Assistant with Feedback Loop", stateFactory)
+		StateGraph graph = new StateGraph("Writing Assistant with Feedback Loop", stateFactory.create())
 			.addNode("summarizer", node_async(new SummarizerNode(chatClient)))
 			.addNode("feedback_classifier", node_async(new SummaryFeedbackClassifierNode(chatClient, "summary")))
 			.addNode("reworder", node_async(new RewordingNode(chatClient)))

@@ -1,5 +1,5 @@
 /*
- * Copyright 2024-2025 the original author or authors.
+ * Copyright 2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 package com.alibaba.cloud.ai.toolcall.controller;
 
-import com.alibaba.cloud.ai.toolcall.component.TimeTools;
+import com.alibaba.cloud.ai.toolcalling.baidutranslate.BaiduTranslateService;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,31 +23,33 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/time")
-public class TimeController {
+@RequestMapping("/translate")
+public class BaiduTranslateController {
 
     private final ChatClient dashScopeChatClient;
-    private final TimeTools timeTools;
 
-    public TimeController(ChatClient.Builder chatClientBuilder, TimeTools timeTools) {
+
+    public BaiduTranslateController(ChatClient.Builder chatClientBuilder, BaiduTranslateService baiduTranslateService) {
         this.dashScopeChatClient = chatClientBuilder.build();
-        this.timeTools = timeTools;
     }
 
     /**
      * No Tool
      */
     @GetMapping("/chat")
-    public String simpleChat(@RequestParam(value = "query", defaultValue = "请告诉我现在北京时间几点了") String query) {
+    public String simpleChat(@RequestParam(value = "query", defaultValue = "帮我把以下内容翻译成英文：你好，世界。") String query) {
         return dashScopeChatClient.prompt(query).call().content();
     }
 
     /**
-     * Methods as Tools
+     * Function as Tools - Function Name
      */
-    @GetMapping("/chat-tool-method")
-    public String chatTranslateMethod(@RequestParam(value = "query", defaultValue = "请告诉我现在北京时间几点了") String query) {
-        return dashScopeChatClient.prompt(query).tools(timeTools).call().content();
+    @GetMapping("/chat-tool-function-callback")
+    public String chatTranslateFunction(@RequestParam(value = "query", defaultValue = "帮我把以下内容翻译成英文：你好，世界。") String query) {
+        return dashScopeChatClient.prompt(query)
+                .toolNames("baiduTranslate")
+                .call()
+                .content();
     }
 
 }

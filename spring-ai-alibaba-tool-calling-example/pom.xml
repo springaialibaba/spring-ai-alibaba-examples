@@ -31,8 +31,8 @@
     <version>${revision}</version>
     <artifactId>spring-ai-alibaba-tool-calling-example</artifactId>
 
-    <description>Spring AI Alibaba Function Calling Example</description>
-    <name>Spring AI Alibaba Function Calling Examples</name>
+    <description>Spring AI Alibaba Tool Calling Example</description>
+    <name>Spring AI Alibaba Tool Calling Examples</name>
 
     <properties>
         <junit-jupiter.version>5.10.0</junit-jupiter.version>
@@ -63,7 +63,13 @@
 
         <dependency>
             <groupId>com.alibaba.cloud.ai</groupId>
-            <artifactId>spring-ai-alibaba-starter-tool-calling-microsofttranslate</artifactId>
+            <artifactId>spring-ai-alibaba-starter-tool-calling-baidumap</artifactId>
+            <version>${spring-ai-alibaba.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.cloud.ai</groupId>
+            <artifactId>spring-ai-alibaba-starter-tool-calling-time</artifactId>
             <version>${spring-ai-alibaba.version}</version>
         </dependency>
 
@@ -71,12 +77,6 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>${junit-jupiter.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.alibaba.cloud.ai</groupId>
-            <artifactId>spring-ai-alibaba-starter-tool-calling-baidumap</artifactId>
-            <version>${spring-ai-alibaba.version}</version>
         </dependency>
 
     </dependencies>

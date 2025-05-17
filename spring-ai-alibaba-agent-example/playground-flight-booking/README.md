@@ -24,7 +24,7 @@ Add to the POM the Spring AI Alibaba boot starter:
 <dependency>
     <groupId>org.springframework.ai</groupId>
     <artifactId>spring-ai-alibaba-starter</artifactId>
-    <version>1.0.0-M6.1</version>
+    <version>1.0.0-M8.1</version>
 </dependency>
 ```
 
@@ -42,7 +42,7 @@ spring.ai.dashscope.chat.options.model=qwen-max
 ```
 
 ```shell
-java -jar ./target/playground-flight-booking-example-0.0.1-SNAPSHOT.jar
+java -jar ./target/playground-flight-booking-0.0.1-SNAPSHOT.jar
 ```
 
 ## Build Frontend (as needed)
@@ -52,3 +52,5 @@ Run the following command to build frontend, this is only necessary when you mad
 ```shell
 mvn clean compile -Pbuild-frontend
 ```
+
+Then explore in [localhost:9000](http://localhost:9000)
