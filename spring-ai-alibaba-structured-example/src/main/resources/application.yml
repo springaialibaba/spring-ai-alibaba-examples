@@ -21,6 +21,6 @@ spring:
 
   ai:
     dashscope:
-      api-key: ${AI_DASHSCOPE_API_KEY}
+      api-key: sk-b0ac526ee44f4bb7b6c61cbcaea14b15
       chat:
         response-format: json
