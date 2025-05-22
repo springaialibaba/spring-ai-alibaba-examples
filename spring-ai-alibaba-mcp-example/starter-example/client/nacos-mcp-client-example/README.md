@@ -40,10 +40,12 @@ spring:
       mcp:
         nacos:
           enabled: true
-          service-namespace: 9ba5f1aa-b37d-493b-9057-72918a40ef35 # MCP服务所在的命名空间Id
           server-addr: 127.0.0.1:8848
           username: nacos
           password: nacos
+          registry:
+            service-namespace: 9ba5f1aa-b37d-493b-9057-72918a40ef35
+            service-group: mcp-server
 
         client:
           sse:

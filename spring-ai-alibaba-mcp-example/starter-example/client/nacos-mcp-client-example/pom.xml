@@ -14,10 +14,10 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>Spring AI - NACOS MCP SSE Client EXAMPLE</name>
 
-    <properties>
-        <spring-ai.version>1.0.0-M8</spring-ai.version>
-        <ai-alibaba.version>1.0.0-M8.1-SNAPSHOT</ai-alibaba.version>
-    </properties>
+<!--    <properties>-->
+<!--        <spring-ai.version>1.0.0-M8</spring-ai.version>-->
+<!--        <ai-alibaba.version>1.0.0-M8.1-SNAPSHOT</ai-alibaba.version>-->
+<!--    </properties>-->
 
     <dependencies>
 
@@ -50,8 +50,15 @@
         <dependency>
             <groupId>com.alibaba.cloud.ai</groupId>
             <artifactId>spring-ai-alibaba-mcp-nacos</artifactId>
-            <version>${ai-alibaba.version}</version>
+            <version>${spring-ai-alibaba.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.cloud.ai</groupId>
+            <artifactId>spring-ai-alibaba-autoconfigure-nacos-mcp-client</artifactId>
+            <version>${spring-ai-alibaba.version}</version>
+        </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
