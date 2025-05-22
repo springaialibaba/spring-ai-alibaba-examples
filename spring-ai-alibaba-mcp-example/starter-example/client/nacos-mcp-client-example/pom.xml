@@ -14,11 +14,6 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>Spring AI - NACOS MCP SSE Client EXAMPLE</name>
 
-<!--    <properties>-->
-<!--        <spring-ai.version>1.0.0-M8</spring-ai.version>-->
-<!--        <ai-alibaba.version>1.0.0-M8.1-SNAPSHOT</ai-alibaba.version>-->
-<!--    </properties>-->
-
     <dependencies>
 
         <dependency>
