@@ -41,7 +41,7 @@ import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvis
 @Service
 public class SAAChatService {
 
-	private final ChatClient defaultChatClient;
+	private final ChatClient chatClient;
 
 	private final PromptTemplate deepThinkPromptTemplate;
 
@@ -51,7 +51,7 @@ public class SAAChatService {
 			@Qualifier("systemPromptTemplate") PromptTemplate systemPromptTemplate
 	) {
 
-		this.defaultChatClient = ChatClient.builder(chatModel)
+		this.chatClient = ChatClient.builder(chatModel)
 				.defaultSystem(
 					systemPromptTemplate.getTemplate()
 				).defaultAdvisors(
@@ -64,7 +64,7 @@ public class SAAChatService {
 
 	public Flux<String> chat(String chatId, String model, String chatPrompt) {
 
-		return defaultChatClient.prompt()
+		return chatClient.prompt()
 				.options(DashScopeChatOptions.builder()
 						.withModel(model)
 						.withTemperature(0.8)
@@ -82,7 +82,7 @@ public class SAAChatService {
 
 	public Flux<String> deepThinkingChat(String chatId, String model, String chatPrompt) {
 
-		return defaultChatClient.prompt()
+		return chatClient.prompt()
 				.options(DashScopeChatOptions.builder()
 						.withModel(model)
 						.withTemperature(0.8)

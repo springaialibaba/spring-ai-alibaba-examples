@@ -25,6 +25,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import reactor.core.publisher.Flux;
 
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,8 +38,8 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@Tag(name = "Function Calling APIs")
-@RequestMapping("/api/v1/")
+@Tag(name = "Tool Calling APIs")
+@RequestMapping("/api/v1")
 public class SAAFunctionController {
 
 	private final SAAFunctionService functionService;
@@ -48,7 +49,7 @@ public class SAAFunctionController {
     }
 
 	@UserIp
-	@GetMapping("tool-call")
+	@GetMapping("/tool-call")
 	@Operation(summary = "DashScope ToolCall Chat")
 	public Flux<String> chat(
 			@RequestParam("prompt") String prompt,
@@ -61,6 +62,10 @@ public class SAAFunctionController {
 
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			return Flux.just("No chat prompt provided");
+		}
+
+		if (!StringUtils.hasText(chatId)) {
+			chatId = "spring-ai-alibaba-playground-functions";
 		}
 
 		return functionService.chat(chatId, model, prompt);

@@ -2,6 +2,8 @@
 
 > Spring AI Alibaba Example 示例。
 
+[English](./README-en.md) | 中文
+
 ## 介绍
 
 此仓库中包含许多 Example 来介绍 Spring AI Alibaba 从基础到高级的各种用法和 AI 项目的最佳实践。

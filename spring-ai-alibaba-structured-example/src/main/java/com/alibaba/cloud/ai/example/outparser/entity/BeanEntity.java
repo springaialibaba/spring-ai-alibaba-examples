@@ -15,16 +15,19 @@
  * limitations under the License.
  */
 
-package com.alibaba.cloud.ai.example.outparser.stream;
+package com.alibaba.cloud.ai.example.outparser.entity;
 
-public class StreamToBeanEntity {
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+@JsonPropertyOrder({"title", "date", "author", "content"}) // 指定属性的顺序
+public class BeanEntity {
 
     private String title;
     private String author;
     private String date;
     private String content;
 
-    public StreamToBeanEntity() {
+    public BeanEntity() {
     }
 
     public String getTitle() {

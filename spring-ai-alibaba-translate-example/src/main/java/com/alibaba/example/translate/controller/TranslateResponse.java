@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author huangzhen
+ * @author Makoto
  */
 public record TranslateResponse(String translatedText) {
     @JsonCreator

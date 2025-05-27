@@ -24,6 +24,13 @@ spring:
         stdio:
           servers-configuration: classpath:/mcp-servers-config.json
 
+    # 需要配置相关 tools 的信息
+    alibaba:
+      toolcalling:
+        baidutranslate:
+          app-id: ${BAIDU_TRANSLATE_APP_ID}
+          secret-key: ${BAIDU_TRANSLATE_SECRET_KEY}
+
     # 注意：观测数据可能存在敏感信息！
     chat:
       client:

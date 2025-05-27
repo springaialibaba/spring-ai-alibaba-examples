@@ -4,7 +4,7 @@ spring:
       toolcalling:
         baidutranslate:
           enabled: true
-          app;-id: ${BAIDU_TRANSLATE_APP_ID}
+          app-id: ${BAIDU_TRANSLATE_APP_ID}
           secret-key: ${BAIDU_TRANSLATE_SECRET_KEY}
 
         time:

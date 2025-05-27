@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Tag(name = "Web Search APIs")
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1")
 public class SAAWebSearchController {
 
 	private final SAAWebSearchService webSearch;

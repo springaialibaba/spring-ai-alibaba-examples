@@ -35,7 +35,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @RestController
 @Tag(name = "视频问答 APIs")
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1")
 public class SAAVideoController {
 
     private final SAAVideoService videoService;

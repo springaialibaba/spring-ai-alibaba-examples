@@ -14,55 +14,47 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package com.alibaba.cloud.ai.example.outparser.stream;
+package com.alibaba.cloud.ai.example.outparser.controller;
 
 import com.alibaba.cloud.ai.dashscope.api.DashScopeResponseFormat;
 import com.alibaba.cloud.ai.dashscope.chat.DashScopeChatOptions;
-import jakarta.servlet.http.HttpServletResponse;
-
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * @Author: wst
- * @Date: 2025-02-21
- */
 @RestController
-@RequestMapping("/example/stream/json")
-public class StreamToJsonController {
+@RequestMapping("/json")
+public class JsonController {
 
-    private static final String DEFAULT_PROMPT = "你好，请以JSON格式介绍你自己！";
+    private final ChatClient chatClient;
+    private final DashScopeResponseFormat responseFormat;
 
-    private final ChatClient dashScopeChatClient;
-
-    public StreamToJsonController(ChatModel chatModel) {
-
+    public JsonController(ChatClient.Builder builder) {
+        // AI模型内置支持JSON模式
         DashScopeResponseFormat responseFormat = new DashScopeResponseFormat();
         responseFormat.setType(DashScopeResponseFormat.Type.JSON_OBJECT);
 
-        this.dashScopeChatClient = ChatClient.builder(chatModel)
-                .defaultOptions(
+        this.responseFormat = responseFormat;
+        this.chatClient = builder
+                .build();
+    }
+
+    @GetMapping("/chat")
+    public String simpleChat(@RequestParam(value = "query", defaultValue = "请以JSON格式介绍你自己") String query) {
+        return chatClient.prompt(query).call().content();
+    }
+
+    @GetMapping("/chat-format")
+    public String simpleChatFormat(@RequestParam(value = "query", defaultValue = "请以JSON格式介绍你自己") String query) {
+        return chatClient.prompt(query)
+                .options(
                         DashScopeChatOptions.builder()
                                 .withTopP(0.7)
                                 .withResponseFormat(responseFormat)
                                 .build()
                 )
-                .build();
+                .call().content();
     }
-
-    /**
-     * @return {@link String}
-     */
-    @GetMapping("/play")
-    public String simpleChat(HttpServletResponse response) {
-        response.setCharacterEncoding("UTF-8");
-        return dashScopeChatClient.prompt(DEFAULT_PROMPT)
-                .call()
-                .content();
-    }
-
 }

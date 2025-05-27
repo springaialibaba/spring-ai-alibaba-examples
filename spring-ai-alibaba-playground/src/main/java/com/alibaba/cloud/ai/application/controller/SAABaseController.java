@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Tag(name = "Base APIs")
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1")
 public class SAABaseController {
 
 	private final SAABaseService baseService;

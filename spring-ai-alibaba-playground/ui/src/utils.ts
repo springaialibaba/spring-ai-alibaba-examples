@@ -11,3 +11,5 @@ export const litFileSize = (file: FileType, size: number) => {
   }
   return isLt2M;
 };
+
+export const decoder = new TextDecoder("utf-8");

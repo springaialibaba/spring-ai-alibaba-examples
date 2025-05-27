@@ -12,11 +12,15 @@
   "dependencies": {
     "@ant-design/icons": "^5.5.2",
     "@ant-design/x": "^1.0.4",
+    "@atom-universe/use-web-worker": "^2.0.1",
     "antd": "^5.23.0",
     "antd-style": "^3.7.1",
+    "jotai": "^2.12.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-markdown": "^10.0.0"
+    "react-markdown": "^10.0.0",
+    "react-masonry-css": "^1.0.16",
+    "react-router-dom": "^7.4.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

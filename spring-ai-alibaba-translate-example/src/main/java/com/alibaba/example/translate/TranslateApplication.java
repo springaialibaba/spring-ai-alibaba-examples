@@ -18,13 +18,20 @@ package com.alibaba.example.translate;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
+import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.ollama.OllamaChatModel;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.alibaba.cloud.ai.dashscope.api.DashScopeApi;
+import com.alibaba.cloud.ai.dashscope.chat.DashScopeChatModel;
+import com.alibaba.cloud.ai.dashscope.chat.DashScopeChatOptions;
+
 /**
  * @author : huangzhen
+ * @author : Makoto
  */
 @SpringBootApplication
 public class TranslateApplication {
@@ -37,5 +44,14 @@ public class TranslateApplication {
         return ChatClient.builder(ollamaChatModel)
                 .defaultAdvisors(new SimpleLoggerAdvisor())
                 .build();
+    }
+    
+    @Bean
+    public ChatModel dashScopeChatModel(@Value("${spring.ai.dashscope.api-key:#{null}}") String apiKey) {
+        DashScopeChatOptions options = DashScopeChatOptions.builder()
+                .withModel(DashScopeApi.ChatModel.QWEN_PLUS.getModel())
+                .build();
+        
+        return new DashScopeChatModel(apiKey, options);
     }
 }

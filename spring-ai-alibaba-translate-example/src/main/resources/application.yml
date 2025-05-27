@@ -31,3 +31,8 @@ spring:
       chat:
         options:
           model: ${OLLAMA_MODEL}
+    dashscope:
+      api-key: ${AI_DASHSCOPE_API_KEY:your_api_key_here}
+
+server:
+  port: 8080

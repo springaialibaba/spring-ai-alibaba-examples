@@ -36,8 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Tag(name = "MCP APIs")
-
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1")
 public class SAAMcpController {
 
     private final SAAMcpService mcpService;
@@ -47,7 +46,7 @@ public class SAAMcpController {
     }
 
     @UserIp
-    @GetMapping("mcp")
+    @GetMapping("/mcp")
     @Operation(summary = "DashScope Mcp Chat")
     public Result<String> chat(
             @RequestParam("prompt") String prompt,

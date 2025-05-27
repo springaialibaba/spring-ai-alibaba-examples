@@ -48,7 +48,6 @@ public class TranslateController {
             @RequestPart("file") MultipartFile file,
             @RequestPart("targetLang") String targetLang) {
         try {
-            // 验证输入
             if (file == null || file.isEmpty()) {
                 return ResponseEntity.badRequest()
                         .body(new TranslateResponse("上传文件不能为空"));
@@ -57,8 +56,6 @@ public class TranslateController {
                 return ResponseEntity.badRequest()
                         .body(new TranslateResponse("目标语言必须指定"));
             }
-
-            // 读取文件内容
             String fileContent = new String(file.getBytes(), StandardCharsets.UTF_8);
 
             // 创建翻译提示模板，移除源语言

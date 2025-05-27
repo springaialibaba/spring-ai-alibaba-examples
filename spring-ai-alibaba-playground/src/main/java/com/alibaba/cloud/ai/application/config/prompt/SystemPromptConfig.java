@@ -1,4 +1,4 @@
-package com.alibaba.cloud.ai.application.config;
+package com.alibaba.cloud.ai.application.config.prompt;
 
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.context.annotation.Bean;

@@ -45,7 +45,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Tag(name = "Chat APIs")
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1")
 public class SAAChatController {
 
 	private final SAAChatService chatService;

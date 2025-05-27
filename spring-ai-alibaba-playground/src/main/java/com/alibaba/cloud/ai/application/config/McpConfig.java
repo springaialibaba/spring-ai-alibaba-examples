@@ -16,21 +16,22 @@
  */
 package com.alibaba.cloud.ai.application.config;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Iterator;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Iterator;
 
 /**
  * @author brianxiadong
@@ -54,17 +55,17 @@ public class McpConfig implements ApplicationListener<ApplicationEnvironmentPrep
         try {
             // 获取配置文件
             File configFile = ResourceUtils.getFile("classpath:" + MCP_CONFIG_FILE);
-            logger.info("Config file path: {}", configFile.getAbsolutePath());
+            logger.debug("Config file path: {}", configFile.getAbsolutePath());
 
             // 获取 mcp-libs 目录的绝对路径
             ClassPathResource mcpLibsResource = new ClassPathResource(MCP_LIBS_DIR);
             String mcpLibsPath = mcpLibsResource.getFile().getAbsolutePath();
-            logger.info("MCP libs directory path: {}", mcpLibsPath);
+            logger.debug("MCP libs directory path: {}", mcpLibsPath);
 
             // 读取配置文件
             ObjectMapper mapper = new ObjectMapper();
             JsonNode rootNode = mapper.readTree(configFile);
-            logger.info("Original config content: {}", mapper.writeValueAsString(rootNode));
+            logger.debug("Original config content: {}", mapper.writeValueAsString(rootNode));
 
             // 处理所有服务配置
             JsonNode mcpServers = rootNode.get("mcpServers");
@@ -84,11 +85,11 @@ public class McpConfig implements ApplicationListener<ApplicationEnvironmentPrep
                             if (arg.contains(".jar")) {
                                 // 获取jar包名称
                                 String jarName = new File(arg).getName();
-                                logger.info("Found JAR reference: {}", jarName);
+                                logger.debug("Found JAR reference: {}", jarName);
 
                                 // 构建新的绝对路径
                                 File jarFile = new File(mcpLibsPath, jarName);
-                                logger.info("Absolute JAR path: {}", jarFile.getAbsolutePath());
+                                logger.debug("Absolute JAR path: {}", jarFile.getAbsolutePath());
 
                                 if (!jarFile.exists()) {
                                     logger.error("JAR file not found: {}", jarFile.getAbsolutePath());
@@ -97,7 +98,7 @@ public class McpConfig implements ApplicationListener<ApplicationEnvironmentPrep
 
                                 // 更新路径
                                 argsArray.set(i, mapper.valueToTree(jarFile.getAbsolutePath()));
-                                logger.info("Updated JAR path in config: {}", jarFile.getAbsolutePath());
+                                logger.debug("Updated JAR path in config: {}", jarFile.getAbsolutePath());
                             }
                         }
                     }
@@ -106,11 +107,12 @@ public class McpConfig implements ApplicationListener<ApplicationEnvironmentPrep
 
             // 直接更新源配置文件
             mapper.writerWithDefaultPrettyPrinter().writeValue(configFile, rootNode);
-            logger.info("Updated source config file with absolute paths");
+            logger.debug("Updated source config file with absolute paths");
 
         } catch (IOException e) {
             logger.error("Failed to process MCP configuration", e);
             throw new RuntimeException("Failed to process MCP configuration: " + e.getMessage(), e);
         }
     }
+
 }

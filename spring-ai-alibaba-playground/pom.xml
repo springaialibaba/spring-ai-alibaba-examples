@@ -78,6 +78,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.springframework.ai</groupId>
+			<artifactId>spring-ai-tika-document-reader</artifactId>
+			<version>1.0.0-M6</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 			<version>${spring-boot.version}</version>
