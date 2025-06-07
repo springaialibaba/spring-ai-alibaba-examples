@@ -16,7 +16,7 @@
 
 package com.alibaba.cloud.ai.example;
 
-import com.alibaba.cloud.ai.autoconfigure.mcp.server.NacosDynamicMcpServerAutoConfiguration;
+import com.alibaba.cloud.ai.autoconfigure.mcp.server.NacosMcpGatewayAutoConfiguration;
 import com.alibaba.cloud.ai.example.service.TimeService;
 import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.ai.tool.method.MethodToolCallbackProvider;
@@ -29,7 +29,7 @@ import org.springframework.context.annotation.Bean;
  * @version 1.0
  * @since 2025/4/21 20:00
  */
-@SpringBootApplication(exclude = NacosDynamicMcpServerAutoConfiguration.class)
+@SpringBootApplication(exclude = NacosMcpGatewayAutoConfiguration.class)
 public class Application {
 
     public static void main(String[] args) {
