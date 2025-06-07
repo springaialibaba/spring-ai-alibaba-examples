@@ -31,22 +31,24 @@ import java.util.List;
 
 @Configuration
 class VectorStoreConfig {
-    /**
-     * Define a default VectorStore bean so that the KnowledgeRetrievalNode can get it
-     */
 
-    @Value("${rag.source:classpath:data/manual.txt}")
-    Resource ragSource;
+	/**
+	 * Define a default VectorStore bean so that the KnowledgeRetrievalNode can get it
+	 */
 
-    @Bean
-    @Primary
-    public VectorStore customVectorStore(EmbeddingModel embeddingModel) {
+	@Value("${rag.source:classpath:data/manual.txt}")
+	Resource ragSource;
 
-        var chunks = new TokenTextSplitter().transform(new TextReader(ragSource).read());
+	@Bean
+	@Primary
+	public VectorStore customVectorStore(EmbeddingModel embeddingModel) {
 
-        SimpleVectorStore vectorStore = SimpleVectorStore.builder(embeddingModel).build();
+		var chunks = new TokenTextSplitter().transform(new TextReader(ragSource).read());
 
-        vectorStore.write(chunks);
-        return vectorStore;
-    }
+		SimpleVectorStore vectorStore = SimpleVectorStore.builder(embeddingModel).build();
+
+		vectorStore.write(chunks);
+		return vectorStore;
+	}
+
 }

@@ -27,31 +27,26 @@ import java.util.Map;
 @RequestMapping("/api/graph")
 public class GraphController {
 
-    private final CompiledGraph graph;
+	private final CompiledGraph graph;
 
-    public GraphController(CompiledGraph graph) {
-        this.graph = graph;
-    }
+	public GraphController(CompiledGraph graph) {
+		this.graph = graph;
+	}
 
-    @PostMapping("/invoke")
-    public ResponseEntity<Map<String, Object>> invoke(
-            @RequestBody Map<String, Object> inputs) throws GraphStateException {
+	@PostMapping("/invoke")
+	public ResponseEntity<Map<String, Object>> invoke(@RequestBody Map<String, Object> inputs)
+			throws GraphStateException {
 
-        // invoke graph
-        var resultFuture = graph.invoke(inputs);
+		// invoke graph
+		var resultFuture = graph.invoke(inputs);
 
-        return ResponseEntity.ok(resultFuture.get().data());
-    }
+		return ResponseEntity.ok(resultFuture.get().data());
+	}
 
-    @GetMapping(path = "/mock/http")
-    public String mock(@RequestParam("ticketId") String ticketId,
-                       @RequestParam("category") String category) {
-        Map<String, String> resp = Map.of(
-                "status", "OK",
-                "ticketId", ticketId,
-                "category", category
-        );
-        return resp.toString();
-    }
+	@GetMapping(path = "/mock/http")
+	public String mock(@RequestParam("ticketId") String ticketId, @RequestParam("category") String category) {
+		Map<String, String> resp = Map.of("status", "OK", "ticketId", ticketId, "category", category);
+		return resp.toString();
+	}
 
 }
