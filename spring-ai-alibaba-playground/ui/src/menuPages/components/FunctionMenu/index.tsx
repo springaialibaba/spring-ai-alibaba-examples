@@ -331,6 +331,7 @@ const FunctionMenu = () => {
           title="钉钉群"
           open={isDingTalkModalOpen}
           onCancel={() => setIsDingTalkModalOpen(false)}
+          onOk={() => setIsWeChatModalOpen(false)}
           centered
         >
           <img
@@ -347,6 +348,7 @@ const FunctionMenu = () => {
           title="微信群"
           open={isWeChatModalOpen}
           onCancel={() => setIsWeChatModalOpen(false)}
+          onOk={() => setIsWeChatModalOpen(false)}
           centered
         >
           <img
