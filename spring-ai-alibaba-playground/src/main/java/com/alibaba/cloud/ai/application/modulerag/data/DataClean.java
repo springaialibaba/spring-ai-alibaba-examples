@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.alibaba.cloud.ai.application.rag.data;
+package com.alibaba.cloud.ai.application.modulerag.data;
 
 import com.alibaba.cloud.ai.application.entity.IQSSearchResponse;
 import org.springframework.ai.document.Document;

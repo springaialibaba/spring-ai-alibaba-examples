@@ -15,12 +15,12 @@
  * limitations under the License.
  */
 
-package com.alibaba.cloud.ai.application.rag;
+package com.alibaba.cloud.ai.application.modulerag;
 
 import com.alibaba.cloud.ai.application.entity.IQSSearchResponse;
 import com.alibaba.cloud.ai.application.exception.SAAAppException;
-import com.alibaba.cloud.ai.application.rag.core.IQSSearchEngine;
-import com.alibaba.cloud.ai.application.rag.data.DataClean;
+import com.alibaba.cloud.ai.application.modulerag.core.IQSSearchEngine;
+import com.alibaba.cloud.ai.application.modulerag.data.DataClean;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;

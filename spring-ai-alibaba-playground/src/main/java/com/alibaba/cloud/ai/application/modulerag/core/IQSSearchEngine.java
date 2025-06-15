@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 
-package com.alibaba.cloud.ai.application.rag.core;
+package com.alibaba.cloud.ai.application.modulerag.core;
 
 import com.alibaba.cloud.ai.application.entity.IQSSearchResponse;
 import com.alibaba.cloud.ai.application.exception.SAAAppException;
-import com.alibaba.cloud.ai.application.rag.IQSSearchProperties;
+import com.alibaba.cloud.ai.application.modulerag.IQSSearchProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

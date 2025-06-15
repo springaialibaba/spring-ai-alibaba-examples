@@ -52,10 +52,8 @@ public class User {
 	@Column(name = "request_uri", nullable = false)
 	private String requestUri;
 
-	// 默认构造函数
 	public User() {}
 
-	// 带参数的构造函数
 	public User(
 			String requestTime,
 			String requestIp,

@@ -17,17 +17,17 @@
 
 package com.alibaba.cloud.ai.application.config.mcp;
 
-import java.lang.reflect.Field;
-
 import io.modelcontextprotocol.client.McpSyncClient;
-
 import org.springframework.ai.mcp.SyncMcpToolCallback;
 
+import java.lang.reflect.Field;
+
 /**
+ * Get MCP Server name, return to frontend show.
+ * There's no good way, let's do it like this first~~~~
+ *
  * @author yuluo
  * @author <a href="mailto:yuluo08290126@gmail.com">yuluo</a>
- *
- * emmm 没有啥好办法了，先这样搞吧~~~~
  */
 
 public class SyncMcpToolCallbackWrapper {

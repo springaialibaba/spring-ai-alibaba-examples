@@ -17,24 +17,20 @@
 
 package com.alibaba.cloud.ai.application.controller;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-
 import com.alibaba.cloud.ai.application.annotation.UserIp;
 import com.alibaba.cloud.ai.application.entity.result.Result;
 import com.alibaba.cloud.ai.application.service.SAAAudioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 /**
+ * 浏览器的语音 API 不好交互，此功能仅作为演示，切勿直接用于生产环境。
+ *
  * @author yuluo
  * @author <a href="mailto:yuluo08290126@gmail.com">yuluo</a>
  */
@@ -77,16 +73,18 @@ public class SAAAudioController {
 			@Validated @RequestParam("prompt") String prompt
 	) {
 
-		byte[] audioData = audioService.text2audio(prompt);
+		return Result.success("not implemented yet".getBytes());
+
+		// byte[] audioData = audioService.text2audio(prompt);
 
 		// test to verify that the audio data is empty
-		try (FileOutputStream fos = new FileOutputStream("tmp/audio/test-audio.wav")) {
-			fos.write(audioData);
-		} catch (IOException e) {
-			return Result.failed("Test save audio file: " + e.getMessage());
-		}
-
-		return Result.success(audioData);
+		// try (FileOutputStream fos = new FileOutputStream("tmp/audio/test-audio.wav")) {
+		// 	fos.write(audioData);
+		// } catch (IOException e) {
+		// 	return Result.failed("Test save audio file: " + e.getMessage());
+		// }
+		//
+		// return Result.success(audioData);
 	}
 
 }

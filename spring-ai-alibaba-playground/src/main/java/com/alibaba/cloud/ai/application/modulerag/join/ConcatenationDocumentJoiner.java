@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.alibaba.cloud.ai.application.rag.join;
+package com.alibaba.cloud.ai.application.modulerag.join;
 
 import java.util.ArrayList;
 import java.util.HashMap;

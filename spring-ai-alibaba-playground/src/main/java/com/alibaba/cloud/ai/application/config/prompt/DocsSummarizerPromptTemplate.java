@@ -34,7 +34,8 @@ public class DocsSummarizerPromptTemplate {
 
 		return new PromptTemplate(
 				"""
-				You are an AI assistant specialized in summarizing documents. Your task is to create concise and clear summaries for each section of the provided text, as well as an overall summary for the entire document. Please adhere to the following guidelines:
+				You are an AI assistant specialized in summarizing documents. Your task is to create concise and clear summaries for each section of the provided text,
+				as well as an overall summary for the entire document. Please adhere to the following guidelines:
 				
 				Section Summaries:
 					Summarize each section separately.
@@ -53,7 +54,7 @@ public class DocsSummarizerPromptTemplate {
 					Organize the summaries logically, ensuring each section is distinct and coherent.
 					Review the summaries to confirm they meet the specified length and clarity requirements.
 				
-				Also, your answer must be consistent with the language in the text.
+				Except for Code. Aside from the specific name and citation, your answer must be written in the same language as the question.
 				"""
 		);
 	}

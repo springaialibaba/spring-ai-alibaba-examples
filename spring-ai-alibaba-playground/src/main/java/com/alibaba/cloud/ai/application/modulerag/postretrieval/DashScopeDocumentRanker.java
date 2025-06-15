@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-package com.alibaba.cloud.ai.application.rag.postretrieval;
+package com.alibaba.cloud.ai.application.modulerag.postretrieval;
 
 // Spring AI 0.8.0 删除了 postRetrieval. 在新版本中用户可以通过实现 DocumentPostProcessor 接口来处理。
 // https://docs.spring.io/spring-ai/reference/api/retrieval-augmented-generation.html#_post_retrieval

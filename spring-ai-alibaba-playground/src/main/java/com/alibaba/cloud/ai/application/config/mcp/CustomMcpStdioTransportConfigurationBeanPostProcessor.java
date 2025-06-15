@@ -17,9 +17,6 @@
 
 package com.alibaba.cloud.ai.application.config.mcp;
 
-import java.io.IOException;
-import java.util.Map;
-
 import com.alibaba.cloud.ai.application.entity.mcp.McpServerConfig;
 import com.alibaba.cloud.ai.application.exception.SAAAppException;
 import com.alibaba.cloud.ai.application.mcp.McpServerUtils;
@@ -27,7 +24,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.ai.mcp.client.autoconfigure.StdioTransportAutoConfiguration;
 import org.springframework.ai.mcp.client.autoconfigure.properties.McpStdioClientProperties;
 import org.springframework.beans.BeansException;
@@ -35,14 +31,16 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+import java.util.Map;
+
 import static com.alibaba.cloud.ai.application.mcp.McpServerUtils.getMcpLibsAbsPath;
 
 /**
  * @author brianxiadong
  * @author yuluo
  *
- * MCP 配置增强，使用更友好的 yaml 语义定义，
- * 处理 server 中 jar 的路径问题。
+ * MCP configuration enhancements to handle the path to the jar in the server with more friendly yaml semantic definitions.
  */
 
 @Component
@@ -68,7 +66,7 @@ public class CustomMcpStdioTransportConfigurationBeanPostProcessor implements Be
 
 		if (bean instanceof StdioTransportAutoConfiguration) {
 
-			logger.debug("增强 McpStdioTransportConfiguration bean start: {}", beanName);
+			logger.debug("Enhancement McpStdioTransportConfiguration bean start: {}", beanName);
 
 			McpServerConfig mcpServerConfig;
 			try {
@@ -101,7 +99,7 @@ public class CustomMcpStdioTransportConfigurationBeanPostProcessor implements Be
 				throw new SAAAppException(e.getMessage());
 			}
 
-			logger.debug("增强 McpStdioTransportConfiguration bean end: {}", beanName);
+			logger.debug("Enhancement McpStdioTransportConfiguration bean end: {}", beanName);
 		}
 
 		return bean;

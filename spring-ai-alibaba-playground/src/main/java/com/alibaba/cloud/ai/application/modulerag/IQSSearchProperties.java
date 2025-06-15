@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.alibaba.cloud.ai.application.rag;
+package com.alibaba.cloud.ai.application.modulerag;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

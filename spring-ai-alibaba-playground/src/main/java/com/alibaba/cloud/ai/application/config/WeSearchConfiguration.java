@@ -1,9 +1,8 @@
 package com.alibaba.cloud.ai.application.config;
 
 //import com.alibaba.cloud.ai.application.rag.postretrieval.DashScopeDocumentRanker;
-import com.alibaba.cloud.ai.application.rag.preretrieval.query.expansion.MultiQueryExpander;
+import com.alibaba.cloud.ai.application.modulerag.preretrieval.query.expansion.MultiQueryExpander;
 import com.alibaba.cloud.ai.dashscope.chat.DashScopeChatOptions;
-import com.alibaba.cloud.ai.model.RerankModel;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatModel;

@@ -15,13 +15,17 @@
  * limitations under the License.
  */
 
-package com.alibaba.cloud.ai.application.rag.prompt;
+package com.alibaba.cloud.ai.application.modulerag.prompt;
 
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
+ * Prompt:
+ * 1. https://zhuanlan.zhihu.com/p/23929522431
+ * 2. https://cloud.tencent.com/developer/article/2509465
+ *
  * @author yuluo
  * @author <a href="mailto:yuluo08290126@gmail.com">yuluo</a>
  */

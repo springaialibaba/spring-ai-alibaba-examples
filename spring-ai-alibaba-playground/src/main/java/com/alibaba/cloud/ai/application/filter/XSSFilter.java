@@ -17,14 +17,10 @@
 
 package com.alibaba.cloud.ai.application.filter;
 
-import java.io.IOException;
-
-import jakarta.servlet.Filter;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
+import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
 
 /**
  * @author yuluo
@@ -39,7 +35,7 @@ public class XSSFilter implements Filter {
 
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-		// 设置 CPS 允许内联样式和跨域获取图片
+		// Setting up CPS allows for inline styling and cross-domain fetching of images
 		httpResponse.setHeader(
 				"Content-Security-Policy",
 				"default-src 'self'; font-src 'self' data:; style-src 'self' 'unsafe-inline'; img-src 'self' https://mdn.alipayobjects.com blob: data:;");

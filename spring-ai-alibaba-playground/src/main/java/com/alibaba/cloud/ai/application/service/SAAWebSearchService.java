@@ -18,11 +18,11 @@
 package com.alibaba.cloud.ai.application.service;
 
 import com.alibaba.cloud.ai.application.advisor.ReasoningContentAdvisor;
-import com.alibaba.cloud.ai.application.rag.WebSearchRetriever;
-import com.alibaba.cloud.ai.application.rag.core.IQSSearchEngine;
-import com.alibaba.cloud.ai.application.rag.data.DataClean;
-import com.alibaba.cloud.ai.application.rag.join.ConcatenationDocumentJoiner;
-import com.alibaba.cloud.ai.application.rag.prompt.CustomContextQueryAugmenter;
+import com.alibaba.cloud.ai.application.modulerag.WebSearchRetriever;
+import com.alibaba.cloud.ai.application.modulerag.core.IQSSearchEngine;
+import com.alibaba.cloud.ai.application.modulerag.data.DataClean;
+import com.alibaba.cloud.ai.application.modulerag.join.ConcatenationDocumentJoiner;
+import com.alibaba.cloud.ai.application.modulerag.prompt.CustomContextQueryAugmenter;
 import com.alibaba.cloud.ai.dashscope.chat.DashScopeChatOptions;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
