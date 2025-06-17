@@ -57,7 +57,6 @@
 
 	<modules>
 		<module>spring-ai-alibaba-helloworld</module>
-		<module>spring-ai-alibaba-mcp-example</module>
 		<module>spring-ai-alibaba-rag-example</module>
 		<module>spring-ai-alibaba-chat-example</module>
 		<module>spring-ai-alibaba-audio-example</module>
@@ -73,7 +72,6 @@
 		<module>spring-ai-alibaba-nacos-prompt-example</module>
 		<module>spring-ai-alibaba-observability-example</module>
 		<module>spring-ai-alibaba-more-platform-and-model-example</module>
-		<module>spring-ai-alibaba-nl2sql-example</module>
 		<module>spring-ai-alibaba-studio-example</module>
 	</modules>
 
