@@ -37,7 +37,7 @@ spring:
         accessKeySecret:
     openai:
       base-url: https://dashscope.aliyuncs.com/compatible-mode
-      api-key: ${DASHSCOPE_API_KEY}
+      api-key: ${OPENAI_API_KEY}
       model: qwen-max
 chatBi:
   dbConfig:
