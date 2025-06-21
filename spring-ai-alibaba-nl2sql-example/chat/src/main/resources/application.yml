@@ -17,7 +17,7 @@ spring:
       static-locations: classpath:/static/
   ai:
     dashscope:
-      api-key:
+      api-key: ${DASHSCOPE_API_KEY}
     mcp:
       server:
         name: xiyan-server    # MCP服务器名称
@@ -37,7 +37,7 @@ spring:
         accessKeySecret:
     openai:
       base-url: https://dashscope.aliyuncs.com/compatible-mode
-      api-key:
+      api-key: ${DASHSCOPE_API_KEY}
       model: qwen-max
 chatBi:
   dbConfig:
