@@ -24,6 +24,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.content.Media;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -49,7 +50,7 @@ public class DashScopeChatClientController {
 
 	private final ChatClient dashScopeChatClient;
 
-	public DashScopeChatClientController(ChatModel chatModel) {
+	public DashScopeChatClientController(@Qualifier("dashscopeChatModel") ChatModel chatModel) {
 
 		// 构造时，可以设置 ChatClient 的参数
 		// {@link org.springframework.ai.chat.client.ChatClient};
