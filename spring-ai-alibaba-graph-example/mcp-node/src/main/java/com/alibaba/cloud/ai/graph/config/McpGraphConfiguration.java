@@ -26,9 +26,9 @@ import static com.alibaba.cloud.ai.graph.action.AsyncNodeAction.node_async;
  */
 @Configuration
 @EnableConfigurationProperties({ McpNodeProperties.class })
-public class McpGaphConfiguration {
+public class McpGraphConfiguration {
 
-    private static final Logger logger = LoggerFactory.getLogger(McpGaphConfiguration.class);
+    private static final Logger logger = LoggerFactory.getLogger(McpGraphConfiguration.class);
 
     @Autowired
     private McpClientToolCallbackProvider mcpClientToolCallbackProvider;
