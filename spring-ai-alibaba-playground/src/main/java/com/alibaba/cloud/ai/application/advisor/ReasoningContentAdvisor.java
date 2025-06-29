@@ -85,7 +85,7 @@ public class ReasoningContentAdvisor implements BaseAdvisor {
 					}).toList();
 			
 			ChatResponse thinkChatResp = ChatResponse.builder().from(resp).generations(thinkGenerations).build();
-			return ChatClientResponse.builder().chatResponse(thinkChatResp).build();
+			return ChatClientResponse.builder().context(chatClientResponse.context()).chatResponse(thinkChatResp).build();
 			
 		}
 		
