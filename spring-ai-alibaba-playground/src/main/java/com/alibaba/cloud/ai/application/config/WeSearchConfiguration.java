@@ -1,6 +1,5 @@
 package com.alibaba.cloud.ai.application.config;
 
-//import com.alibaba.cloud.ai.application.rag.postretrieval.DashScopeDocumentRanker;
 import com.alibaba.cloud.ai.application.modulerag.preretrieval.query.expansion.MultiQueryExpander;
 import com.alibaba.cloud.ai.dashscope.chat.DashScopeChatOptions;
 
@@ -21,13 +20,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class WeSearchConfiguration {
-//
-//	@Bean
-//	public DashScopeDocumentRanker dashScopeDocumentRanker(
-//			RerankModel rerankModel
-//	) {
-//		return new DashScopeDocumentRanker(rerankModel);
-//	}
 
 	@Bean
 	public QueryTransformer queryTransformer(

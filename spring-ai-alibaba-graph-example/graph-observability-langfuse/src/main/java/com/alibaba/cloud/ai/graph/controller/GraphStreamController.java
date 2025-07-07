@@ -84,18 +84,13 @@ public class GraphStreamController {
         initialState.put("input", input);
 
         // Create graph processor
-        GraphProcess graphProcess = new GraphProcess(compiledGraph);
-        
-        // Create SSE stream
-        Sinks.Many<ServerSentEvent<String>> sink = Sinks.many().unicast().onBackpressureBuffer();
+        GraphProcess graphProcess = new GraphProcess();
         
         // Get streaming output
         AsyncGenerator<NodeOutput> resultStream = compiledGraph.stream(initialState, runnableConfig);
         
-        // Process streaming output
-        graphProcess.processStream(resultStream, sink);
-
-        return sink.asFlux()
+        // 直接返回 Reactor 风格的 Flux，保证 trace context 传播
+        return graphProcess.processStream(resultStream)
                 .doOnCancel(() -> logger.info("Client disconnected from streaming"))
                 .doOnError(e -> logger.error("Error occurred during streaming output", e))
                 .doOnComplete(() -> logger.info("Streaming output completed"));

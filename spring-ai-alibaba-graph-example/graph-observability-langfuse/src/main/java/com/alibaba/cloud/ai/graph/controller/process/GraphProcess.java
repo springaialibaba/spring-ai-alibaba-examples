@@ -25,6 +25,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.codec.ServerSentEvent;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Sinks;
 
 import java.util.Map;
@@ -52,77 +53,71 @@ public class GraphProcess {
 
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
-    private CompiledGraph compiledGraph;
-
     /**
      * Constructor for GraphProcess
      * 
-     * @param compiledGraph the compiled graph to process
      */
-    public GraphProcess(CompiledGraph compiledGraph) {
-        this.compiledGraph = compiledGraph;
+    public GraphProcess() {
     }
-
+    
     /**
-     * Process streaming output
-     * 
-     * Converts NodeOutput to SSE events and emits them through the provided sink.
-     * Handles both regular node outputs and streaming outputs with different formatting.
-     * 
+     * Reactor-friendly streaming output processor.
+     *
+     * 将 AsyncGenerator<NodeOutput> 转为 Flux<ServerSentEvent<String>>，
+     * 保证链路追踪上下文不丢失。
+     *
      * @param generator the async generator providing node outputs
-     * @param sink the SSE event emitter
+     * @return Flux of SSE events
      */
-    public void processStream(AsyncGenerator<NodeOutput> generator, Sinks.Many<ServerSentEvent<String>> sink) {
-        executor.submit(() -> {
-            generator.forEachAsync(output -> {
-                try {
-                    logger.info("Processing node output: {}", output);
-                    String nodeName = output.node();
-                    String content;
-                    
-                    if (output instanceof StreamingOutput streamingOutput) {
-                        // Handle streaming output
-                        content = JSON.toJSONString(Map.of(
+    public Flux<ServerSentEvent<String>> processStream(AsyncGenerator<NodeOutput> generator) {
+        return Flux.create(sink -> generator.forEachAsync(output -> {
+            try {
+                logger.info("Processing node output: {}", output);
+                String nodeName = output.node();
+                String content;
+                
+                if (output instanceof StreamingOutput streamingOutput) {
+                    // Handle streaming output
+                    content = JSON.toJSONString(Map.of(
                             "type", "streaming",
                             "node", nodeName,
                             "chunk", streamingOutput.chunk(),
                             "timestamp", System.currentTimeMillis()
-                        ));
-                    } else {
-                        // Handle regular output
-                        JSONObject nodeOutput = new JSONObject();
-                        nodeOutput.put("type", "node_output");
-                        nodeOutput.put("node", nodeName);
-                        nodeOutput.put("data", output.state().data());
-                        nodeOutput.put("timestamp", System.currentTimeMillis());
-                        content = JSON.toJSONString(nodeOutput);
-                    }
-                    
-                    // Emit SSE event
-                    sink.tryEmitNext(ServerSentEvent.builder(content)
+                    ));
+                } else {
+                    // Handle regular output
+                    JSONObject nodeOutput = new JSONObject();
+                    nodeOutput.put("type", "node_output");
+                    nodeOutput.put("node", nodeName);
+                    nodeOutput.put("data", output.state().data());
+                    nodeOutput.put("timestamp", System.currentTimeMillis());
+                    content = JSON.toJSONString(nodeOutput);
+                }
+                
+                // Emit SSE event
+                sink.next(ServerSentEvent.builder(content)
                         .event("node_output")
                         .id(nodeName + "_" + System.currentTimeMillis())
                         .build());
-                        
-                } catch (Exception e) {
-                    logger.error("Error occurred while processing node output", e);
-                    throw new CompletionException(e);
-                }
-            }).thenAccept(v -> {
-                // Normal completion
-                logger.info("Graph processing completed");
-                sink.tryEmitNext(ServerSentEvent.builder("{\"type\":\"completed\",\"message\":\"Graph processing completed\"}")
+                
+            } catch (Exception e) {
+                logger.error("Error occurred while processing node output", e);
+                sink.error(e);
+            }
+        }).thenAccept(v -> {
+            // Normal completion
+            logger.info("Graph processing completed");
+            sink.next(ServerSentEvent.builder("{\"type\":\"completed\",\"message\":\"Graph processing completed\"}")
                     .event("completed")
                     .build());
-                sink.tryEmitComplete();
-            }).exceptionally(e -> {
-                logger.error("Exception occurred during graph processing", e);
-                sink.tryEmitNext(ServerSentEvent.builder("{\"type\":\"error\",\"message\":\"" + e.getMessage() + "\"}")
+            sink.complete();
+        }).exceptionally(e -> {
+            logger.error("Exception occurred during graph processing", e);
+            sink.next(ServerSentEvent.builder("{\"type\":\"error\",\"message\":\"" + e.getMessage() + "\"}")
                     .event("error")
                     .build());
-                sink.tryEmitError(e);
-                return null;
-            });
-        });
+            sink.error(e);
+            return null;
+        }));
     }
 } 
