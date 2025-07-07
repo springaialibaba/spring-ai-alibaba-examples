@@ -16,9 +16,9 @@
 
 package com.alibaba.cloud.ai.example.audio;
 
-import com.alibaba.cloud.ai.dashscope.api.DashScopeAudioSpeechApi;
-import com.alibaba.cloud.ai.dashscope.audio.DashScopeAudioSpeechOptions;
+import com.alibaba.cloud.ai.dashscope.audio.DashScopeSpeechSynthesisOptions;
 import com.alibaba.cloud.ai.dashscope.audio.synthesis.SpeechSynthesisModel;
+import com.alibaba.cloud.ai.dashscope.audio.synthesis.SpeechSynthesisOptions;
 import com.alibaba.cloud.ai.dashscope.audio.synthesis.SpeechSynthesisPrompt;
 import com.alibaba.cloud.ai.dashscope.audio.synthesis.SpeechSynthesisResponse;
 import jakarta.annotation.PreDestroy;
@@ -63,8 +63,8 @@ public class AudioSpeechController implements ApplicationRunner {
 		SpeechSynthesisResponse response = speechSynthesisModel.call(
 				new SpeechSynthesisPrompt(
 						TEXT,
-						DashScopeAudioSpeechOptions.builder()
-								.model(DashScopeAudioSpeechApi.AudioSpeechModel.SAM_BERT_ZHICHU_V1.getValue())
+						DashScopeSpeechSynthesisOptions.builder()
+								.model("sambert-zhichu-v1")
 								.build()
 						)
 		);
@@ -85,8 +85,8 @@ public class AudioSpeechController implements ApplicationRunner {
 		Flux<SpeechSynthesisResponse> response = speechSynthesisModel.stream(
 				new SpeechSynthesisPrompt(
 						TEXT,
-						DashScopeAudioSpeechOptions.builder()
-								.model(DashScopeAudioSpeechApi.AudioSpeechModel.SAM_BERT_ZHITING_V1.getValue())
+						DashScopeSpeechSynthesisOptions.builder()
+								.model("sambert-zhichu-v1")
 								.build()
 				)
 		);

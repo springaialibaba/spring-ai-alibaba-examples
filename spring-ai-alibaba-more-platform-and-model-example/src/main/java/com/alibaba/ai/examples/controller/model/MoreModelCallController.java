@@ -67,7 +67,7 @@ public class MoreModelCallController {
 
 		System.out.println("===============================================");
 		System.out.println("当前输入的模型为：" + model);
-		System.out.println("默认模型为：" + DashScopeApi.ChatModel.QWEN_PLUS.getModel());
+		System.out.println("默认模型为：" + DashScopeApi.ChatModel.QWEN_PLUS.getValue());
 		System.out.println("===============================================");
 
 		ChatOptions runtimeOptions = ChatOptions.builder().model(model).build();

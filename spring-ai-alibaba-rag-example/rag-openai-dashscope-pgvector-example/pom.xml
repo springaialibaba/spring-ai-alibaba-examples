@@ -6,10 +6,12 @@
     <parent>
         <groupId>com.alibaba.cloud.ai</groupId>
         <artifactId>spring-ai-alibaba-rag-example</artifactId>
-        <version>1.0.0</version>
+        <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>rag-openai-dashscope-pgvector-example</artifactId>
+    <version>${revision}</version>
     <name>rag-openai-dashscope-pgvector-example</name>
     <description>Demo project for Spring AI Alibaba</description>
 
