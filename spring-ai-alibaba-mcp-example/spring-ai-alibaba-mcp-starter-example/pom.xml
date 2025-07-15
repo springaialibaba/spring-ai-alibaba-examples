@@ -42,6 +42,7 @@
 		<module>client/mcp-stdio-client-example</module>
 		<module>client/mcp-streamable-client-example</module>
 		<module>client/mcp-webflux-client-example</module>
+        <module>client/mcp-recovery-client</module>
     </modules>
 
 	<build>
