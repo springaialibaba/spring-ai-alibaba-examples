@@ -147,6 +147,36 @@ public class DashScopeChatModelController {
 
 	}
 
+	@GetMapping("/dashscope/web-search/2")
+	public Map<String, Object> dashScopeWebSearch2(HttpServletResponse response) {
+
+		String prompt = "搜索下关于 Spring AI 的介绍";
+		response.setCharacterEncoding("UTF-8");
+
+		var searchOptions = DashScopeApi.SearchOptions.builder()
+				.forcedSearch(true)
+				.enableSource(true)
+				.searchStrategy("pro")
+				.enableCitation(true)
+				.citationFormat("[<number>]")
+				.build();
+
+		var options = DashScopeChatOptions.builder()
+				.withEnableSearch(true)
+				.withModel(DashScopeApi.ChatModel.DEEPSEEK_V3.getValue())
+				.withSearchOptions(searchOptions)
+				.withTemperature(0.7)
+				.build();
+
+		ChatResponse chatResponse = this.dashScopeChatModel.call(new Prompt(prompt, options));
+		Map<String, Object> res = new HashMap<>();
+
+		res.put("llm-res", chatResponse.getResult().getOutput().getText());
+		res.put("search-info", chatResponse.getResult().getOutput().getMetadata().get("search_info"));
+
+		return res;
+	}
+
 	/**
 	 * DashScope 自定义请求头演示
 	 */
