@@ -78,6 +78,7 @@
 		<module>spring-ai-alibaba-studio-example</module>
 		<module>spring-ai-alibaba-graph-example</module>
 		<module>spring-ai-alibaba-bailian-example</module>
+		<module>spring-ai-alibaba-mem0-example</module>
 	</modules>
 
 	<dependencyManagement>
