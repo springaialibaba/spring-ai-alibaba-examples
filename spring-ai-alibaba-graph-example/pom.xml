@@ -46,6 +46,7 @@
         <module>product-analysis-graph</module>
         <module>parallel-node</module>
         <module>graph-observability-langfuse</module>
+        <module>graph-observability-studio</module>
         <module>big-tool</module>
         <module>react</module>
         <module>reflection</module>

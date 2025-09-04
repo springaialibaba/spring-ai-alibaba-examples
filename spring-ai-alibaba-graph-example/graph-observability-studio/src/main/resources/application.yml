@@ -1,0 +1,57 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: graph-observation-studio
+  ai:
+    dashscope:
+      api-key: ${AI_DASHSCOPE_API_KEY}
+      chat:
+        options:
+          model: qwen-max
+    alibaba:
+      graph:
+        observation:
+          enabled: true
+      arms:
+        enabled: true
+        tool:
+          enabled: true
+        model:
+          capture-input: true
+          capture-output: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      # health status check with detailed messages
+      show-details: always
+  tracing:
+    sampling:
+      # trace information with every request
+      probability: 1.0
+  observations:
+    annotations:
+      enabled: true
+  otlp:
+    tracing:
+      export:
+        enabled: true
+      endpoint: http://${STUDIO_IP}:4318/v1/traces
+    metrics:
+      export:
+        enabled: false
+    logging:
+      export:
+        enabled: false
+  opentelemetry:
+    resource-attributes:
+      service:
+        name: spring-ai-alibaba-graph-studio
+        version: 1.0.0
+      deployment:
+        environment: test
