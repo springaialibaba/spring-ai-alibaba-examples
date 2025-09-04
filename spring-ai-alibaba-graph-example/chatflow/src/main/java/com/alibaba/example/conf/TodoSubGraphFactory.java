@@ -64,7 +64,7 @@ public class TodoSubGraphFactory {
 
         // 回答确认 - 可选
         AnswerNode answerNode = AnswerNode.builder()
-                .answer("已创建任务：{{todo_desc}}")
+                .answer("已创建任务：{todo_desc}")
                 .build();
         subGraph.addNode("answer", node_async(answerNode));
 

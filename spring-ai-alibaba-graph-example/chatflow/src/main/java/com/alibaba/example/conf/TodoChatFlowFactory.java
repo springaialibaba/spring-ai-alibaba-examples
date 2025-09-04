@@ -107,7 +107,7 @@ public class TodoChatFlowFactory {
 
         // 主流程答复节点
         AnswerNode mainReply = AnswerNode.builder()
-                .answer("你当前待办有：{{tasks}}\n闲聊回复：{{chat_reply}}")
+                .answer("你当前待办有：{tasks}\n闲聊回复：{chat_reply}")
                 .build();
         mainGraph.addNode("mainReply", node_async(mainReply));
 
