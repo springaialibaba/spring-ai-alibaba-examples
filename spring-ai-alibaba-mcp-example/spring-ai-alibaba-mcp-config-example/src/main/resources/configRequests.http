@@ -1,0 +1,8 @@
+### 从文件读取：服务列表
+GET http://localhost:8080/file/services
+
+### 从文件读取：特定MCP服务（如weather-service）
+GET http://localhost:8080/query/weather-service
+
+### 从MySQL读取：特定MCP服务（如dashscope-chat）
+GET http://localhost:8080/query/dashscope-chat
