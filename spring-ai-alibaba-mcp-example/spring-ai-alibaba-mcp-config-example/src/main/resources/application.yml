@@ -1,0 +1,34 @@
+spring:
+  ai:
+    alibaba:
+      mcp:
+        router:
+          enabled: true
+          discovery-type: nacos
+          services:
+            - name: weather-service
+              description: "天气查询服务"
+              protocol: "http"
+              version: "1.0.0"
+              endpoint: "http://localhost:8080/weather"
+              enabled: true
+              tags:
+                - "weather"
+                - "api"
+            - name: translation-service
+              description: "翻译服务"
+              protocol: "http"
+              version: "2.0.0"
+              endpoint: "http://localhost:8081/translate"
+              enabled: true
+              tags:
+                - "translation"
+                - "nlp"
+            - name: disabled-service
+              description: "已禁用的服务"
+              protocol: "http"
+              version: "1.0.0"
+              endpoint: "http://localhost:8082/disabled"
+              enabled: false
+              tags:
+                - "test"
